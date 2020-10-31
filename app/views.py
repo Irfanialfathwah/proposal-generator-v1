@@ -8,6 +8,11 @@ def index():
     return render_template("index.html")
 
 
+@app.route('/administrator')
+def login():
+    return render_template("login.html")
+
+
 @app.route('/about')
 def about():
     return render_template("about.html")
