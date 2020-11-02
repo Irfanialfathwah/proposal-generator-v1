@@ -1,9 +1,25 @@
-from flask import render_template, redirect, url_for, request
-
+from flask import render_template, redirect, url_for, request, session, flash
+from functools import wraps
 from app import app
+
+# Adding encription key with Secret Key Variable for User Authentication
+app.secret_key = "my precious"
+
+
+# login required decorator
+def login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash('You need to login first.')
+            return redirect(url_for('login'))
+    return wrap
 
 
 @app.route('/')
+@login_required
 def index():
     return render_template("index.html")
 
@@ -12,13 +28,24 @@ def index():
 def login():
     error = None
     if request.method == 'POST':
-        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+        if request.form['email'] != 'say@irfaniall.com' or request.form['password'] != 'admin':
             error = 'Invalid Credentials. Please try again!'
         else:
+            session['logged_in'] = True
+            flash('You were logged in.')
             return redirect(url_for('index'))
     return render_template("login.html", error=error)
 
 
+@app.route('/logout')
+@login_required
+def logout():
+    session.pop('logged_in', None)
+    flash('You were logged out.')
+    return redirect(url_for('index'))
+
+
 @app.route('/about')
+@login_required
 def about():
     return render_template("about.html")
