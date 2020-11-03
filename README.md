@@ -58,7 +58,7 @@ Make sure you have installed Python 3 on your device
   |    |    |--- scripts.html
   |    |--- __init__.py
   |    |--- views.py
-  |--- venv/ (before irfenv/)
+  |--- venv/ (install virtualenv first)
   |--- config.py
   |--- proposal-generator.drawio
   |--- requirements.txt
