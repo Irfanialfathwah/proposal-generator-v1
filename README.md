@@ -77,7 +77,7 @@ You can clone or download this project
 > Clone : git clone https://github.com/irfanialfathwah/proposal-generator.git
 ```
 
-## Authors
 
-* **Irfanialfathwah** - *Initial work* - [DSS Consulting](https://dssconsulting.id/) - [LinkedIn](https://linkedin.com/in/piinalpin) [Instagram](https://www.instagram.com/piinalpin) [Twitter](https://www.twitter.com/piinalpin)
+
+* **Irfanialfathwah**
 
