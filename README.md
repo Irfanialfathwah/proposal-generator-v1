@@ -30,7 +30,7 @@ python run.py
 9. Access `localhost:5000` according port that created in `run.py`
     Sign In with email "admin@admin.com" and password "admin" without ""
 
-![Sample](https://raw.githubusercontent.com/irfanialfathwah/proposal-generator/master/Sample-run.png)
+![Sample](https://raw.githubusercontent.com/irfanialfathwah/proposal-generator/Sample-run.png)
 
 10. To stop the service of flask project (__CTRL + C__)
 
