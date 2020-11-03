@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-11-03T07:33:23.509Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" etag="JdQ50NjidUMyj3O8pml8" version="13.8.8" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2020-11-03T18:08:41.943Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" etag="KSB-yHtB1aktfIp1AZan" version="13.8.8" type="github" pages="2">
   <diagram id="tRq6dSDk1_6s8QgjWszv" name="FLOWCHART">
-    <mxGraphModel dx="868" dy="492" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1550" dy="876" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="SHpNc2EELoFzTRd0DI0f-0" />
         <mxCell id="SHpNc2EELoFzTRd0DI0f-1" parent="SHpNc2EELoFzTRd0DI0f-0" />
@@ -365,7 +365,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="WEB TEMPLATE" id="c9db0220-8083-56f3-ca83-edcdcd058819">
-    <mxGraphModel dx="4340" dy="2460" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+    <mxGraphModel dx="2214" dy="1251" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
       <root>
         <mxCell id="0" style=";html=1;" />
         <mxCell id="1" style=";html=1;" parent="0" />
@@ -1026,8 +1026,8 @@
             <mxPoint x="855.5" y="10" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="RIOxfQAekn_CXJUWU_uM-586" value="All Proposal" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" parent="RIOxfQAekn_CXJUWU_uM-584" vertex="1">
-          <mxGeometry x="20" y="5" width="140" height="40" as="geometry" />
+        <mxCell id="RIOxfQAekn_CXJUWU_uM-586" value="All Proposals" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" parent="RIOxfQAekn_CXJUWU_uM-584" vertex="1">
+          <mxGeometry x="20" y="5" width="150" height="40" as="geometry" />
         </mxCell>
         <mxCell id="RIOxfQAekn_CXJUWU_uM-587" value="Search" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;fontSize=14;" parent="RIOxfQAekn_CXJUWU_uM-540" vertex="1">
           <mxGeometry width="70" height="30" relative="1" as="geometry">
