@@ -28,7 +28,7 @@ def index():
 def login():
     error = None
     if request.method == 'POST':
-        if request.form['email'] != 'say@irfaniall.com' or request.form['password'] != 'admin':
+        if request.form['email'] != 'admin@admin.com' or request.form['password'] != 'admin':
             error = 'Invalid Credentials. Please try again!'
         else:
             session['logged_in'] = True
