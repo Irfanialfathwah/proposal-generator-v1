@@ -3,7 +3,7 @@
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-Every template in the program is based on `proposal-generator.drawio`
+Every template in the program is based on the design file `proposal-generator.drawio`
 
 ### Step to run the program
 
