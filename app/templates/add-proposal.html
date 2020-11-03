@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Add New Proposal{% endblock %}
+{% block body %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  {{ super() }}<!-- Content Header from base.html -->
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="card card-primary card-outline">
+        <div class="card-header">
+          <h3 class="card-title">Order Information</h3>
+        </div> <!-- /.card-header -->
+        <div class="card-body p-0">
+          <div class="bs-stepper">
+            <div class="bs-stepper-header" role="tablist">
+                <!-- your steps here -->
+                <div class="step" data-target="#logins-part">
+                    <button type="button" class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
+                      <span class="bs-stepper-circle">1</span>
+                      <span class="bs-stepper-label">Choose Customer</span>
+                    </button>
+                  </div>
+                  <div class="line"></div>
+                  <div class="step" data-target="#information-part">
+                    <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
+                      <span class="bs-stepper-circle">2</span>
+                      <span class="bs-stepper-label">Order Information</span>
+                    </button>
+                </div>
+            </div><!-- /.bs-stepper-header -->
+            <div class="bs-stepper-content">
+                <!-- your steps content here -->
+                <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+                    <div class="form-group">
+                        <label>Customer Name</label>
+                        <select class="form-control select2bs4" style="width: 100%;">
+                          <option selected="selected">Sundaya</option>
+                          <option>House A</option>
+                        </select>
+                    </div>
+                    <div class="form-grup">
+                        <p>
+                            Do not find any customer above?<br>
+                            <a href="/customers">Click Here</a> to create one.
+                        </p>
+                    </div>
+                    <button class="btn btn-primary float-right" style="margin: 10px; margin-right: 0px; margin-bottom: 20px;" onclick="stepper.next()">Next</button>
+                  </div>
+                  <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label>Location Name</label>
+                            <input type="text" class="form-control" id="Location" placeholder="Enter Location Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Number of Roof (Max. 4)</label>
+                            <select class="select2bs4" multiple="multiple" data-placeholder="Select a Number" style="width: 100%;">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>GeoCoordinates</label>
+                            <input type="text" class="form-control" id="GeoCoordinates" placeholder="Enter GeoCoordinates">
+                        </div>
+                        <label for="exampleInputFile">SketchUp Model (rendered file)</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="exampleInputFile">
+                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                            </div>
+                            <div class="input-group-append">
+                            <span class="input-group-text">Upload</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary float-right" style="margin: 10px; margin-right: 0px; margin-bottom: 20px;">Submit</button>
+                    <button class="btn btn-primary float-right" style="margin: 10px;" onclick="stepper.previous()">Previous</button>
+                </div>
+            </div><!-- /.bs-stepper-content -->
+          </div><!-- /.bs-stepper -->
+        </div><!-- /.card-body -->
+      </div><!-- /.card -->
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+{% endblock %}

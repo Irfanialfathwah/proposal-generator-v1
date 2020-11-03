@@ -1,23 +1,21 @@
 {% extends "base.html" %}
 {% block title %}Dashboard{% endblock %}
-{% include "navbar.html" %}
-{% include "main-sidebar.html" %}
 {% block body %}
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  {{ super() }}
+  {{ super() }}<!-- Content Header from base.html -->
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
       <div class="card card-primary card-outline">
         <div class="card-header">
           <h3 class="card-title">Getting Started with Sundaya Proposal Generator</h3>
-        </div> <!-- /.card-body -->
+        </div> <!-- /.card-header -->
         <div class="card-body">
           <h2>Generate a Proposal</h2>
           <p>Starting your busy day with the easiest way.</p>
           <div>
-            <button type="button" class="btn btn-primary" onclick="window.location.href='/about'">Let's Generate</button>
+            <button type="button" class="btn btn-primary" onclick="window.location.href='/customers'">Let's Generate</button>
           </div>
         </div><!-- /.card-body -->
       </div>

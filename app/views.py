@@ -45,7 +45,19 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/about')
+@app.route('/customers')
 @login_required
-def about():
-    return render_template("about.html")
+def customers():
+    return render_template("customers.html")
+
+
+@app.route('/proposals')
+@login_required
+def proposals():
+    return render_template("proposals.html")
+
+
+@app.route('/add-proposal')
+@login_required
+def addproposal():
+    return render_template("add-proposal.html")
