@@ -24,6 +24,10 @@ virtualenv venv
 ```
 pip install flask
 ```
+   Or you can install based on `requirements.txt`
+```
+pip install -r requirements.txt
+```
 4. Run this project with terminal or command promt on your virtual environment
 ```
 python run.py
