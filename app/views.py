@@ -3,8 +3,6 @@ from functools import wraps
 from app import app
 
 # Adding encription key with Secret Key Variable for User Authentication
-app.secret_key = "my precious"
-
 
 # login required decorator
 def login_required(f):
