@@ -24,7 +24,7 @@ virtualenv venv
 ```
 pip install flask
 ```
-   Or you can install based on `requirements.txt`
+  Or you can install based on `requirements.txt`
 ```
 pip install -r requirements.txt
 ```
@@ -32,12 +32,12 @@ pip install -r requirements.txt
 ```
 python run.py
 ```
-9. Access `localhost:5000` according port that created in `run.py`
+5. Access `localhost:5000` according port that created in `run.py`
     Sign In with email "admin@admin.com" and password "admin" without ""
 
 ![Sample](https://github.com/Irfanialfathwah/proposal-generator/blob/master/Sample-run.png)
 
-10. To stop the service of flask project (__CTRL + C__)
+6. To stop the service of flask project (__CTRL + C__)
 
 ### Prerequisites
 
@@ -81,6 +81,8 @@ You can clone or download this project
 ```
 > Clone : git clone https://github.com/irfanialfathwah/proposal-generator.git
 ```
+
+
 
 
 
