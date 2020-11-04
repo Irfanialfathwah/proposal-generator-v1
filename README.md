@@ -24,7 +24,7 @@ virtualenv venv
 ```
 pip install flask
 ```
-  Or you can install based on `requirements.txt`
+  Or you can install depedencies based on `requirements.txt`
 ```
 pip install -r requirements.txt
 ```
