@@ -1,5 +1,3 @@
-from flask import request
-
 from db import db
 from app import app
 
@@ -9,10 +7,15 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(30), unique=True, nullable=False)
-    role = db.Column(db.String(30))
+    # role = db.Column(db.String(30), nullable=True)
 
     def __repr__(self):
         return f'<User {self.username}>'
+
+# class Role(db.Model):
+#     __tablename__ = "roles"
+
+#     id = db.Column(db.Integer, primary_key=True)
 
 class Customer(db.Model):
     __tablename__ = "customers"
@@ -22,7 +25,7 @@ class Customer(db.Model):
     email = db.Column(db.String(30))
     address = db.Column(db.String(80))
     phone_number = db.Column(db.Integer)
-    proposals = db.relationship('Proposal', back_populates="customer")
+    proposals = db.relationship('Proposal', backref=db.backref("customer", cascade='all,delete'))
 
 class Proposal(db.Model):
     __tablename__ = "proposals"
@@ -33,8 +36,7 @@ class Proposal(db.Model):
     geocoordinates = db.Column(db.String(80))
     sketchup_model = db.Column(db.String(60))
     status = db.Column(db.String(20))
-    customer = db.relationship("Parent", back_populates="proposals")
-    roofs = db.relationship("Roof", backref="proposal")
+    roofs = db.relationship("Roof", backref=db.backref("proposal", cascade='all,delete'))
 
     def __repr__(self):
         return f'<Proposal {self.customer}'
@@ -44,22 +46,29 @@ class Roof(db.Model):
 
     id = db.Column(db.Integer, primary_key= True)
     proposal_id = db.Column(db.String, db.ForeignKey('proposals.id'))
-    pv_panel = db.Column(db.Integer)
-    pv_panel_qty = db.Column(db.Integer)
-    pv_mount = db.Column(db.Integer)
-    pv_cable = db.Column(db.String(15))
-    add_construction_qty = db.Column(db.Integer)
-    add_construction_price = db.Column(db.Integer)
+    pv_panel = db.Column(db.Integer, nullable=True)
+    pv_panel_qty = db.Column(db.Integer, nullable=True)
+    pv_mount = db.Column(db.Integer, nullable=True)
+    pv_cable = db.Column(db.Integer, nullable=True)
+    add_construction_qty = db.Column(db.Integer, nullable=True)
+    add_construction_price = db.Column(db.Integer, nullable=True)
     azimuth = db.Column(db.Integer)
     angle = db.Column(db.Integer)
-    solar_data = db.relationship("SolarYearData", backref='roof')
+    solar_data = db.relationship("SolarYearData", backref=db.backref('roof', cascade='all,delete'))
+
+    def __repr__(self):
+        return f'<Roof {self.id}>'
 
 class SolarYearData(db.Model):
     __tablename__ = "solaryeardatas"
 
     id = db.Column(db.Integer, primary_key = True)
     roof_id = db.Column(db.Integer, db.ForeignKey('roofs.id'))
-    monthly = db.relationship('SolarMonthData', backref="year")
+    monthly = db.relationship('SolarMonthData', backref=db.backref("year", cascade='all,delete'))
+    energy = db.Column(db.Integer, nullable=True)
+
+    def __repr__(self):
+        return f'<SolarYearData {self.energy}>'
 
 class SolarMonthData(db.Model):
     __tablename__ = "solarmonthdatas"
@@ -67,8 +76,12 @@ class SolarMonthData(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     year_id = db.Column(db.Integer, db.ForeignKey('solaryeardatas.id'))
     month = db.Column(db.String(15))
-    total = db.Column(db.Integer, nullable=True)
-    hourly = db.relationship('SolarHourData', backref="month")
+    energy_perday = db.Column(db.Integer, nullable=True)
+    energy = db.Column(db.Integer)
+    hourly = db.relationship('SolarHourData', backref=db.backref("month", cascade='all,delete'))
+
+    def __repr__(self):
+        return f'<SolarMonthData {self.energy}>'
 
 class SolarHourData(db.Model):
     __tablename__ = "solarhourdatas"
@@ -76,3 +89,7 @@ class SolarHourData(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     month_id = db.Column(db.Integer, db.ForeignKey('solarmonthdatas.id'))
     hour = db.Column(db.Integer)
+    energy = db.Column(db.Integer)
+
+    def __repr__(self):
+        return f'<SolarHourData {self.energy}>'

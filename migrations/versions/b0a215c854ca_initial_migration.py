@@ -1,8 +1,8 @@
 """Initial migration.
 
-Revision ID: d91523bd6904
+Revision ID: b0a215c854ca
 Revises: 
-Create Date: 2020-11-05 10:30:41.354144
+Create Date: 2020-11-05 12:02:47.948241
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd91523bd6904'
+revision = 'b0a215c854ca'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -30,7 +30,6 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=20), nullable=False),
     sa.Column('email', sa.String(length=30), nullable=False),
-    sa.Column('role', sa.String(length=30), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
@@ -51,7 +50,7 @@ def upgrade():
     sa.Column('pv_panel', sa.Integer(), nullable=True),
     sa.Column('pv_panel_qty', sa.Integer(), nullable=True),
     sa.Column('pv_mount', sa.Integer(), nullable=True),
-    sa.Column('pv_cable', sa.String(length=15), nullable=True),
+    sa.Column('pv_cable', sa.Integer(), nullable=True),
     sa.Column('add_construction_qty', sa.Integer(), nullable=True),
     sa.Column('add_construction_price', sa.Integer(), nullable=True),
     sa.Column('azimuth', sa.Integer(), nullable=True),
@@ -62,6 +61,7 @@ def upgrade():
     op.create_table('solaryeardatas',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('roof_id', sa.Integer(), nullable=True),
+    sa.Column('energy', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['roof_id'], ['roofs.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -69,7 +69,8 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('year_id', sa.Integer(), nullable=True),
     sa.Column('month', sa.String(length=15), nullable=True),
-    sa.Column('total', sa.Integer(), nullable=True),
+    sa.Column('energy_perday', sa.Integer(), nullable=True),
+    sa.Column('energy', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['year_id'], ['solaryeardatas.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -77,6 +78,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('month_id', sa.Integer(), nullable=True),
     sa.Column('hour', sa.Integer(), nullable=True),
+    sa.Column('energy', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['month_id'], ['solarmonthdatas.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
