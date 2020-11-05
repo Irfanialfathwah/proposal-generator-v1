@@ -9,9 +9,6 @@ from config import (
         CSRF_ENABLED
     )
 
-print(SECRET_KEY)
-print(DATABASE)
-
 app.secret_key = SECRET_KEY
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE.get("SQLALCHEMY_DATABASE_URI")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = DATABASE.get("SQLALCHEMY_TRACK_MODIFICATIONS")
