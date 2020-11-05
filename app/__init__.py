@@ -2,14 +2,16 @@ from flask import Flask
 
 app = Flask(__name__, instance_relative_config=True)
 
+from config import DATABASE, SECRET_KEY, DEBUG
+
+print(SECRET_KEY)
+print(DATABASE)
+
+app.secret_key = SECRET_KEY
+app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE.get("SQLALCHEMY_DATABASE_URI")
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = DATABASE.get("SQLALCHEMY_TRACK_MODIFICATIONS")
+app.config["DEBUG"] = DEBUG
 # Load the views
-from app import views
 import db
-
-from config import DATABASE
-
-app.config.update(DATABASE)
-# Load the config file
-app.config.from_object('config')
-app.secret_key = "my precious"
+from app import views, models
 

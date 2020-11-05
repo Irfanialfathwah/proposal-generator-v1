@@ -16,6 +16,8 @@ sqlalchemy = "*"
 flask-migrate = "*"
 flask-sqlalchemy = "*"
 psycopg2 = "*"
+python-dotenv = "*"
+pathlib = "*"
 
 [requires]
 python_version = "3.7"
