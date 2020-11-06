@@ -6,11 +6,29 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
+    password = db.Column(db.String(100))
     email = db.Column(db.String(30), unique=True, nullable=False)
     # role = db.Column(db.String(30), nullable=True)
 
     def __repr__(self):
         return f'<User {self.username}>'
+
+    def is_active(self):
+        """True, as all users are active."""
+        return True
+
+    def get_id(self):
+        """Return the email address to satisfy Flask-Login's requirements."""
+        return self.email
+
+    def is_authenticated(self):
+        """Return True if the user is authenticated."""
+        return self.authenticated
+
+    def is_anonymous(self):
+        """False, as anonymous users aren't supported."""
+        return False
+
 
 # class Role(db.Model):
 #     __tablename__ = "roles"
@@ -21,10 +39,10 @@ class Customer(db.Model):
     __tablename__ = "customers"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Integer)
-    email = db.Column(db.String(30))
-    address = db.Column(db.String(80))
-    phone_number = db.Column(db.Integer)
+    name = db.Column(db.Integer, nullable=False)
+    email = db.Column(db.String(30), nullable=False)
+    address = db.Column(db.String(80), nullable=False)
+    phone_number = db.Column(db.Integer, nullable=False)
     proposals = db.relationship('Proposal', backref=db.backref("customer", cascade='all,delete'))
 
 class Proposal(db.Model):
@@ -32,10 +50,10 @@ class Proposal(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
     customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
-    location = db.Column(db.String(50))
-    geocoordinates = db.Column(db.String(80))
-    sketchup_model = db.Column(db.String(60))
-    status = db.Column(db.String(20))
+    location = db.Column(db.String(50), nullable=False)
+    geocoordinates = db.Column(db.String(80), nullable=False)
+    sketchup_model = db.Column(db.String(60), nullable=True)
+    status = db.Column(db.String(20), nullable=False)
     roofs = db.relationship("Roof", backref=db.backref("proposal", cascade='all,delete'))
 
     def __repr__(self):
@@ -45,15 +63,15 @@ class Roof(db.Model):
     __tablename__ = "roofs"
 
     id = db.Column(db.Integer, primary_key= True)
-    proposal_id = db.Column(db.String, db.ForeignKey('proposals.id'))
+    proposal_id = db.Column(db.Integer, db.ForeignKey('proposals.id'))
     pv_panel = db.Column(db.Integer, nullable=True)
     pv_panel_qty = db.Column(db.Integer, nullable=True)
     pv_mount = db.Column(db.Integer, nullable=True)
     pv_cable = db.Column(db.Integer, nullable=True)
     add_construction_qty = db.Column(db.Integer, nullable=True)
     add_construction_price = db.Column(db.Integer, nullable=True)
-    azimuth = db.Column(db.Integer)
-    angle = db.Column(db.Integer)
+    azimuth = db.Column(db.Integer, nullable=False)
+    angle = db.Column(db.Integer, nullable=False)
     solar_data = db.relationship("SolarYearData", backref=db.backref('roof', cascade='all,delete'))
 
     def __repr__(self):
