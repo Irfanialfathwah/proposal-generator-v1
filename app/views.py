@@ -4,6 +4,7 @@ from app import app
 
 # Adding encription key with Secret Key Variable for User Authentication
 
+
 # login required decorator
 def login_required(f):
     @wraps(f)
@@ -59,3 +60,15 @@ def proposals():
 @login_required
 def addproposal():
     return render_template("add-proposal.html")
+
+
+@app.route('/proposal-details')
+@login_required
+def proposaldetails():
+    return render_template("proposal-details.html")
+
+
+@app.route('/proposal-details-un')
+@login_required
+def proposaldetailsun():
+    return render_template("proposal-details-un.html")
