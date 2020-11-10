@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "main-layout/base.html" %}
 {% block title %}Customers{% endblock %}
 {% block body %}
 <!-- Content Wrapper. Contains page content -->
@@ -100,9 +100,9 @@
         </div><!-- /.card-body -->
       </div><!-- /.card -->
     </div><!-- /.container-fluid -->
-    {% include "add-cust-modal.html" %}
-    {% include "view-cust-modal.html" %}
-    {% include "edit-cust-modal.html" %}
+    {% include "modals/add-cust-modal.html" %}
+    {% include "modals/view-cust-modal.html" %}
+    {% include "modals/edit-cust-modal.html" %}
   </section>
   <!-- /.content -->
 </div>
