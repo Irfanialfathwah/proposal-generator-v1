@@ -1,5 +1,6 @@
 <!-- Modal View Customer -->
-<div class="modal fade" id="modal-view-cust">
+{% for data in table_data %}
+<div class="modal fade" id="modal-view-cust{{data.id}}">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -14,36 +15,25 @@
                          src="../static/dist/img/astronaut.png"
                          alt="User profile picture">
                 </div>
-  
-                <h3 class="profile-username text-center">Sundaya</h3>
-  
-                <p class="text-muted text-center">email@sundaya.com</p>
-
+                <h3 class="profile-username text-center">{{ data.name }}</h3>
+                <p class="text-muted text-center">{{ data.email }}</p>
                 <hr>
-
-                <strong><i class="fas fa-phone mr-1"></i> Phone Number</strong>
-
-                <p class="text-muted">(0251) 8xxxxx</p>
-                
+                <strong><i class="fas fa-phone mr-1"></i>Phone Number</strong>
+                <p class="text-muted">{{data.phone_number}}</p>
                 <hr>
-
                 <strong><i class="fas fa-map-marker-alt mr-1 "></i> Address</strong>
-
-                <p class="text-muted">Sentul, Bogor</p>
-
+                <p class="text-muted">{{data.address}}</p>
                 <ul class="list-group list-group-unbordered mb-3 list-unstyled">
                     <li class="list-group-item">
                         <b>Total Proposal</b> <a class="float-right">2</a>
                     </li>
                 </ul>
-
                 <strong>Proposal Complete</strong>
                 <ul class="list-unstyled">
                     <li>
                         <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> Example.pdf</a>
                     </li>
                 </ul>
-
             </div>
             <div class="modal-footer right-content">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -51,3 +41,4 @@
         </div>
     </div>
 </div>
+{% endfor %}
