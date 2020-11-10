@@ -8,6 +8,8 @@ class User(db.Model):
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(100))
     email = db.Column(db.String(30), unique=True, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False)
+    updated_at = db.Column(db.DateTime, nullable=False)
     # role = db.Column(db.String(30), nullable=True)
 
     def __repr__(self):
@@ -29,7 +31,6 @@ class User(db.Model):
         """False, as anonymous users aren't supported."""
         return False
 
-
 # class Role(db.Model):
 #     __tablename__ = "roles"
 
@@ -39,22 +40,28 @@ class Customer(db.Model):
     __tablename__ = "customers"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Integer, nullable=False)
-    email = db.Column(db.String(30), nullable=False)
+    name = db.Column(db.String(30), nullable=False)
+    email = db.Column(db.String(50), nullable=False)
     address = db.Column(db.String(80), nullable=False)
-    phone_number = db.Column(db.Integer, nullable=False)
+    phone_number = db.Column(db.String(18), nullable=False)
     proposals = db.relationship('Proposal', backref=db.backref("customer", cascade='all,delete'))
+    created_at = db.Column(db.DateTime, nullable=False)
+    updated_at = db.Column(db.DateTime, nullable=False)
 
 class Proposal(db.Model):
     __tablename__ = "proposals"
 
     id = db.Column(db.Integer, primary_key = True)
     customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
+    date_of_proposals = db.Column(db.DateTime, nullable=False)
+    num_of_roofs = db.Column(db.Integer, nullable=False)
     location = db.Column(db.String(50), nullable=False)
     geocoordinates = db.Column(db.String(80), nullable=False)
     sketchup_model = db.Column(db.String(60), nullable=True)
     status = db.Column(db.String(20), nullable=False)
     roofs = db.relationship("Roof", backref=db.backref("proposal", cascade='all,delete'))
+    created_at = db.Column(db.DateTime, nullable=False)
+    updated_at = db.Column(db.DateTime, nullable=False)
 
     def __repr__(self):
         return f'<Proposal {self.customer}'
@@ -73,6 +80,8 @@ class Roof(db.Model):
     azimuth = db.Column(db.Integer, nullable=False)
     angle = db.Column(db.Integer, nullable=False)
     solar_data = db.relationship("SolarYearData", backref=db.backref('roof', cascade='all,delete'))
+    created_at = db.Column(db.DateTime, nullable=False)
+    updated_at = db.Column(db.DateTime, nullable=False)
 
     def __repr__(self):
         return f'<Roof {self.id}>'

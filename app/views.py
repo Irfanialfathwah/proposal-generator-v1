@@ -1,6 +1,10 @@
 from flask import render_template, redirect, url_for, request, session, flash
 from functools import wraps
+from datetime import datetime
 from app import app
+from db import db
+from app.models import Customer
+from app.form_validations import validate_customer_form
 
 # Adding encription key with Secret Key Variable for User Authentication
 
@@ -44,11 +48,36 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/customers')
+@app.route('/customers', methods=['GET', 'POST'])
 @login_required
 def customers():
-    return render_template("customers.html")
+    if request.method == 'POST':
+        print(request.form)
+        is_valid = validate_customer_form(request.form)
+        print(is_valid)
+        if 'errors' not in is_valid:
+            timestamp = datetime.now().replace(microsecond=0)
+            customer = Customer(**is_valid, created_at=timestamp, updated_at=timestamp)
+            print(customer)
+            db.session.add(customer)
+            db.session.commit()
+            flash('successfully added', category='success')
+        else:
+            flash(f'Error {is_valid}', category='danger')
+    context = {
+        'table_data': Customer.query.order_by(Customer.id).all()
+    }
+    print(context)
+    return render_template("customers.html", **context)
 
+@app.route('/customers/delete', methods=['POST'])
+@login_required
+def delete_customer():
+    id = request.form.get('id')
+    customer = Customer.query.filter_by(id=id).first()
+    db.session.delete(customer)
+    db.session.commit()
+    return redirect('/customers')
 
 @app.route('/proposals')
 @login_required
