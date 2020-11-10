@@ -11,7 +11,7 @@
         <div class="card-header">
           <h3 class="card-title">Our Customers</h3>
           <div class="card-tools dropdown">
-            <button type="button" class="btn btn-primary" onclick="window.location.href='#'">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-cust">
               Add Customer
             </button>
           </div><!-- /.card-tools-button -->
@@ -40,12 +40,12 @@
               <td>1</td>
               <td>2020-11-02 13:00</td>
               <td class="project-actions text-center">
-                <a class="btn btn-primary btn-sm" href="#">
+                <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#modal-view-cust">
                     <i class="fas fa-folder">
                     </i>
                     View
                 </a>
-                <a class="btn btn-info btn-sm" href="#">
+                <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#modal-edit-cust">
                     <i class="fas fa-pencil-alt">
                     </i>
                     Edit
@@ -66,17 +66,17 @@
               <td>0</td>
               <td>2020-11-02 13:30</td>
               <td class="project-actions text-center">
-                <a class="btn btn-primary btn-sm" href="#">
+                <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-view-cust">
                     <i class="fas fa-folder">
                     </i>
                     View
                 </a>
-                <a class="btn btn-info btn-sm" href="#">
+                <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-edit-cust">
                     <i class="fas fa-pencil-alt">
                     </i>
                     Edit
                 </a>
-                <a class="btn btn-danger btn-sm" href="#">
+                <a class="btn btn-danger btn-sm">
                     <i class="fas fa-trash">
                     </i>
                     Delete
@@ -100,6 +100,9 @@
         </div><!-- /.card-body -->
       </div><!-- /.card -->
     </div><!-- /.container-fluid -->
+    {% include "add-cust-modal.html" %}
+    {% include "view-cust-modal.html" %}
+    {% include "edit-cust-modal.html" %}
   </section>
   <!-- /.content -->
 </div>
