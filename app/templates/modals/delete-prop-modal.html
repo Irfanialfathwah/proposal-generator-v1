@@ -1,0 +1,20 @@
+{% for data in proposals %}
+<div class="modal fade" id="modal-delete-prop{{data.id}}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Proposal?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <form method="POST" action="/proposals/delete">
+            <input type="hidden" value="{{data.id}}" name="id">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        </div>
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+{% endfor %}

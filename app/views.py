@@ -1,11 +1,13 @@
+from pathlib import Path
 from flask import render_template, redirect, url_for, request, session, flash
 from functools import wraps
 from datetime import datetime
 from app import app
 from db import db
-from app.models import Customer
-from app.form_validations import validate_customer_form
-
+from app.models import Customer, Proposal
+from app.form_validations import validate_customer_form, validate_proposal_form
+from werkzeug.utils import secure_filename
+from app.functions import allowed_file
 # Adding encription key with Secret Key Variable for User Authentication
 
 
@@ -52,22 +54,19 @@ def logout():
 @login_required
 def customers():
     if request.method == 'POST':
-        print(request.form)
         is_valid = validate_customer_form(request.form)
-        print(is_valid)
         if 'errors' not in is_valid:
             timestamp = datetime.now().replace(microsecond=0)
             customer = Customer(**is_valid, created_at=timestamp, updated_at=timestamp)
-            print(customer)
             db.session.add(customer)
             db.session.commit()
             flash('successfully added', category='success')
         else:
             flash(f'Error {is_valid}', category='danger')
+    table_data = Customer.query.order_by(Customer.id).all()
     context = {
-        'table_data': Customer.query.order_by(Customer.id).all()
+        'table_data': table_data
     }
-    print(context)
     return render_template("customers.html", **context)
 
 @app.route('/customers/delete', methods=['POST'])
@@ -79,23 +78,64 @@ def delete_customer():
     db.session.commit()
     return redirect('/customers')
 
+@app.route('/customers/update', methods=['POST'])
+@login_required
+def edit_customer():
+    id = request.form.get('id')
+    is_valid = validate_customer_form(request.form)
+    if 'errors' not in is_valid:
+        customer = Customer.query.filter_by(id=id).first()
+        customer.update(**is_valid)
+        db.session.commit()
+        flash('Success update customers', 'success')
+    return redirect('/customers')
+
 @app.route('/proposals')
 @login_required
 def proposals():
-    return render_template("proposals.html")
+    proposals = Proposal.query.order_by(Proposal.id).all()
+    return render_template("proposals.html", proposals=proposals)
 
 
-@app.route('/add-proposal')
+@app.route('/add-proposal', methods=('GET','POST'))
 @login_required
 def addproposal():
-    return render_template("add-proposal.html")
+    if request.method == 'POST':
+        print(request.files)
+        is_valid = validate_proposal_form(request.form)
+        if 'errors' not in is_valid:
+            timestamp = datetime.now().replace(microsecond=0)
+            date_of_proposals = timestamp.replace(hour=0, minute=0, second=0)
+            if 'skecthup_model' in request.files:
+                file = request.files['skecthup_model']
+                if file and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    file_path = app.config.get('UPLOAD_FOLDER') / filename
+                    file.save(file_path)
+                    is_valid.update({'skecthup_model' : file_path})
+            proposal = Proposal(**is_valid, date_of_proposals=date_of_proposals, created_at=timestamp, updated_at=timestamp, status='Pending')
+            db.session.add(proposal)
+            db.session.commit()
+            flash('successfully added', 'success')
+            redirect('/proposals')
+    customers = Customer.query.order_by(Customer.id).all()
+    return render_template("add-proposal.html", customers=customers)
 
 
-@app.route('/proposal-details')
+@app.route('/proposal-details/<int:id>')
 @login_required
-def proposaldetails():
-    return render_template("proposal-details.html")
+def proposaldetails(id):
+    proposal = Proposal.query.filter_by(id=id).first()
+    return render_template("proposal-details.html", proposal=proposal)
 
+@app.route('/proposals/delete', methods=('POST',))
+@login_required
+def delete_proposal():
+    id = request.form.get('id')
+    proposal = Proposal.query.filter_by(id=id).first()
+    db.session.delete(proposal)
+    db.session.commit()
+    return redirect('/proposals')
 
 @app.route('/proposal-details-un')
 @login_required

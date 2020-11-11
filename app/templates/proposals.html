@@ -31,18 +31,23 @@
             </tr>
             </thead>
             <tbody>
+            {% for proposal in proposals %}
             <tr>
               <td>#</td>
-              <td>001</td>
-              <td>Bandung</td>
-              <td>Sundaya</td>
-              <td>2</td>
-              <td>41°24'12.2"U 2°10'26.5"T</td>
+              <td>{{proposal.id}}</td>
+              <td>{{proposal.location}}</td>
+              <td>{{proposal.customer.name}}</td>
+              <td>{{proposal.num_of_roofs}}</td>
+              <td>{{proposal.geocoordinates}}</td>
               <td class="project-state text-center">
-                <a class="btn btn-success btn-xs" href="#"><b><i class="fas fa-download"></i> Complete</b></a>  
+                {% if proposal.status != 'Completed' %}
+                  <a class="btn btn-danger btn-xs" href="#"><b><i class="fas fa-download"></i> {{proposal.status}}</b></a>  
+                {% else %}
+                  <a class="btn btn-success btn-xs" href="#"><b><i class="fas fa-download"></i> {{proposal.status}}</b></a>  
+                {% endif %}
               </td>
               <td class="project-actions text-center">
-                <a class="btn btn-primary btn-sm" href="/proposal-details">
+                <a class="btn btn-primary btn-sm" href="/proposal-details/{{proposal.id}}">
                     <i class="fas fa-folder">
                     </i>
                     View
@@ -52,69 +57,14 @@
                     </i>
                     Edit
                 </a> -->
-                <a class="btn btn-danger btn-sm" href="#">
+                <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#modal-delete-prop{{proposal.id}}">
                     <i class="fas fa-trash">
                     </i>
                     Delete
                 </a>
               </td>
             </tr>
-            <tr>
-              <td>#</td>
-              <td>002</td>
-              <td>Bekasi</td>
-              <td>House A</td>
-              <td>4</td>
-              <td>41°24'12.2"U 2°10'26.5"T</td>
-              <td class="project-state text-center">
-                <a class="btn btn-warning btn-xs" href="#"><b>Uncomplete</b></a>  
-              </td>
-              <td class="project-actions text-center">
-                <a class="btn btn-primary btn-sm" href="/proposal-details-un">
-                    <i class="fas fa-folder">
-                    </i>
-                    View
-                </a>
-                <!-- <a class="btn btn-info btn-sm" href="#">
-                    <i class="fas fa-pencil-alt">
-                    </i>
-                    Edit
-                </a> -->
-                <a class="btn btn-danger btn-sm" href="#">
-                    <i class="fas fa-trash">
-                    </i>
-                    Delete
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>#</td>
-              <td>003</td>
-              <td>Sentul</td>
-              <td>Sundaya</td>
-              <td>4</td>
-              <td>41°24'12.2"U 2°10'26.5"T</td>
-              <td class="project-state text-center">
-                <a class="btn btn-warning btn-xs" href="#"><b>Uncomplete</b></a>  
-              </td>
-              <td class="project-actions text-center">
-                <a class="btn btn-primary btn-sm" href="/proposal-details-un">
-                    <i class="fas fa-folder">
-                    </i>
-                    View
-                </a>
-                <!-- <a class="btn btn-info btn-sm" href="#">
-                    <i class="fas fa-pencil-alt">
-                    </i>
-                    Edit
-                </a> -->
-                <a class="btn btn-danger btn-sm" href="#">
-                    <i class="fas fa-trash">
-                    </i>
-                    Delete
-                </a>
-              </td>
-            </tr>
+            {% endfor %}
             </tbody>
             <tfoot>
             <tr>
@@ -134,5 +84,6 @@
     </div><!-- /.container-fluid -->
   </section>
   <!-- /.content -->
+  {% include 'modals/delete-prop-modal.html' %}
 </div>
 {% endblock %}
