@@ -1,4 +1,5 @@
 from db import db
+from datetime import datetime
 from app import app
 
 class User(db.Model):
@@ -44,9 +45,20 @@ class Customer(db.Model):
     email = db.Column(db.String(50), nullable=False)
     address = db.Column(db.String(80), nullable=False)
     phone_number = db.Column(db.String(18), nullable=False)
-    proposals = db.relationship('Proposal', backref=db.backref("customer", cascade='all,delete'))
+    proposals = db.relationship('Proposal', backref=db.backref("customer"))
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
+
+    def update(self, name, email, address, phone_number):
+        timestamp = datetime.now().replace(microsecond=0)
+        self.name = name
+        self.email = email
+        self.address = address
+        self.phone_number = phone_number
+        self.updated_at = timestamp
+
+    def count_proposals(self):
+        return len(self.proposals)
 
 class Proposal(db.Model):
     __tablename__ = "proposals"
@@ -59,12 +71,16 @@ class Proposal(db.Model):
     geocoordinates = db.Column(db.String(80), nullable=False)
     sketchup_model = db.Column(db.String(60), nullable=True)
     status = db.Column(db.String(20), nullable=False)
-    roofs = db.relationship("Roof", backref=db.backref("proposal", cascade='all,delete'))
+    roofs = db.relationship("Roof", backref=db.backref("proposal"))
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
 
     def __repr__(self):
         return f'<Proposal {self.customer}'
+
+    # @classmethod
+    # def count(cls):
+    #     return len(cls.query.filter(cls.proposals.any()).all())
 
 class Roof(db.Model):
     __tablename__ = "roofs"
@@ -79,7 +95,7 @@ class Roof(db.Model):
     add_construction_price = db.Column(db.Integer, nullable=True)
     azimuth = db.Column(db.Integer, nullable=False)
     angle = db.Column(db.Integer, nullable=False)
-    solar_data = db.relationship("SolarYearData", backref=db.backref('roof', cascade='all,delete'))
+    solar_data = db.relationship("SolarYearData", backref=db.backref('roof'))
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
 
@@ -91,7 +107,7 @@ class SolarYearData(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
     roof_id = db.Column(db.Integer, db.ForeignKey('roofs.id'))
-    monthly = db.relationship('SolarMonthData', backref=db.backref("year", cascade='all,delete'))
+    monthly = db.relationship('SolarMonthData', backref=db.backref("year"))
     energy = db.Column(db.Integer, nullable=True)
 
     def __repr__(self):
@@ -105,7 +121,7 @@ class SolarMonthData(db.Model):
     month = db.Column(db.String(15))
     energy_perday = db.Column(db.Integer, nullable=True)
     energy = db.Column(db.Integer)
-    hourly = db.relationship('SolarHourData', backref=db.backref("month", cascade='all,delete'))
+    hourly = db.relationship('SolarHourData', backref=db.backref("month"))
 
     def __repr__(self):
         return f'<SolarMonthData {self.energy}>'

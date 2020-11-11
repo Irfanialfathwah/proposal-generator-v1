@@ -22,22 +22,22 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="general">
                         <strong><i class="fas fa-user-astronaut mr-1"></i> Customer</strong>
-                        <p class="text-muted">Sundaya</p>
+                        <p class="text-muted">{{ proposal.customer.name }}</p>
                         <hr>
                         <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-                        <p class="text-muted">Bandung, Indonesia</p>
+                        <p class="text-muted">{{ proposal.location }}</p>
                         <hr>
                         <strong><i class="fas fa-solar-panel mr-1"></i> Number of Roofs</strong>
-                        <p class="text-muted">2</p>
+                        <p class="text-muted">{{ proposal.num_of_roofs }}</p>
                         <hr>
                         <strong><i class="fas fa-map-marked-alt mr-1"></i> GeoCoordinates</strong>
-                        <p class="text-muted">41°24'12.2"U 2°10'26.5"T</p>
+                        <p class="text-muted">{{ proposal.geocoordinates }}</p>
                         <hr>
                         <strong><i class="fas fa-image mr-1"></i>SketchUp Model</strong>
                         <div class="row">
                             <div class="col-sm-2">
-                                <a href="../static/dist/img/photo2.png" data-toggle="lightbox" data-title="SketchUp Model" data-gallery="gallery">
-                                <img src="../static/dist/img/photo2.png" class="img-fluid mb-2" alt="sketchup model"/>
+                                <a href="../static/media/eMLLIOqz_1.png" data-toggle="lightbox" data-title="SketchUp Model" data-gallery="gallery">
+                                <img src="../static/media/eMLLIOqz_1.png" class="img-fluid mb-2" alt="sketchup model"/>
                                 </a>
                             </div>
                         </div>
