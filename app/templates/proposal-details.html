@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "main-layout/base.html" %}
 {% block title %}Proposal Details{% endblock %}
 {% block body %}
 {% block view %}
@@ -149,8 +149,8 @@
             </div><!-- /.card-body -->
         </div>
         </div><!-- /.container-fluid -->
-        {% include "edit-gd-pro-modal.html" %}
-        {% include "edit-od-pro-modal.html" %}
+        {% include "modals/edit-gd-pro-modal.html" %}
+        {% include "modals/edit-od-pro-modal.html" %}
     </section>
     <!-- /.content -->
 </div>

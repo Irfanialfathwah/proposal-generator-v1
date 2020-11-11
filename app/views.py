@@ -101,3 +101,8 @@ def proposaldetails():
 @login_required
 def proposaldetailsun():
     return render_template("proposal-details-un.html")
+
+
+@app.route('/register')
+def register():
+    return render_template("register.html")

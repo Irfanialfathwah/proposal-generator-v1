@@ -3,12 +3,12 @@
   <head>
     <link rel="icon" type="image/png" href="../static/dist/img/SundayaLogo.png">
     <title>{% block title %}{% endblock %}</title>
-    {% include "head.html" %}
+    {% include "main-layout/head.html" %}
   </head>
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-      {% include "navbar.html" %}
-      {% include "main-sidebar.html" %}
+      {% include "main-layout/navbar.html" %}
+      {% include "main-layout/main-sidebar.html" %}
       {% block body %}
       <!-- Content Header (Page header) -->
       <div class="content-header">
@@ -29,8 +29,8 @@
       </div>
       <!-- /.content-header -->
       {% endblock %}
-      {% include "footer.html" %}
+      {% include "main-layout/footer.html" %}
     </div> <!-- /container -->
-    {% include "scripts.html" %}
+    {% include "main-layout/scripts.html" %}
   </body>
 </html>
