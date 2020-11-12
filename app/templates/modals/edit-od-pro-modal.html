@@ -9,148 +9,85 @@
           </button>
         </div>
         <div class="modal-body">
+          <form action="./{{ proposal.id }}/update" method="post" enctype=multipart/form-data>
             <div class="form">
-                <h3>Roof 1</h3>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <!-- text input -->
-                    <div class="form-group">
-                      <label>PV Panel (Wp)</label>
-                      <input type="text" class="form-control" placeholder="Enter PV Panel (Wp)">
-                    </div>
+              {% for roof in proposal.roofs %}
+              <h3>Roof {{loop.index}}</h3>
+              <div class="row">
+                <div class="col-sm-6">
+                  <!-- text input -->
+                  <div class="form-group">
+                    <label>PV Panel (Wp)</label>
+                    <input type="number" class="form-control" placeholder="Enter PV Panel (Wp)" name="pv_panel{{loop.index}}" value={{roof.pv_panel}}>
                   </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Quantity of PV Panels (pcs)</label>
-                      <input type="email" class="form-control" placeholder="Enter Quantity of PV Panels (pcs)" >
-                    </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>Quantity of PV Panels (pcs)</label>
+                    <input type="number" class="form-control" placeholder="Enter Quantity of PV Panels (pcs)" name="pv_panel_qty{{loop.index}}" value={{roof.pv_panel_qty}} >
                   </div>
-                </div> <!-- end of row 1 -->
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Quantity of PV Cable (meter)</label>
-                      <input type="text" class="form-control" placeholder="Enter Quantity of PV Cable (meter)">
-                    </div>
+                </div>
+              </div> <!-- end of row 1 -->
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>Quantity of PV Cable (meter)</label>
+                    <input type="number" class="form-control" placeholder="Enter Quantity of PV Cable (meter)" name="pv_cable{{loop.index}}" value={{roof.pv_cable}}>
                   </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Additional Construction (set)</label>
-                      <input class="form-control" placeholder="Enter Additional Construction (set)">
-                    </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>Additional Construction (set)</label>
+                    <input type="number" class="form-control" placeholder="Enter Additional Construction (set)" name="add_construction_qty{{loop.index}}" value={{roof.add_construction_qty}}>
                   </div>
-                </div><!-- end of row 2 -->
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Azimuth (deg)</label>
-                      <input type="text" class="form-control" placeholder="Enter Azimuth (deg)">
-                    </div>
+                </div>
+              </div><!-- end of row 2 -->
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>Azimuth (deg)</label>
+                    <input type="number" class="form-control" placeholder="Enter Azimuth (deg)" name="azimuth{{loop.index}}" value={{roof.azimuth}}>
                   </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Inclination Angle (deg)</label>
-                      <input class="form-control" placeholder="Enter Inclination Angle (deg)">
-                    </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>Inclination Angle (deg)</label>
+                    <input type="number" class="form-control" placeholder="Enter Inclination Angle (deg)" name="angle{{loop.index}}" value={{roof.angle}}>
                   </div>
-                </div><!-- end of row 3 -->
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                          <label>Additional Construction Price (Rp/set)</label>
-                          <input class="form-control" placeholder="Enter Additional Construction Price (Rp/set)">
-                        </div>
+                </div>
+              </div><!-- end of row 3 -->
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Additional Construction Price (Rp/set)</label>
+                        <input type="number" class="form-control" placeholder="Enter Additional Construction Price (Rp/set)" name="add_construction_price{{loop.index}}" value={{roof.add_construction_price}}>
                       </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>GSA Report (.xls)</label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile">
-                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                </div>
-                                <div class="input-group-append">
-                                <span class="input-group-text">Upload</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                </div><!-- end of row 4 -->
-                <hr>
-
-                <h3>Roof 2</h3>
-                <div class="row">
                   <div class="col-sm-6">
-                    <!-- text input -->
-                    <div class="form-group">
-                      <label>PV Panel (Wp)</label>
-                      <input type="text" class="form-control" placeholder="Enter PV Panel (Wp)">
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Quantity of PV Panels (pcs)</label>
-                      <input type="email" class="form-control" placeholder="Enter Quantity of PV Panels (pcs)" >
-                    </div>
-                  </div>
-                </div><!-- end of row 1 -->
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Quantity of PV Cable (meter)</label>
-                      <input type="text" class="form-control" placeholder="Enter Quantity of PV Cable (meter)">
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Additional Construction (set)</label>
-                      <input class="form-control" placeholder="Enter Additional Construction (set)">
-                    </div>
-                  </div>
-                </div><!-- end of row 2 -->
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Azimuth (deg)</label>
-                      <input type="text" class="form-control" placeholder="Enter Azimuth (deg)">
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Inclination Angle (deg)</label>
-                      <input class="form-control" placeholder="Enter Inclination Angle (deg)">
-                    </div>
-                  </div>
-                </div><!-- end of row 3 -->
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                          <label>Additional Construction Price (Rp/set)</label>
-                          <input class="form-control" placeholder="Enter Additional Construction Price (Rp/set)">
-                        </div>
+                      <div class="form-group">
+                          <label>GSA Report (.xls)</label>
+                          <div class="input-group">
+                              <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="exampleInputFile" name="gsa_report_file{{loop.index}}">
+                              <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                              </div>
+                              <div class="input-group-append">
+                              <span class="input-group-text">Upload</span>
+                              </div>
+                          </div>
                       </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>GSA Report (.xls)</label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile">
-                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                </div>
-                                <div class="input-group-append">
-                                <span class="input-group-text">Upload</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- end of row 4 -->
-                <hr>
+                  </div>
+                  <input type="hidden" name='id{{loop.index}}' value='{{roof.id}}'>
+              </div><!-- end of row 4 -->
+              <hr>
+              {% endfor %}
             </div>
         </div>
         <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <a type="button" class="btn btn-default" data-dismiss="modal">Close</a>
           <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
+      </form>
       </div>
       <!-- /.modal-content -->
     </div>

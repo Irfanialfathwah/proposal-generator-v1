@@ -4,7 +4,7 @@ from functools import wraps
 from datetime import datetime
 from app import app
 from db import db
-from app.models import Customer, Proposal
+from app.models import Customer, Proposal, Roof
 from app.form_validations import validate_customer_form, validate_proposal_form
 from werkzeug.utils import secure_filename
 from app.functions import allowed_file
@@ -114,7 +114,7 @@ def addproposal():
                 file = request.files['skecthup_model']
                 if file and allowed_file(file.filename):
                     filename = secure_filename(file.filename)
-                    file_path = app.config.get('UPLOAD_FOLDER') / filename
+                    file_path = app.config.get('UPLOAD_IMAGES_FOLDER') / filename
                     file.save(file_path)
                     is_valid.update({'skecthup_model' : file_path})
             proposal = Proposal(**is_valid, date_of_proposals=date_of_proposals, created_at=timestamp, updated_at=timestamp, status='Pending')
@@ -138,7 +138,7 @@ def proposaldetails(id):
                 file = request.files['skecthup_model']
                 if file and allowed_file(file.filename):
                     filename = secure_filename(file.filename)
-                    file_path = app.config.get('UPLOAD_FOLDER') / filename
+                    file_path = app.config.get('UPLOAD_IMAGES_FOLDER') / filename
                     file.save(file_path)
                     is_valid.update({'skecthup_model' : file_path})
             proposal.update(**is_valid)
@@ -163,6 +163,51 @@ def delete_proposal():
 def proposaldetailsun():
     return render_template("proposal-details-un.html")
 
+
+@app.route('/proposal-details/<int:id>/add', methods=("POST",))
+@login_required
+def add_order(id):
+    # print(request.files)
+    data = {}
+    roofs = []
+    timestamp = datetime.now().replace(microsecond=0)
+    proposal = Proposal.query.filter_by(id=id).first()
+    for nums in range(1,proposal.num_of_roofs+1):
+        data['pv_panel'] = request.form.get(f"pv_panel{nums}")
+        data['pv_panel_qty'] = request.form.get(f"pv_panel_qty{nums}")
+        data['pv_cable'] = request.form.get(f"pv_cable{nums}")
+        data['add_construction_qty'] = request.form.get(f"add_construction_qty{nums}")
+        data['add_construction_price'] = request.form.get(f"add_construction_price{nums}")
+        data['azimuth'] = request.form.get(f"azimuth{nums}")
+        data['angle'] = request.form.get(f"angle{nums}")
+        roof = Roof(**data, created_at=timestamp, updated_at=timestamp)
+        roofs.append(roof)
+    proposal.roofs.extend(roofs)
+    db.session.add(proposal)
+    db.session.add_all(roofs)
+    db.session.commit()
+    flash('successfully add roofs', category='success')
+    return redirect(f'/proposal-details/{id}')
+
+@app.route('/proposal-details/<int:id>/update', methods=("POST",))
+@login_required
+def update_order(id):
+    # print(request.files)
+    data = {}
+    roofs = []
+    proposal = Proposal.query.filter_by(id=id).first()
+    for nums in range(1,proposal.num_of_roofs+1):
+        data['pv_panel'] = request.form.get(f"pv_panel{nums}")
+        data['pv_panel_qty'] = request.form.get(f"pv_panel_qty{nums}")
+        data['pv_cable'] = request.form.get(f"pv_cable{nums}")
+        data['add_construction_qty'] = request.form.get(f"add_construction_qty{nums}")
+        data['add_construction_price'] = request.form.get(f"add_construction_price{nums}")
+        data['azimuth'] = request.form.get(f"azimuth{nums}")
+        data['angle'] = request.form.get(f"angle{nums}")
+        proposal.roofs[nums-1].update(**data)
+    db.session.commit()
+    flash('successfully update roofs', category='success')
+    return redirect(f'/proposal-details/{id}')
 
 @app.route('/user')
 @login_required
