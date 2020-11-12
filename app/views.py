@@ -144,7 +144,7 @@ def proposaldetails(id):
             proposal.update(**is_valid)
             db.session.commit()
             flash('successfully updated', 'success')
-            return redirect(f'/proposals-details/{id}')
+            return redirect(f'/proposal-details/{id}')
     return render_template("proposal-details.html", proposal=proposal, customers=customers)
 
 
