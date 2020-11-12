@@ -67,6 +67,7 @@ class Proposal(db.Model):
     location = db.Column(db.String(50), nullable=False)
     geocoordinates = db.Column(db.String(80), nullable=False)
     sketchup_model = db.Column(db.String(60), nullable=True)
+    pv_system_model = db.Column(db.String(30), nullable=True)
     status = db.Column(db.String(20), nullable=False)
     roofs = db.relationship("Roof", backref="proposal", cascade="all,delete")
     created_at = db.Column(db.DateTime, nullable=False)
@@ -94,6 +95,7 @@ class Roof(db.Model):
     pv_cable = db.Column(db.Integer, nullable=True)
     add_construction_qty = db.Column(db.Integer, nullable=True)
     add_construction_price = db.Column(db.Integer, nullable=True)
+    gsa_report_file = db.Column(db.String(50), nullable=True)
     azimuth = db.Column(db.Integer, nullable=False)
     angle = db.Column(db.Integer, nullable=False)
     solar_data = db.relationship("SolarYearData", backref='roof', cascade="all,delete")
@@ -102,6 +104,17 @@ class Roof(db.Model):
 
     def __repr__(self):
         return f'<Roof {self.id}>'
+
+    def update(self, pv_panel, pv_panel_qty, pv_cable, add_construction_qty, add_construction_price, azimuth, angle):
+        timestamp = datetime.now().replace(microsecond=0)
+        self.updated_at = timestamp
+        self.pv_panel = pv_panel
+        self.pv_panel_qty = pv_panel_qty
+        self.pv_cable = pv_cable
+        self.add_construction_qty = add_construction_qty
+        self.add_construction_price = add_construction_price
+        self.azimuth = azimuth
+        self.angle = angle
 
 class SolarYearData(db.Model):
     __tablename__ = "solaryeardatas"

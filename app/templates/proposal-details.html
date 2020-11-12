@@ -59,41 +59,43 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="order">
-                        <h3>Roof 1</h3>
+                        {% if proposal.roofs %}
+                        {% for roof in proposal.roofs %}
+                        <h3>Roof {{ loop.index }}</h3>
                         <div class="row">
                             <div class="col-sm-6">
                                 <label>PV Panel (Wp)</label>
-                                <p class="text-muted"> 440</p>
+                                <p class="text-muted">{{ roof.pv_panel }}</p>
                             </div>
                             <div class="col-sm-6">
                                 <label>Quantity of PV Panels (pcs)</label>
-                                <p class="text-muted"> 16</p>
+                                <p class="text-muted">{{ roof.pv_panel_qty }}</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <label>Quantity of PV Cable (meter)</label>
-                                <p class="text-muted"> 100</p>
+                                <p class="text-muted">{{ roof.pv_cable }}</p>
                             </div>
                             <div class="col-sm-6">
                                 <label>Additional Construction (set)</label>
-                                <p class="text-muted"> 1</p>
+                                <p class="text-muted">{{ roof.add_construction_qty }}</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <label>Azimuth (deg)</label>
-                                <p class="text-muted"> 20</p>
+                                <p class="text-muted">{{ roof.azimuth }}</p>
                             </div>
                             <div class="col-sm-6">
                                 <label>Inclination Angle (deg)</label>
-                                <p class="text-muted"> 15</p>
+                                <p class="text-muted">{{ roof.angle }}</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <label>Additional Construction Price (Rp/set)</label>
-                                <p class="text-muted"> 500.000</p>
+                                <p class="text-muted">{{ roof.add_construction_price }}</p>
                             </div>
                             <div class="col-sm-6">
                                 <label>GSA Report</label>
@@ -105,64 +107,27 @@
                             </div>
                         </div>
                         <hr>
-                        <h3>Roof 2</h3>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>PV Panel (Wp)</label>
-                                <p class="text-muted"> 440</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Quantity of PV Panels (pcs)</label>
-                                <p class="text-muted"> 32</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Quantity of PV Cable (meter)</label>
-                                <p class="text-muted"> 100</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Additional Construction (set)</label>
-                                <p class="text-muted"> 1</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Azimuth (deg)</label>
-                                <p class="text-muted"> 15</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Inclination Angle (deg)</label>
-                                <p class="text-muted"> 10</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Additional Construction Price (Rp/set)</label>
-                                <p class="text-muted"> 500.000</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>GSA Report</label>
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-excel"></i> Example.xls</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <hr>
+                        {% endfor %}
+                        {% else %}
+                            <div class="h2 mb-md-4">No roof data to display.</div>
+                        {% endif %}
                         <div>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-od-pro">Edit Details</button>
-                            <button type="submit" class="btn btn-success" onclick="window.location.href='#'">Generate Proposal</button>
+                            {% if proposal.roofs %}
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-od-pro">Edit Details</button>
+                                <button type="submit" class="btn btn-success" onclick="window.location.href='#'">Generate Proposal</button>
+                            {% else %}
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-od-pro">Add Roofs Data</button>
+                                <button type="submit" class="btn btn-success disabled" onclick="window.location.href='#'">Generate Proposal</button>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-                
             </div><!-- /.card-body -->
         </div>
         </div><!-- /.container-fluid -->
         {% include "modals/edit-gd-pro-modal.html" %}
         {% include "modals/edit-od-pro-modal.html" %}
+        {% include "modals/add-od-pro-modal.html" %}
     </section>
     <!-- /.content -->
 </div>
