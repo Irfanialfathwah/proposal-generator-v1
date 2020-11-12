@@ -172,6 +172,15 @@ def add_order(id):
     roofs = []
     timestamp = datetime.now().replace(microsecond=0)
     proposal = Proposal.query.filter_by(id=id).first()
+    if request.files:
+        filepaths = []
+        for index,gsa_report in enumerate(request.files):
+            file = request.files['gsa_report{{index}}']
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file_path = app.config.get('UPLOAD_FILES_FOLDER') / filename
+                file.save(file_path)
+                filepaths.append(file_path)
     for nums in range(1,proposal.num_of_roofs+1):
         data['pv_panel'] = request.form.get(f"pv_panel{nums}")
         data['pv_panel_qty'] = request.form.get(f"pv_panel_qty{nums}")
