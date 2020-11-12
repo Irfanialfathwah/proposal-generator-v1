@@ -69,6 +69,7 @@ def customers():
     }
     return render_template("customers.html", **context)
 
+
 @app.route('/customers/delete', methods=['POST'])
 @login_required
 def delete_customer():
@@ -77,6 +78,7 @@ def delete_customer():
     db.session.delete(customer)
     db.session.commit()
     return redirect('/customers')
+
 
 @app.route('/customers/update', methods=['POST'])
 @login_required
@@ -89,6 +91,7 @@ def edit_customer():
         db.session.commit()
         flash('Success update customers', 'success')
     return redirect('/customers')
+
 
 @app.route('/proposals')
 @login_required
@@ -128,6 +131,7 @@ def proposaldetails(id):
     proposal = Proposal.query.filter_by(id=id).first()
     return render_template("proposal-details.html", proposal=proposal)
 
+
 @app.route('/proposals/delete', methods=('POST',))
 @login_required
 def delete_proposal():
@@ -137,12 +141,20 @@ def delete_proposal():
     db.session.commit()
     return redirect('/proposals')
 
+
 @app.route('/proposal-details-un')
 @login_required
 def proposaldetailsun():
     return render_template("proposal-details-un.html")
 
 
-@app.route('/register')
+@app.route('/user')
+@login_required
+def user():
+    return render_template("user.html")
+
+
+@app.route('/role')
+@login_required
 def register():
-    return render_template("register.html")
+    return render_template("role.html")
