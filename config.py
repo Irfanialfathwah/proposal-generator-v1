@@ -10,7 +10,7 @@ DEBUG = True
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-UPLOAD_FOLDER = Path('.') / 'app' / 'static' / 'media'
+UPLOAD_FOLDER = Path('.') / 'app' / 'static' / 'media' / 'sketchup-model'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 # Enable protection against Cross-site Request Forgery (CSRF)

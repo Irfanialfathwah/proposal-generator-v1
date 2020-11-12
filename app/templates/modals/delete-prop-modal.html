@@ -1,6 +1,6 @@
 {% for data in proposals %}
-<div class="modal fade" id="modal-delete-prop{{data.id}}">
-    <div class="modal-dialog">
+<div class="modal fade" id="modal-delete-prop{{loop.index}}">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete Proposal</h4>

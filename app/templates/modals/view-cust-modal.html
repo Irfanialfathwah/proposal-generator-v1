@@ -1,6 +1,6 @@
 <!-- Modal View Customer -->
-{% for data in table_data %}
-<div class="modal fade" id="modal-view-cust{{data.id}}">
+{% for data in customers %}
+<div class="modal fade" id="modal-view-cust{{loop.index}}">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
