@@ -5,6 +5,18 @@
 <div class="content-wrapper">
   {{ super() }}<!-- Content Header from base.html -->
   <!-- Main content -->
+  {% with messages = get_flashed_messages(category_filter=['success'], with_categories=True) %}
+  {% if messages %}
+  {% for category,message in messages %}
+      <div class="alert alert-{{category}}" role="alert">
+        <strong class='h4'>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
   <section class="content">
     <div class="container-fluid">
       <div class="card card-primary card-outline">
@@ -33,7 +45,7 @@
             <tbody>
             {% for proposal in proposals %}
             <tr>
-              <td>#</td>
+              <td>{{ loop.index }}</td>
               <td>{{proposal.id}}</td>
               <td>{{proposal.location}}</td>
               <td>{{proposal.customer.name}}</td>
@@ -57,7 +69,7 @@
                     </i>
                     Edit
                 </a> -->
-                <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#modal-delete-prop{{proposal.id}}">
+                <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#modal-delete-prop{{loop.index}}">
                     <i class="fas fa-trash">
                     </i>
                     Delete
@@ -66,18 +78,6 @@
             </tr>
             {% endfor %}
             </tbody>
-            <tfoot>
-            <tr>
-                <th style="width: 1%">#</th>
-                <th>Id</th>
-                <th>Name of Location</th>
-                <th>Customer</th>
-                <th>Number of Roof</th>
-                <th>GeoCoordinates</th>
-                <th>Data Status</th>
-                <th style="width: 25%">Action</th>
-            </tr>
-            </tfoot>
           </table>
         </div><!-- /.card-body -->
       </div><!-- /.card -->

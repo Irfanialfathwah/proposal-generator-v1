@@ -64,8 +64,10 @@ def customers():
         else:
             flash(f'Error {is_valid}', category='danger')
     table_data = Customer.query.order_by(Customer.id).all()
+    list_prop_comp = [len([d for d in data.proposals if d.status == 'Completed']) for data in table_data]
     context = {
-        'table_data': table_data
+        'table_data': zip(table_data, list_prop_comp),
+        'customers': table_data
     }
     return render_template("customers.html", **context)
 
@@ -101,7 +103,6 @@ def proposals():
 @login_required
 def addproposal():
     if request.method == 'POST':
-        print(request.files)
         is_valid = validate_proposal_form(request.form)
         if 'errors' not in is_valid:
             timestamp = datetime.now().replace(microsecond=0)
@@ -117,15 +118,29 @@ def addproposal():
             db.session.add(proposal)
             db.session.commit()
             flash('successfully added', 'success')
-            redirect('/proposals')
+            return redirect('/proposals')
     customers = Customer.query.order_by(Customer.id).all()
     return render_template("add-proposal.html", customers=customers)
 
 
-@app.route('/proposal-details/<int:id>')
+@app.route('/proposal-details/<int:id>', methods=('POST',))
 @login_required
 def proposaldetails(id):
     proposal = Proposal.query.filter_by(id=id).first()
+    if request.method == 'POST':
+        is_valid = validate_proposal_form(request.form)
+        if 'errors' not in is_valid:
+            if 'skecthup_model' in request.files:
+                file = request.files['skecthup_model']
+                if file and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    file_path = app.config.get('UPLOAD_FOLDER') / filename
+                    file.save(file_path)
+                    is_valid.update({'skecthup_model' : file_path})
+            proposal.update(**is_valid)
+            db.session.commit()
+            flash('successfully updated', 'success')
+            return redirect('/proposals-details')
     return render_template("proposal-details.html", proposal=proposal)
 
 @app.route('/proposals/delete', methods=('POST',))

@@ -1,5 +1,5 @@
-{% for data in table_data %}
-<div class="modal fade" id="modal-delete-cust{{data.id}}">
+{% for data in customers %}
+<div class="modal fade" id="modal-delete-cust{{loop.index}}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">

@@ -9,10 +9,22 @@
     {{ super() }}<!-- Content Header from base.html -->
     <!-- Main content -->
     <section class="content">
+        {% with messages = get_flashed_messages(category_filter=['success'], with_categories=True) %}
+        {% if messages %}
+        {% for category,message in messages %}
+            <div class="alert alert-{{category}}" role="alert">
+                <strong class='h4'>{{ message }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
         <div class="container-fluid">
         <div class="card card-primary card-outline">
             <div class="card-header d-flex p-0">
-            <h3 class="card-title p-3">Bandung - id_proposal</h3>
+            <h3 class="card-title p-3">Bandung - ID {{ proposal.id }}</h3>
             <ul class="nav nav-pills ml-auto p-2">
                 <li class="nav-item"><a class="nav-link active" href="#general" data-toggle="tab">General Details</a></li>
                 <li class="nav-item"><a class="nav-link" href="#order" data-toggle="tab">Order Details</a></li>
@@ -36,8 +48,8 @@
                         <strong><i class="fas fa-image mr-1"></i>SketchUp Model</strong>
                         <div class="row">
                             <div class="col-sm-2">
-                                <a href="../static/media/eMLLIOqz_1.png" data-toggle="lightbox" data-title="SketchUp Model" data-gallery="gallery">
-                                <img src="../static/media/eMLLIOqz_1.png" class="img-fluid mb-2" alt="sketchup model"/>
+                                <a href="{{ proposal.sketchup_model }}" data-toggle="lightbox" data-title="SketchUp Model" data-gallery="gallery">
+                                <img src="{{ proposal.sketchup_model }}" class="img-fluid mb-2" alt="sketchup model"/>
                                 </a>
                             </div>
                         </div>
