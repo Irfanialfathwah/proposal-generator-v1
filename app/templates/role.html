@@ -1,0 +1,71 @@
+{% extends "main-layout/base.html" %}
+{% block title %}Manage Roles{% endblock %}
+{% block body %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  {{ super() }}<!-- Content Header from base.html -->
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="card card-primary card-outline">
+        <div class="card-header">
+          <h3 class="card-title">Roles</h3>
+          <div class="card-tools dropdown">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-role">
+              Add Role
+            </button>
+          </div><!-- /.card-tools-button -->
+        </div> <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th style="width: 1%">#</th>
+              <th>Id</th>
+              <th>Role Name</th>
+              <th>Status</th>
+              <th style="width: 25%">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>#</td>
+              <td>001</td>
+              <td>Administrator</td>
+              <td class="project-state text-center">
+                <span class="badge badge-success badge-xs" href="#"><b> Active</b></span>  
+              </td>
+              <td class="project-actions text-center">
+                <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-edit-role">
+                    <i class="fas fa-pencil-alt">
+                    </i>
+                    Edit
+                </a>
+                <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete-role">
+                    <i class="fas fa-trash">
+                    </i>
+                    Delete
+                </a>
+              </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th style="width: 1%">#</th>
+                <th>Id</th>
+                <th>Role Name</th>
+                <th>Status</th>
+                <th style="width: 25%">Action</th>
+            </tr>
+            </tfoot>
+          </table>
+        </div><!-- /.card-body -->
+      </div><!-- /.card -->
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+  {% include 'modals/add-role-modal.html' %}
+  {% include 'modals/edit-role-modal.html' %}
+  {% include 'modals/delete-role-modal.html' %}
+</div>
+{% endblock %}

@@ -9,7 +9,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="../static/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="../static/dist/img/astronaut.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block">Administrator</a>
@@ -121,6 +121,37 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+                {% endif %}
+                <li class="nav-header">User Management</li>
+                {% if request.path == '/user' %}
+                <li class="nav-item menu-open">
+                    <a href="/user" class="nav-link active">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Users</p>
+                    </a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="/user" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Users</p>
+                    </a>
+                </li>
+                {% endif %}
+                {% if request.path == '/role' %}
+                <li class="nav-item menu-open">
+                    <a href="/role" class="nav-link active">
+                        <i class="nav-icon fas fa-user-lock"></i>
+                        <p>Manage Roles</p>
+                    </a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="/role" class="nav-link">
+                        <i class="nav-icon fas fa-user-lock"></i>
+                        <p>Manage Roles</p>
+                    </a>
                 </li>
                 {% endif %}
             </ul>
