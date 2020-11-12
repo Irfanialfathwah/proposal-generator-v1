@@ -126,10 +126,11 @@ def addproposal():
     return render_template("add-proposal.html", customers=customers)
 
 
-@app.route('/proposal-details/<int:id>', methods=('POST',))
+@app.route('/proposal-details/<int:id>', methods=('POST','GET'))
 @login_required
 def proposaldetails(id):
     proposal = Proposal.query.filter_by(id=id).first()
+    customers = Customer.query.order_by(Customer.id).all()
     if request.method == 'POST':
         is_valid = validate_proposal_form(request.form)
         if 'errors' not in is_valid:
@@ -143,8 +144,8 @@ def proposaldetails(id):
             proposal.update(**is_valid)
             db.session.commit()
             flash('successfully updated', 'success')
-            return redirect('/proposals-details')
-    return render_template("proposal-details.html", proposal=proposal)
+            return redirect(f'/proposals-details/{id}')
+    return render_template("proposal-details.html", proposal=proposal, customers=customers)
 
 
 @app.route('/proposals/delete', methods=('POST',))
