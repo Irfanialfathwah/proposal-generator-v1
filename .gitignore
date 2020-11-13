@@ -3,3 +3,5 @@ venv
 Pipfile.lock
 .vscode
 .env
+*.xlsx
+*.pdf

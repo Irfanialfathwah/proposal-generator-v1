@@ -98,7 +98,7 @@ class Roof(db.Model):
     gsa_report_file = db.Column(db.String(50), nullable=True)
     azimuth = db.Column(db.Integer, nullable=False)
     angle = db.Column(db.Integer, nullable=False)
-    solar_data = db.relationship("SolarYearData", backref='roof', cascade="all,delete")
+    solar_data = db.relationship("SolarMonthData", backref='roof', cascade="all,delete")
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
 
@@ -116,29 +116,19 @@ class Roof(db.Model):
         self.azimuth = azimuth
         self.angle = angle
 
-class SolarYearData(db.Model):
-    __tablename__ = "solaryeardatas"
-
-    id = db.Column(db.Integer, primary_key = True)
-    roof_id = db.Column(db.Integer, db.ForeignKey('roofs.id'))
-    monthly = db.relationship('SolarMonthData', backref="year", cascade="all,delete")
-    energy = db.Column(db.Integer, nullable=True)
-
-    def __repr__(self):
-        return f'<SolarYearData {self.energy}>'
 
 class SolarMonthData(db.Model):
     __tablename__ = "solarmonthdatas"
 
     id = db.Column(db.Integer, primary_key = True)
-    year_id = db.Column(db.Integer, db.ForeignKey('solaryeardatas.id'))
+    roof_id = db.Column(db.Integer, db.ForeignKey('roofs.id'))
     month = db.Column(db.String(15))
     energy_perday = db.Column(db.Integer, nullable=True)
     energy = db.Column(db.Integer)
     hourly = db.relationship('SolarHourData', backref="month", cascade="all,delete")
 
     def __repr__(self):
-        return f'<SolarMonthData {self.energy}>'
+        return f'<SolarMonthData {self.month}>'
 
 class SolarHourData(db.Model):
     __tablename__ = "solarhourdatas"
