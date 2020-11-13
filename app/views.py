@@ -7,7 +7,7 @@ from db import db
 from app.models import Customer, Proposal, Roof
 from app.form_validations import validate_customer_form, validate_proposal_form
 from werkzeug.utils import secure_filename
-from app.functions import allowed_file
+from app.functions import allowed_file, add_gsa_report_to_db
 # Adding encription key with Secret Key Variable for User Authentication
 
 
@@ -172,6 +172,17 @@ def add_order(id):
     roofs = []
     timestamp = datetime.now().replace(microsecond=0)
     proposal = Proposal.query.filter_by(id=id).first()
+    if request.files:
+        filepaths = []
+        print(request.files)
+        for index,gsa_report in enumerate(request.files):
+            file = request.files[f'gsa_report_file{index+1}']
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file_path = app.config.get('UPLOAD_FILES_FOLDER') / filename
+                file.save(file_path)
+                filepaths.append(file_path)
+                s_data = add_gsa_report_to_db(filepaths)
     for nums in range(1,proposal.num_of_roofs+1):
         data['pv_panel'] = request.form.get(f"pv_panel{nums}")
         data['pv_panel_qty'] = request.form.get(f"pv_panel_qty{nums}")
@@ -181,6 +192,7 @@ def add_order(id):
         data['azimuth'] = request.form.get(f"azimuth{nums}")
         data['angle'] = request.form.get(f"angle{nums}")
         roof = Roof(**data, created_at=timestamp, updated_at=timestamp)
+        roof.solar_data.extend(s_data[nums-1])
         roofs.append(roof)
     proposal.roofs.extend(roofs)
     db.session.add(proposal)

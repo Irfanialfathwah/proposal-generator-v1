@@ -7,7 +7,8 @@ from config import (
         SECRET_KEY,
         DEBUG,
         CSRF_ENABLED,
-        UPLOAD_IMAGES_FOLDER
+        UPLOAD_IMAGES_FOLDER,
+        UPLOAD_FILES_FOLDER,
     )
 
 app.secret_key = SECRET_KEY
@@ -16,6 +17,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = DATABASE.get("SQLALCHEMY_TRACK_MO
 app.config["DEBUG"] = DEBUG
 app.config["CSRF_ENABLED"] = CSRF_ENABLED
 app.config["UPLOAD_IMAGES_FOLDER"] = UPLOAD_IMAGES_FOLDER
+app.config["UPLOAD_FILES_FOLDER"] = UPLOAD_FILES_FOLDER
 # Load the views
 import db
 from app import views, models
