@@ -201,6 +201,7 @@ def add_order(id):
     flash('successfully add roofs', category='success')
     return redirect(f'/proposal-details/{id}')
 
+
 @app.route('/proposal-details/<int:id>/update', methods=("POST",))
 @login_required
 def update_order(id):
@@ -221,6 +222,7 @@ def update_order(id):
     flash('successfully update roofs', category='success')
     return redirect(f'/proposal-details/{id}')
 
+
 @app.route('/user')
 @login_required
 def user():
@@ -231,3 +233,9 @@ def user():
 @login_required
 def register():
     return render_template("role.html")
+
+
+@app.route('/proposal-report')
+@login_required
+def proposal_report():
+    return render_template("proposal-report.html")
