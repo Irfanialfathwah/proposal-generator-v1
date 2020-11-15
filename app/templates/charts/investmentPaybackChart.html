@@ -6,8 +6,24 @@
             labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
             datasets: [{
                 data: {{proposal.investment_payback_data[0]}},
-                backgroundColor: 'rgba(0, 255, 0, 1)',
-                borderColor: 'rgba(0, 255, 0, 1)',
+                backgroundColor: [
+                    {% for data in proposal.investment_payback_data[0] %}
+                        {% if data < 0 %}
+                        'rgba(255, 0, 0, 1)' {% if loop.index < proposal.investment_payback_data[0]|length %},{% endif %}
+                        {% else %}
+                        'rgba(0, 255, 0, 1)' {% if loop.index < proposal.investment_payback_data[0]|length %},{% endif %}
+                        {% endif %}
+                    {% endfor%}
+                    ],
+                borderColor: [
+                    {% for data in proposal.investment_payback_data[0] %}
+                        {% if data < 0 %}
+                        'rgba(255, 0, 0, 1)' {% if loop.index < proposal.investment_payback_data[0]|length %},{% endif %}
+                        {% else %}
+                        'rgba(0, 255, 0, 1)' {% if loop.index < proposal.investment_payback_data[0]|length %},{% endif %}
+                        {% endif %}
+                    {% endfor%}
+                ],
                 borderWidth: 1
             }]
         },

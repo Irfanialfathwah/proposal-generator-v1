@@ -180,7 +180,6 @@ def add_order(id):
     proposal = Proposal.query.filter_by(id=id).first()
     if request.files:
         filepaths = []
-        print(request.files)
         for index,gsa_report in enumerate(request.files):
             file = request.files[f'gsa_report_file{index+1}']
             if file and allowed_file(file.filename):
@@ -214,6 +213,16 @@ def update_order(id):
     data = {}
     roofs = []
     proposal = Proposal.query.filter_by(id=id).first()
+    if request.files:
+        filepaths = []
+        for index,gsa_report in enumerate(request.files):
+            file = request.files[f'gsa_report_file{index+1}']
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file_path = app.config.get('UPLOAD_FILES_FOLDER') / filename
+                file.save(file_path)
+                filepaths.append(file_path)
+                s_data = add_gsa_report_to_db(filepaths)
     for nums in range(1,proposal.num_of_roofs+1):
         data['pv_panel'] = request.form.get(f"pv_panel{nums}")
         data['pv_panel_qty'] = request.form.get(f"pv_panel_qty{nums}")
@@ -222,7 +231,7 @@ def update_order(id):
         data['add_construction_price'] = request.form.get(f"add_construction_price{nums}")
         data['azimuth'] = request.form.get(f"azimuth{nums}")
         data['angle'] = request.form.get(f"angle{nums}")
-        proposal.roofs[nums-1].update(**data)
+        proposal.roofs[nums-1].update(**data, gsa_report_file=s_data[nums-1])
     db.session.commit()
     flash('successfully update roofs', category='success')
     return redirect(f'/proposal-details/{id}')
