@@ -115,7 +115,6 @@ def addproposal():
             date_of_proposals = timestamp.replace(hour=0, minute=0, second=0)
             if 'sketchup_model' in request.files:
                 file = request.files['sketchup_model']
-                print(file)
                 if file and allowed_file(file.filename):
                     filename = secure_filename(file.filename)
                     file_path = app.config.get('UPLOAD_IMAGES_FOLDER') / filename
