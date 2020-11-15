@@ -77,7 +77,7 @@ class Proposal(db.Model):
     def __repr__(self):
         return f'<Proposal {self.customer}'
 
-    def update(self, customer_id, num_of_roofs, location, geocoordinates, sketchup_model):
+    def update(self, customer_id, num_of_roofs, location, geocoordinates, sketchup_model=''):
         timestamp = datetime.now().replace(microsecond=0)
         self.customer_id = customer_id
         self.num_of_roofs = num_of_roofs
@@ -189,7 +189,7 @@ class Roof(db.Model):
     def __repr__(self):
         return f'<Roof {self.id}>'
 
-    def update(self, pv_panel, pv_panel_qty, pv_cable, add_construction_qty, add_construction_price, azimuth, angle, gsa_report_file):
+    def update(self, pv_panel, pv_panel_qty, pv_cable, add_construction_qty, add_construction_price, azimuth, angle, gsa_report_file=''):
         timestamp = datetime.now().replace(microsecond=0)
         self.updated_at = timestamp
         self.pv_panel = pv_panel
