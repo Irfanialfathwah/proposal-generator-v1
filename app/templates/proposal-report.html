@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <link rel="icon" type="image/png" href="../static/dist/img/SundayaLogo.png">
+        <!-- <img src="../static/dist/img/SundayaLogo.png" alt=""> -->
         <title>Proposal Report</title>
         {% include "main-layout/head.html" %}
         <!-- Google Font: Open Sans Pro -->
@@ -94,7 +95,7 @@
                             <div class="col-sm-12">
                                 <h1 style="font-family:Open Sans Extrabold; 
                                 font-size: 25pt; color:rgb(60, 60, 60); text-align:right;">
-                                Nama Customer
+                                {{ customer.name|capitalize}}
                                 </h1>
                             </div>
                         </div>
@@ -116,7 +117,7 @@
                             <h4>Client's Name</h4>
                           </div>
                           <div class="col-sm-6">
-                            <h4>: here's nama_customer</h4>
+                            <h4>: {{ customer.name|capitalize }}</h4>
                           </div>
                         </div>
                         <div class="row">
@@ -132,7 +133,7 @@
                             <h4>Address</h4>
                           </div>
                           <div class="col-sm-6">
-                            <h4>: here'saddress</h4>
+                            <h4>: {{ customer.address|capitalize }}</h4>
                           </div>
                         </div>
                         <div class="row">
@@ -140,7 +141,7 @@
                             <h4>GeoCoordinates</h4>
                           </div>
                           <div class="col-sm-6">
-                            <h4>: here's geocoordinates</h4>
+                            <h4>: {{ proposal.geocoordinates }}</h4>
                           </div>
                         </div>
                         <div class="row">
@@ -148,7 +149,7 @@
                             <h4>Date of Proposal</h4>
                           </div>
                           <div class="col-sm-6">
-                            <h4>: here's last update</h4>
+                            <h4>: {{ date_of_prop }}</h4>
                           </div>
                         </div>
                         <div class="row">
@@ -156,7 +157,7 @@
                             <h4>Sundaya Sales Contact</h4>
                           </div>
                           <div class="col-sm-6">
-                            <h4>: here's sales name and email</h4>
+                            <h4>: Irfany</h4>
                           </div>
                         </div>
                     </div>
@@ -227,7 +228,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <p style="text-align: justify;">Sundaya can support you with the transition to the clean energy age through our so called “3-step CSR-methodology” which stands for:</p>
-                                <h1 style="text-align: center; margin-bottom: 20px;"><b>C</b>ount  <b>>></b>  <b>S</b>ave  <b>>></b>  <b>R</b>eplace</h1>
+                                <h1 style="text-align: center; margin-bottom: 20px;"><b>C</b>ount  <b>-></b>  <b>S</b>ave  <b>-></b>  <b>R</b>eplace</h1>
                                 <p style="text-align: center; font-size: smaller;">Note: CSR also means “Corporate Social Responsibility” and we see the transition to the clean energy age as both a private and especially a Corporate Social Responsibility to make this transition.</p>
                             </div>
                         </div>
@@ -303,21 +304,9 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="gallery">
-                                    <img src="../static/dist/img/photo1.png" alt="Photo 1">
+                                    <img src="../{{ proposal.sketchup_model }}" alt="Photo 1">
                                 </div>
-                                <p style="text-align: center; font-size: smaller;">View 1</p>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="gallery">
-                                    <img src="../static/dist/img/photo1.png" alt="Photo 2">
-                                </div>
-                                <p style="text-align: center; font-size: smaller;">View 2</p>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="gallery">
-                                    <img src="../static/dist/img/photo1.png" alt="Photo 3">
-                                </div>
-                                <p style="text-align: center; font-size: smaller;">View 3</p>
+                                <p style="text-align: center; font-size: smaller;">Roof View</p>
                             </div>
                         </div>
                     </div>
@@ -334,7 +323,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-5">
                                 <div class="row">
                                     <table class="table table-sm table-bordered table-striped" style="font-size:9pt;">
                                         <thead>
@@ -350,7 +339,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Total Installed Capacity</th>
-                                                <td>Jumlah Semua Array Size dr roofs</td>
+                                                <td>{{ proposal.total_array_size }}</td>
                                                 <td>kWp</td>
                                             </tr>
                                         </tbody>
@@ -360,117 +349,34 @@
                                     <table class="table table-sm table-bordered table-striped" style="font-size: 9pt;">
                                         <thead>
                                             <tr>
-                                                <th rowspan="2">Month</th>
-                                                <th colspan="2">Energy Yield (kWh/mth)</th>
-                                                <th rowspan="2">Total Yearly Energy Yield</th>
-                                                <th rowspan="2">Value (k IDR)</th>
-                                            </tr>
-                                            <tr>
-                                                <th>Roof 1</th>
-                                                <th>Roof 2</th>
+                                                <th>Month</th>
+                                                <th>Energy Yield (kWh/mth)</th>
+                                                <th>Value (k IDR)</th>
                                             </tr>
                                         </thead>
                                         <tbody style="font-size: 8pt;">
+                                            {% for month, energy_yield, value in yearly_chart %}
                                             <tr>
-                                                <td>Jan</td>
-                                                <td>764</td>
-                                                <td>764</td>
-                                                <td>grafik</td>
-                                                <td></td>
+                                                <td>{{ month }}</td>
+                                                <td>{{ energy_yield }}</td>
+                                                <td>{{ value }}</td>
                                             </tr>
-                                            <tr>
-                                                <td>Jan</td>
-                                                <td>764</td>
-                                                <td>764</td>
-                                                <td>grafik</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jan</td>
-                                                <td>764</td>
-                                                <td>764</td>
-                                                <td>grafik</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jan</td>
-                                                <td>764</td>
-                                                <td>764</td>
-                                                <td>grafik</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jan</td>
-                                                <td>764</td>
-                                                <td>764</td>
-                                                <td>grafik</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jan</td>
-                                                <td>764</td>
-                                                <td>764</td>
-                                                <td>grafik</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jan</td>
-                                                <td>764</td>
-                                                <td>764</td>
-                                                <td>grafik</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jan</td>
-                                                <td>764</td>
-                                                <td>764</td>
-                                                <td>grafik</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jan</td>
-                                                <td>764</td>
-                                                <td>764</td>
-                                                <td>grafik</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jan</td>
-                                                <td>764</td>
-                                                <td>764</td>
-                                                <td>grafik</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jan</td>
-                                                <td>764</td>
-                                                <td>764</td>
-                                                <td>grafik</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jan</td>
-                                                <td>764</td>
-                                                <td>764</td>
-                                                <td>grafik</td>
-                                                <td></td>
-                                            </tr>
+                                            {% endfor %}
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <th>Yearly</th>
-                                                <th>total</th>
-                                                <th>total</th>
-                                                <th>total</th>
-                                                <th>total</th>
+                                                <th>{{ yearly_total[0] }}</th>
+                                                <th>{{ yearly_total[1] }}</th>
                                             </tr>
                                         </tfoot>
                                     </table>
                                 </div>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-7">
+                                <div class='alert-dark text-center'> Monthly Energy Yield Graph</div>
                                 <div class="chart">
-                                    <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                    <canvas id="yearlyChart" style="min-height: 250px; height: 465px; max-height: 465px; max-width: 100%;"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -490,7 +396,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="chart">
-                                    <p style="text-align: center;">Grafics</p>
+                                    <canvas id='dailyChart'></canvas>
                                 </div>
                             </div>
                         </div>
@@ -521,85 +427,31 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% for roof in proposal.roofs %}
                                         <tr>
-                                            <td>1</td>
-                                            <td>PV System Roof 1</td>
-                                            <td>7,04</td>
+                                            <td>{{ loop.index }}</td>
+                                            <td>PV System Roof {{ loop.index }}</td>
+                                            <td style="text-align: center;">{{roof.array_size|replace('.',',')}}</td>
                                             <td>kWp</td>
-                                            <td>harga unit</td>
-                                            <td>harga total</td>
+                                            <td style="text-align: right;">{{"{:,.0f}".format(roof.price_perunit)|replace(',','.') }}</td>
+                                            <td style="text-align: right;">{{"{:,.0f}".format(roof.total_amount)|replace(',','.') }}</td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>PV System Roof 2</td>
-                                            <td>7,92</td>
-                                            <td>kWp</td>
-                                            <td>harga unit</td>
-                                            <td>harga total</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Inverter STG3</td>
-                                            <td>0</td>
-                                            <td></td>
-                                            <td>4500000</td>
-                                            <td>harga total</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Inverter STG6</td>
-                                            <td>5</td>
-                                            <td></td>
-                                            <td>8000000</td>
-                                            <td>harga total</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Inverter STG20</td>
-                                            <td>0</td>
-                                            <td></td>
-                                            <td>18000000</td>
-                                            <td>harga total</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>Energy Accounting System</td>
-                                            <td>1</td>
-                                            <td>set</td>
-                                            <td>5000000</td>
-                                            <td>harga total</td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td>Transport</td>
-                                            <td>1</td>
-                                            <td></td>
-                                            <td>500000</td>
-                                            <td>harga total</td>
-                                        </tr>
-                                        <tr>
-                                            <td>8</td>
-                                            <td>Installation</td>
-                                            <td>1</td>
-                                            <td></td>
-                                            <td>3000000</td>
-                                            <td>harga total</td>
-                                        </tr>
+                                        {% endfor %}
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td>9</td>
+                                            <td></td>
                                             <th colspan="4" style="text-align: center;">Total</th>
-                                            <td>Harga Total</td>
+                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.amount_before_tax)|replace(',','.') }}</td>
                                         </tr>
                                         <tr>
-                                            <td>10</td>
+                                            <td></td>
                                             <td colspan="4">VAT 10%</td>
-                                            <td>harga vat 10%</td>
+                                            <td style="text-align: right;">{{"{:,.0f}".format(proposal.amount_tax)|replace(',','.') }}</td>
                                         </tr>
                                         <tr>
                                             <th colspan="5" style="text-align: right;">Total Including VAT</th>
-                                            <th>Harga Total</th>
+                                            <th style="text-align: right;">{{"{:,.0f}".format(proposal.amount_after_tax)|replace(',','.') }}</th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -643,213 +495,23 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {% for total_yield, pln_price, harvest_value, investment_value, pv_perf in proposal.investment_payback_data[1] %}
                                             <tr>
-                                                <td>1</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
+                                                <td>{{loop.index}}</td>
+                                                <td>{{total_yield}}</td>
+                                                <td>{{pln_price}}</td>
+                                                <td>{{harvest_value}}</td>
+                                                <td>{{investment_value}}</td>
+                                                <td>{{pv_perf}}</td>
                                             </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>...</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
-                                            <tr>
-                                                <td>25</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                                <td>value</td>
-                                            </tr>
+                                            {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                             <div class="col-sm-8">
                                 <div class="chart">
-                                    <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                    <canvas id="investmentPaybackChart" style="min-height: 465px; height: 465px; max-height: 465px; max-width: 100%;"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -868,7 +530,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <p style="text-align: center;">Please contact "email sales" for more details about our offering</p>
+                                <p style="text-align: center;">Please contact sales@sundaya.com for more details about our offering</p>
                             </div>
                         </div>
                     </div>
@@ -878,7 +540,10 @@
         <!-- /.content-header -->
         </div> <!-- /container -->
         {% include "main-layout/scripts.html" %}
+        {% include 'charts/yearlyChart.html' %}
+        {% include 'charts/dailyChart.html' %}
+        {% include 'charts/investmentPaybackChart.html' %}
     </body>
 </html>
 <!-- Page specific script -->
-<script type="text/javascript">window.print();</script>
+<script type="text/javascript">setTimeout(function(){ window.print(); }, 2000);</script>

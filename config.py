@@ -10,7 +10,7 @@ DEBUG = True
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-UPLOAD_IMAGES_FOLDER = Path('.') / 'app' / 'static' / 'media' / 'sketchup-model'
+UPLOAD_IMAGES_FOLDER = Path('.') / 'app' / 'static' / 'images' / 'sketchup-model'
 UPLOAD_FILES_FOLDER = Path('.') / 'app' / 'files'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'xlsx', 'xls'}
 

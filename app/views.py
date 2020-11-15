@@ -1,5 +1,8 @@
+import numpy as np
 from pathlib import Path
-from flask import render_template, redirect, url_for, request, session, flash
+import pdfkit
+import os
+from flask import render_template, redirect, url_for, request, session, flash, Response
 from functools import wraps
 from datetime import datetime
 from app import app
@@ -110,13 +113,14 @@ def addproposal():
         if 'errors' not in is_valid:
             timestamp = datetime.now().replace(microsecond=0)
             date_of_proposals = timestamp.replace(hour=0, minute=0, second=0)
-            if 'skecthup_model' in request.files:
-                file = request.files['skecthup_model']
+            if 'sketchup_model' in request.files:
+                file = request.files['sketchup_model']
+                print(file)
                 if file and allowed_file(file.filename):
                     filename = secure_filename(file.filename)
                     file_path = app.config.get('UPLOAD_IMAGES_FOLDER') / filename
                     file.save(file_path)
-                    is_valid.update({'skecthup_model' : file_path})
+                    is_valid.update({'sketchup_model' : file_path.relative_to(Path('app')).__str__()})
             proposal = Proposal(**is_valid, date_of_proposals=date_of_proposals, created_at=timestamp, updated_at=timestamp, status='Pending')
             db.session.add(proposal)
             db.session.commit()
@@ -130,17 +134,19 @@ def addproposal():
 @login_required
 def proposaldetails(id):
     proposal = Proposal.query.filter_by(id=id).first()
+    if proposal is None:
+        return redirect('/proposals')
     customers = Customer.query.order_by(Customer.id).all()
     if request.method == 'POST':
         is_valid = validate_proposal_form(request.form)
         if 'errors' not in is_valid:
-            if 'skecthup_model' in request.files:
-                file = request.files['skecthup_model']
+            if 'sketchup_model' in request.files:
+                file = request.files['sketchup_model']
                 if file and allowed_file(file.filename):
                     filename = secure_filename(file.filename)
                     file_path = app.config.get('UPLOAD_IMAGES_FOLDER') / filename
                     file.save(file_path)
-                    is_valid.update({'skecthup_model' : file_path})
+                    is_valid.update({'sketchup_model' : file_path.relative_to(Path('app')).__str__()})
             proposal.update(**is_valid)
             db.session.commit()
             flash('successfully updated', 'success')
@@ -205,7 +211,6 @@ def add_order(id):
 @app.route('/proposal-details/<int:id>/update', methods=("POST",))
 @login_required
 def update_order(id):
-    # print(request.files)
     data = {}
     roofs = []
     proposal = Proposal.query.filter_by(id=id).first()
@@ -235,7 +240,30 @@ def register():
     return render_template("role.html")
 
 
-@app.route('/proposal-report')
+@app.route('/proposal-report/<int:id>')
 @login_required
-def proposal_report():
-    return render_template("proposal-report.html")
+def proposal_report(id):
+    proposal = Proposal.query.filter_by(id=id).first()
+    if proposal is None:
+        return redirect('/proposals')
+    if proposal.roofs:
+        proposal.status = 'Completed'
+        db.session.commit()
+    else:
+        return redirect(f'/proposal-details/{id}')
+    proposal.calculate_monthly_data()
+    yield_roof_total = proposal.yield_roof_total
+    calendar = ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Nov', 'Dec']
+    value_to_kwh = [int((data*1550)/1000) for data in yield_roof_total]
+    avg_energy_perhour = (np.array([data for data in list(map(sum, zip(*proposal.total_energy_perhour)))]) / proposal.num_of_roofs).tolist()
+    total_energy_perhour = [e.tolist() for e in proposal.total_energy_perhour]
+    context = {
+        'customer' : proposal.customer,
+        'proposal' : proposal,
+        'date_of_prop' : proposal.date_of_proposals.strftime('%B %dth %Y'),
+        'yearly_chart' : zip(calendar,yield_roof_total, value_to_kwh),
+        'yearly_total' : [sum(yield_roof_total), sum(value_to_kwh)],
+        'daily_chart' : total_energy_perhour,
+        'avg_daily' : avg_energy_perhour,
+    }
+    return render_template('proposal-report.html', **context)
