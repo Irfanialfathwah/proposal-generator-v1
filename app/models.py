@@ -1,6 +1,7 @@
 from db import db
 from datetime import datetime
 from app import app
+import numpy as np
 
 class User(db.Model):
     __tablename__ = "users"
@@ -84,6 +85,88 @@ class Proposal(db.Model):
         self.geocoordinates = geocoordinates
         self.updated_at = timestamp
 
+    def calculate_monthly_data(self):
+        day_total = []
+        yield_roof = []
+        total_array_size = 0
+        roof_data = []
+        for roof in self.roofs:
+            daily_sum = []
+            yield_month = []
+            daily_energy = []
+            for index,solar_data in enumerate(roof.solar_data):
+                total = 0
+                total_with_array = 0
+                for count,data in enumerate(solar_data.hourly):
+                    total += data.energy
+                daily_sum.append(total)
+                daily_energy.append(total_with_array)
+                yield_month.append(round(((total * roof.days_in_month[index])/1000) * roof.array_size,2))
+            day_total.append(daily_sum)
+            yield_roof.append(yield_month)
+            total_array_size += roof.array_size
+        # self.total_energy_perhour= [int(data) for data in list(map(sum, zip(*roof_data)))]
+        self.day_total = day_total
+        self.yield_roof = yield_roof
+        self.yield_roof_total = [int(data) for data in list(map(sum, zip(*yield_roof)))]
+        self.total_array_size = total_array_size
+
+    @property
+    def investment_payback_data(self):
+        pv_system_investment = self.amount_after_tax / 1000000
+        pln_price = 1550
+        pln_price_incr = 5/100
+        total_yield = self.total_yield
+        pv_perf_decr = 0.8
+        pv_perf = 100
+        delta_harvest_new = 0-total_yield
+
+        pv_investment_return = []
+        list_yield_total = []
+        list_pln_price = []
+        list_harvest_value = []
+        list_pv_perf = []
+
+        for _ in range(25):
+            list_yield_total.append(total_yield)
+            list_pln_price.append(pln_price)
+            harvest_value = round((total_yield * pln_price) / 1000,2)
+            list_harvest_value.append(harvest_value)
+            delta_harvest = delta_harvest_new + harvest_value
+            delta_harvest_new = round(delta_harvest,2)
+            pln_price = round((pln_price * pln_price_incr) + pln_price,2)
+            pv_perf = round(pv_perf - pv_perf_decr,2)
+            list_pv_perf.append(pv_perf)
+            total_yield = round(total_yield * pv_perf/100,2)
+            pv_investment_return.append(delta_harvest_new)
+
+        return pv_investment_return, zip(list_yield_total, list_pln_price, list_harvest_value, pv_investment_return, list_pv_perf)
+
+
+    @property
+    def total_yield(self):
+        return sum(self.yield_roof_total)/1000
+
+    @property
+    def total_energy_perhour(self):
+        roof_data = [roof.energy_total_perhour for roof in self.roofs]
+        return [data for data in list(map(sum, zip(*roof_data)))]
+
+    @property
+    def amount_before_tax(self):
+        amount = 0
+        for roof in self.roofs:
+            amount += roof.total_amount
+        return int(amount)
+
+    @property
+    def amount_tax(self):
+        return int(self.amount_before_tax * 10/100)
+
+    @property
+    def amount_after_tax(self):
+        return int(self.amount_before_tax + self.amount_tax)
+
 class Roof(db.Model):
     __tablename__ = "roofs"
 
@@ -116,6 +199,41 @@ class Roof(db.Model):
         self.azimuth = azimuth
         self.angle = angle
 
+    @property
+    def array_size(self):
+        return self.pv_panel / self.pv_panel_qty
+
+    @property
+    def pv_panel_amount(self):
+        return self.array_size * 9000000
+
+    @property
+    def add_construction_amount(self):
+        return self.add_construction_qty * self.add_construction_price
+
+    @property
+    def pv_cable_amount(self):
+        return self.pv_cable * 10000
+
+    @property
+    def total_amount(self):
+        return int(self.pv_panel_amount + self.add_construction_amount + self.pv_cable_amount)
+
+    @property
+    def price_perunit(self):
+        return int(self.total_amount/self.array_size)
+
+    @property
+    def days_in_month(self):
+        return [31,29,31,30,31,30,31,31,30,31,30,31]
+
+    @property
+    def energy_total_perhour(self):
+        hour_data = [np.array([0 for _ in range(24)]) for _i in range(12)]
+        for index,month in enumerate(self.solar_data):
+            for count,hour in enumerate(month.hourly):
+                hour_data[index][count] += hour.energy
+        return hour_data
 
 class SolarMonthData(db.Model):
     __tablename__ = "solarmonthdatas"

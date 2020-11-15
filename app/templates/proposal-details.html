@@ -48,8 +48,8 @@
                         <strong><i class="fas fa-image mr-1"></i>SketchUp Model</strong>
                         <div class="row">
                             <div class="col-sm-2">
-                                <a href="{{ proposal.sketchup_model }}" data-toggle="lightbox" data-title="SketchUp Model" data-gallery="gallery">
-                                <img src="{{ proposal.sketchup_model }}" class="img-fluid mb-2" alt="sketchup model"/>
+                                <a href="../{{ proposal.sketchup_model }}" data-toggle="lightbox" data-title="SketchUp Model" data-gallery="gallery">
+                                <img src="../{{ proposal.sketchup_model }}" class="img-fluid mb-2" alt="sketchup model"/>
                                 </a>
                             </div>
                         </div>
@@ -114,10 +114,10 @@
                         <div>
                             {% if proposal.roofs %}
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-od-pro">Edit Details</button>
-                                <button type="submit" class="btn btn-success" onclick="window.location.href='#'">Generate Proposal</button>
+                                <a type="submit" class="btn btn-success" href="/proposal-report/{{proposal.id}}">Generate Proposal</a>
                             {% else %}
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-od-pro">Add Roofs Data</button>
-                                <button type="submit" class="btn btn-success disabled" onclick="window.location.href='#'">Generate Proposal</button>
+                                <a type="submit" class="btn btn-success disabled">Generate Proposal</a>
                             {% endif %}
                         </div>
                     </div>
