@@ -67,7 +67,7 @@ class Proposal(db.Model):
     num_of_roofs = db.Column(db.Integer, nullable=False)
     location = db.Column(db.String(50), nullable=False)
     geocoordinates = db.Column(db.String(80), nullable=False)
-    sketchup_model = db.Column(db.String(60), nullable=True)
+    sketchup_model = db.Column(db.String(100), nullable=True)
     pv_system_model = db.Column(db.String(30), nullable=True)
     status = db.Column(db.String(20), nullable=False)
     roofs = db.relationship("Roof", backref="proposal", cascade="all,delete")
@@ -77,12 +77,13 @@ class Proposal(db.Model):
     def __repr__(self):
         return f'<Proposal {self.customer}'
 
-    def update(self, customer_id, num_of_roofs, location, geocoordinates):
+    def update(self, customer_id, num_of_roofs, location, geocoordinates, sketchup_model):
         timestamp = datetime.now().replace(microsecond=0)
         self.customer_id = customer_id
         self.num_of_roofs = num_of_roofs
         self.location = location
         self.geocoordinates = geocoordinates
+        self.sketchup_model = sketchup_model
         self.updated_at = timestamp
 
     def calculate_monthly_data(self):
@@ -188,7 +189,7 @@ class Roof(db.Model):
     def __repr__(self):
         return f'<Roof {self.id}>'
 
-    def update(self, pv_panel, pv_panel_qty, pv_cable, add_construction_qty, add_construction_price, azimuth, angle):
+    def update(self, pv_panel, pv_panel_qty, pv_cable, add_construction_qty, add_construction_price, azimuth, angle, gsa_report_file):
         timestamp = datetime.now().replace(microsecond=0)
         self.updated_at = timestamp
         self.pv_panel = pv_panel
@@ -198,6 +199,7 @@ class Roof(db.Model):
         self.add_construction_price = add_construction_price
         self.azimuth = azimuth
         self.angle = angle
+        self.gsa_report_file = gsa_report_file
 
     @property
     def array_size(self):
