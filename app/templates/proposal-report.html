@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="icon" type="image/png" href="../static/dist/img/SundayaLogo.png">
+        <title>Proposal Report</title>
+        {% include "main-layout/head.html" %}
+        <!-- Google Font: Open Sans Pro -->
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    </head>
+    <style type="text/css">
+        body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font: 12pt "Open Sans";
+        }
+        .page {
+        width: 254mm;
+        min-height: 195mm;
+        padding: 0mm;
+        margin: 0mm auto;
+        border: 1px #D3D3D3 solid;
+        border-radius: 0px;
+        /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); */
+        }
+        .subpage-cover{
+            padding: 0.2cm;
+            height: 170mm;
+            background: url(../static/dist/img/cover-proposal.png) no-repeat center center;
+            background-size: contain;
+        }
+        .subpage {
+            padding: 0.2cm;
+            height: 170mm;
+            background: url(../static/dist/img/template.png) no-repeat center center;
+            background-size: contain;
+        }
+        .grid-container {
+        display: grid;
+        height: 165mm;
+        align-content: center;
+        grid-template-columns: auto;
+        grid-gap: 0px;
+        padding-right: 37px;
+        }
+        .gallery {
+        margin: 5px;
+        border: 1px solid #ccc;
+        float: left;
+        width: 250px;
+        }
+        .gallery img {
+        width: 100%;
+        height: auto;
+        }
+        @page {
+        size: 25.4cm 19.5cm;
+        margin: 10mm 0mm 10mm 0mm;
+        }
+        @media print {
+            html, body {
+                width: 254mm;
+                height: 195mm;        
+            }
+            .page {
+                margin: 0;
+                border: initial;
+                border-radius: initial;
+                width: initial;
+                min-height: initial;
+                box-shadow: initial;
+                background: initial;
+                background-size: initial;
+                page-break-after: always;
+            }
+        }
+    </style>
+    <body class="layout-fixed">
+        <div class="wrapper">
+            <!-- Cover Page -->
+            <div class="page">
+                <div class="subpage-cover">
+                    <div class="grid-container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h1 style="font-family:Open Sans Extrabold; 
+                                font-size: 60pt; color:rgb(60, 60, 60); text-align:right;">
+                                    PROPOSAL
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h1 style="font-family:Open Sans Extrabold; 
+                                font-size: 25pt; color:rgb(60, 60, 60); text-align:right;">
+                                Nama Customer
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div> 
+            <!-- end of cover page -->
+            <!-- Page One: Project Details -->
+            <div class="page">
+                <div class="subpage">
+                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
+                        <div class="row">
+                          <div class="col-sm-12" style="margin-bottom: 15px;">
+                            <h2><b>Project Details</b></h2>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <h4>Client's Name</h4>
+                          </div>
+                          <div class="col-sm-6">
+                            <h4>: here's nama_customer</h4>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <h4>Type of Project</h4>
+                          </div>
+                          <div class="col-sm-6">
+                            <h4>: Medium Residental</h4>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <h4>Address</h4>
+                          </div>
+                          <div class="col-sm-6">
+                            <h4>: here'saddress</h4>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <h4>GeoCoordinates</h4>
+                          </div>
+                          <div class="col-sm-6">
+                            <h4>: here's geocoordinates</h4>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <h4>Date of Proposal</h4>
+                          </div>
+                          <div class="col-sm-6">
+                            <h4>: here's last update</h4>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <h4>Sundaya Sales Contact</h4>
+                          </div>
+                          <div class="col-sm-6">
+                            <h4>: here's sales name and email</h4>
+                          </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+            <!-- end of page one -->
+            <!-- Page Two: Sundaya Company Profile -->
+            <div class="page">
+                <div class="subpage">
+                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-bottom: 15px;">
+                                <h2><b>Sundaya Company Profile</b></h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p style="text-align: justify;">Sundaya’s is a company with 30 years’ experience in off-grid PV solar energy systems with core activity in design, manufacturing, installation, monitoring and servicing of it’s systems.</p>
+                                <p style="text-align: justify;">Off-grid energy systems need to be extremely energy efficient in order to be cost effective and also extremely reliable because systems  are typically installed in extremely remote areas where cost of service is very high.</p>
+                                <p style="text-align: justify;">Sundaya’s 30 year focus and success in the on off-grid PV market has resulted in a deep understanding on the issues of harvest, storage and enjoyment of energy and this understanding we have now transformed into a new service for the on-grid PV market. Now we can support all types of energy users to transform them to the “clean energy age”.</p>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of page two -->
+            <!-- Page Three: New Energy Age -->
+            <div class="page">
+                <div class="subpage">
+                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-bottom: 15px;">
+                                <h2><b>What is the "new energy age"?</b></h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p style="text-align: justify;">In the “clean energy age” ALL energy needs for any human activity (for  industry, home, transport, etc) will be derived from sources that are available from the direct environment.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-bottom: 15px; margin-top: 15px;">
+                                <h2><b>The characteristics of the "new energy age" are:</b></h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <ol style="list-style-type: decimal">
+                                    <li style="text-align: justify;">Energy is harvested from direct or nearby available clean sources of energy (mainly solar PV) that cause no harm to the environment.</li>
+                                    <li style="text-align: justify;">Energy is stored in multiple forms near the points of usage; to ensure that intermittent available harvest will not disrupt the enjoyment of energy.</li>
+                                    <li style="text-align: justify;">Energy is enjoyed through highly energy efficient technologies which will allow for much lower total energy usage which in turn will make the investment cost for energy harvest and storage systems much lower than would be the case when conventional low efficiency technologies are used.</li>
+                                </ol>                 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of page three -->
+            <!-- Page Four: Clean Energy Age -->
+            <div class="page">
+                <div class="subpage">
+                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-bottom: 15px;">
+                                <h2><b>How can Sundaya support you with the transition to the "clean energy age"?</b></h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p style="text-align: justify;">Sundaya can support you with the transition to the clean energy age through our so called “3-step CSR-methodology” which stands for:</p>
+                                <h1 style="text-align: center; margin-bottom: 20px;"><b>C</b>ount  <b>>></b>  <b>S</b>ave  <b>>></b>  <b>R</b>eplace</h1>
+                                <p style="text-align: center; font-size: smaller;">Note: CSR also means “Corporate Social Responsibility” and we see the transition to the clean energy age as both a private and especially a Corporate Social Responsibility to make this transition.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of page four -->
+            <!-- Page Five: Count -->
+            <div class="page">
+                <div class="subpage">
+                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-bottom: 15px;">
+                                <h2><b>1: Count</b></h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p style="text-align: justify;">The first step in your transition to the clean energy age is to install an energy accounting system (EAS). The EAS will provide data to our analytic software tools and our cloud platform will transform the data into information that we need to be able to give you the best possible and most cost effective solution for energy savings in your home, office or industry.</p>
+                                <p style="text-align: justify; font-size: smaller;">Note: trough the Sundaya App you will get access to the information from anywhere in the world</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of page five -->
+            <!-- Page Six: Save -->
+            <div class="page">
+                <div class="subpage">
+                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-bottom: 15px;">
+                                <h2><b>2: Save</b></h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p style="text-align: justify;">After completing the “Count step” we will be able to advise what types of energy saving investments can be made to reduce the energy consumption. Some energy saving advises can be given just after a few days of data collection from the energy accounting system and others will need several months of monitoring and analyses. Depending on the type of appliances that are in use at present some energy saving investments can be earned back in less than 1 year. Sundaya will besides energy saving advise also provide the service of installation of any energy saving solutions either by sundaya itself or through its specialized partners in each specific fields</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of page six -->
+            <!-- Page Seven: Replace -->
+            <div class="page">
+                <div class="subpage">
+                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-bottom: 15px;">
+                                <h2><b>3: Replace</b></h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p style="text-align: justify;">After all relatively low investment cost measures to reduce energy consumption through the “Save step” have been taken the final step can be made to start replacing the source of energy through substitution with localized energy harvesting and storage. The easiest and presently cheapest source will be PV Solar for which sundaya provides a full service of design, installation, monitoring and monthly servicing.</p>
+                                <p style="text-align: justify; font-size: smaller;">Note: The Energy Accounting system will be a permanent installation that will not only help to determine the best recipe for energy saving measures; but it will also be used to ensure that any of the energy saving measures that have been taken do indeed deliver the expected saving results.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of page seven -->
+            <!-- Page Eight: SketchUp Model -->
+            <div class="page">
+                <div class="subpage">
+                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-bottom: 15px;">
+                                <h2><b>Proposed Installation</b></h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="gallery">
+                                    <img src="../static/dist/img/photo1.png" alt="Photo 1">
+                                </div>
+                                <p style="text-align: center; font-size: smaller;">View 1</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="gallery">
+                                    <img src="../static/dist/img/photo1.png" alt="Photo 2">
+                                </div>
+                                <p style="text-align: center; font-size: smaller;">View 2</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="gallery">
+                                    <img src="../static/dist/img/photo1.png" alt="Photo 3">
+                                </div>
+                                <p style="text-align: center; font-size: smaller;">View 3</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of page eight -->
+            <!-- Page Nine: Yearly Energy Yield -->
+            <div class="page">
+                <div class="subpage">
+                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-bottom: 15px;">
+                                <h2><b>Yearly Energy Yield Information</b></h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <table class="table table-sm table-bordered table-striped" style="font-size:9pt;">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">System Yield Table</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>kWh Price</th>
+                                                <td>1550</td>
+                                                <td>IDR</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Total Installed Capacity</th>
+                                                <td>Jumlah Semua Array Size dr roofs</td>
+                                                <td>kWp</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-sm table-bordered table-striped" style="font-size: 9pt;">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="2">Month</th>
+                                                <th colspan="2">Energy Yield (kWh/mth)</th>
+                                                <th rowspan="2">Total Yearly Energy Yield</th>
+                                                <th rowspan="2">Value (k IDR)</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Roof 1</th>
+                                                <th>Roof 2</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="font-size: 8pt;">
+                                            <tr>
+                                                <td>Jan</td>
+                                                <td>764</td>
+                                                <td>764</td>
+                                                <td>grafik</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jan</td>
+                                                <td>764</td>
+                                                <td>764</td>
+                                                <td>grafik</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jan</td>
+                                                <td>764</td>
+                                                <td>764</td>
+                                                <td>grafik</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jan</td>
+                                                <td>764</td>
+                                                <td>764</td>
+                                                <td>grafik</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jan</td>
+                                                <td>764</td>
+                                                <td>764</td>
+                                                <td>grafik</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jan</td>
+                                                <td>764</td>
+                                                <td>764</td>
+                                                <td>grafik</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jan</td>
+                                                <td>764</td>
+                                                <td>764</td>
+                                                <td>grafik</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jan</td>
+                                                <td>764</td>
+                                                <td>764</td>
+                                                <td>grafik</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jan</td>
+                                                <td>764</td>
+                                                <td>764</td>
+                                                <td>grafik</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jan</td>
+                                                <td>764</td>
+                                                <td>764</td>
+                                                <td>grafik</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jan</td>
+                                                <td>764</td>
+                                                <td>764</td>
+                                                <td>grafik</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jan</td>
+                                                <td>764</td>
+                                                <td>764</td>
+                                                <td>grafik</td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Yearly</th>
+                                                <th>total</th>
+                                                <th>total</th>
+                                                <th>total</th>
+                                                <th>total</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="chart">
+                                    <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of page nine -->
+            <!-- Page Ten: Daily Energy Yield -->
+            <div class="page">
+                <div class="subpage">
+                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-bottom: 15px;">
+                                <h2><b>Daily Energy Yield Information</b></h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="chart">
+                                    <p style="text-align: center;">Grafics</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of page ten -->
+            <!-- Page Eleven: Quotation -->
+            <div class="page">
+                <div class="subpage">
+                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-bottom: 15px;">
+                                <h2><b>Quotation</b></h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-sm table-bordered table-striped" style="font-size: 9pt;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Description</th>
+                                            <th>Qty</th>
+                                            <th>Unit</th>
+                                            <th>Unit Price</th>
+                                            <th>Price Amount (IDR)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>PV System Roof 1</td>
+                                            <td>7,04</td>
+                                            <td>kWp</td>
+                                            <td>harga unit</td>
+                                            <td>harga total</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>PV System Roof 2</td>
+                                            <td>7,92</td>
+                                            <td>kWp</td>
+                                            <td>harga unit</td>
+                                            <td>harga total</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Inverter STG3</td>
+                                            <td>0</td>
+                                            <td></td>
+                                            <td>4500000</td>
+                                            <td>harga total</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Inverter STG6</td>
+                                            <td>5</td>
+                                            <td></td>
+                                            <td>8000000</td>
+                                            <td>harga total</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Inverter STG20</td>
+                                            <td>0</td>
+                                            <td></td>
+                                            <td>18000000</td>
+                                            <td>harga total</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>Energy Accounting System</td>
+                                            <td>1</td>
+                                            <td>set</td>
+                                            <td>5000000</td>
+                                            <td>harga total</td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td>Transport</td>
+                                            <td>1</td>
+                                            <td></td>
+                                            <td>500000</td>
+                                            <td>harga total</td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td>Installation</td>
+                                            <td>1</td>
+                                            <td></td>
+                                            <td>3000000</td>
+                                            <td>harga total</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>9</td>
+                                            <th colspan="4" style="text-align: center;">Total</th>
+                                            <td>Harga Total</td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td colspan="4">VAT 10%</td>
+                                            <td>harga vat 10%</td>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="5" style="text-align: right;">Total Including VAT</th>
+                                            <th>Harga Total</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of page eleven -->
+            <!-- Page Twelve: Investment Payback -->
+            <div class="page">
+                <div class="subpage">
+                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-bottom: 15px;">
+                                <h2><b>Investment Payback Information</b></h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <table class="table table-sm table-bordered table-striped" style="font-size: 5pt;">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="4">PV System Investment</th>
+                                                <th>total price</th>
+                                                <th>M IDR</th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="4">PLN Price Increase Assumpsion</th>
+                                                <th>5%</th>
+                                                <th>per year</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Year</th>
+                                                <th>Yiels (MWh)</th>
+                                                <th>PLN Price</th>
+                                                <th>Yield Value (M IDR)</th>
+                                                <th>Investment Value</th>
+                                                <th>PV Panel Warantee</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                            <tr>
+                                                <td>25</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                                <td>value</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="chart">
+                                    <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of page twelve -->
+            <!-- Page End: Thank You -->
+            <div class="page">
+                <div class="subpage">
+                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-bottom: 15px;">
+                                <h2 style="text-align: center;"><b>Thank You</b></h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p style="text-align: center;">Please contact "email sales" for more details about our offering</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of page seven -->
+        <!-- /.content-header -->
+        </div> <!-- /container -->
+        {% include "main-layout/scripts.html" %}
+    </body>
+</html>
+<!-- Page specific script -->
+<script type="text/javascript">window.print();</script>
