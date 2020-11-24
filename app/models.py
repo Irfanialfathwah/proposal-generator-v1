@@ -203,7 +203,7 @@ class Roof(db.Model):
 
     @property
     def array_size(self):
-        return self.pv_panel / self.pv_panel_qty
+        return self.pv_panel * self.pv_panel_qty / 1000
 
     @property
     def pv_panel_amount(self):
