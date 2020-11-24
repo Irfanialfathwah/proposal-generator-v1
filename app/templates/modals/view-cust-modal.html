@@ -30,9 +30,13 @@
                 </ul>
                 <strong>Proposal Complete</strong>
                 <ul class="list-unstyled">
+                    {% for proposal in data.proposals %}
+                    {% if proposal.status == 'Completed' %}
                     <li>
-                        <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> Example.pdf</a>
+                        <a target="_blank" rel="noopener noreferrer" href="/proposal-report/{{proposal.id}}" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> Proposal-{{data.name|capitalize}}-{{loop.index}}.pdf</a>
                     </li>
+                    {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
             <div class="modal-footer right-content">

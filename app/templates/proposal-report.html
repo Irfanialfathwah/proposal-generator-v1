@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="icon" type="image/png" href="../static/dist/img/SundayaLogo.png">
-        <!-- <img src="../static/dist/img/SundayaLogo.png" alt=""> -->
+        <link rel="icon" type="image/png" href="/static/dist/img/SundayaLogo.png">
+        <!-- <img src="/static/dist/img/SundayaLogo.png" alt=""> -->
         <title>Proposal Report</title>
         {% include "main-layout/head.html" %}
         <!-- Google Font: Open Sans Pro -->
@@ -28,13 +28,13 @@
         .subpage-cover{
             padding: 0.2cm;
             height: 170mm;
-            background: url(../static/dist/img/cover-proposal.png) no-repeat center center;
+            background: url(/static/dist/img/cover-proposal.png) no-repeat center center;
             background-size: contain;
         }
         .subpage {
             padding: 0.2cm;
             height: 170mm;
-            background: url(../static/dist/img/template.png) no-repeat center center;
+            background: url(/static/dist/img/template.png) no-repeat center center;
             background-size: contain;
         }
         .grid-container {
@@ -304,7 +304,7 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="gallery">
-                                    <img src="../{{ proposal.sketchup_model }}" alt="Photo 1">
+                                    <img src="/{{ proposal.sketchup_model }}" alt="Photo 1">
                                 </div>
                                 <p style="text-align: center; font-size: smaller;">Roof View</p>
                             </div>
@@ -477,7 +477,7 @@
                                         <thead>
                                             <tr>
                                                 <th colspan="4">PV System Investment</th>
-                                                <th>total price</th>
+                                                <th>{{proposal.amount_after_tax}}</th>
                                                 <th>M IDR</th>
                                             </tr>
                                             <tr>

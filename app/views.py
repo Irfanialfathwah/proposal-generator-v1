@@ -2,7 +2,7 @@ import numpy as np
 from pathlib import Path
 import pdfkit
 import os
-from flask import render_template, redirect, url_for, request, session, flash, Response
+from flask import render_template, redirect, url_for, request, session, flash, Response, send_file
 from functools import wraps
 from datetime import datetime
 from app import app
@@ -12,6 +12,7 @@ from app.form_validations import validate_customer_form, validate_proposal_form
 from werkzeug.utils import secure_filename
 from app.functions import allowed_file, add_gsa_report_to_db
 # Adding encription key with Secret Key Variable for User Authentication
+# from flask_weasyprint import HTML, render_pdf
 
 
 # login required decorator
@@ -25,6 +26,17 @@ def login_required(f):
             return redirect(url_for('login'))
     return wrap
 
+def basicAuth(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if request.authorization['username'] == 'admin@admin.com':
+            if request.authorization['password'] == 'admin':
+                return f(*args, **kwargs)
+            else:
+                return redirect(url_for('login'))
+        else:
+            return redirect(url_for('login'))
+    return wrap
 
 @app.route('/')
 @login_required
@@ -70,7 +82,7 @@ def customers():
     list_prop_comp = [len([d for d in data.proposals if d.status == 'Completed']) for data in table_data]
     context = {
         'table_data': zip(table_data, list_prop_comp),
-        'customers': table_data
+        'customers': table_data,
     }
     return render_template("customers.html", **context)
 
@@ -195,6 +207,7 @@ def add_order(id):
         data['add_construction_price'] = request.form.get(f"add_construction_price{nums}")
         data['azimuth'] = request.form.get(f"azimuth{nums}")
         data['angle'] = request.form.get(f"angle{nums}")
+        data['gsa_report_file'] = filepaths[nums-1].relative_to(Path('app')).__str__()
         roof = Roof(**data, created_at=timestamp, updated_at=timestamp)
         roof.solar_data.extend(s_data[nums-1])
         roofs.append(roof)
@@ -235,6 +248,13 @@ def update_order(id):
     flash('successfully update roofs', category='success')
     return redirect(f'/proposal-details/{id}')
 
+@app.route('/files/download')
+@login_required
+def download_excel():
+    filepath = request.args.get('filepath')
+    if filepath is None:
+        return redirect('/proposals')
+    return send_file(filepath, as_attachment=True)
 
 @app.route('/user')
 @login_required
@@ -246,7 +266,6 @@ def user():
 @login_required
 def register():
     return render_template("role.html")
-
 
 @app.route('/proposal-report/<int:id>')
 @login_required
