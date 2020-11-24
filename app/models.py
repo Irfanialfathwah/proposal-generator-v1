@@ -120,8 +120,7 @@ class Proposal(db.Model):
         total_yield = self.total_yield
         pv_perf_decr = 0.8
         pv_perf = 100
-        delta_harvest_new = 0-total_yield
-
+        delta_harvest_new = pv_system_investment * -1
         pv_investment_return = []
         list_yield_total = []
         list_pln_price = []
@@ -134,8 +133,9 @@ class Proposal(db.Model):
             harvest_value = round((total_yield * pln_price) / 1000,2)
             list_harvest_value.append(harvest_value)
             delta_harvest = delta_harvest_new + harvest_value
+            # print(delta_harvest)
             delta_harvest_new = round(delta_harvest,2)
-            pln_price = round((pln_price * pln_price_incr) + pln_price,2)
+            pln_price = int((pln_price * pln_price_incr) + pln_price)
             pv_perf = round(pv_perf - pv_perf_decr,2)
             list_pv_perf.append(pv_perf)
             total_yield = round(total_yield * pv_perf/100,2)

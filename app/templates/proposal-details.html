@@ -1,9 +1,11 @@
 {% extends "main-layout/base.html" %}
 {% block title %}Proposal Details{% endblock %}
-{% block body %}
+
 {% block view %}
     <li class="breadcrumb-item"><a href="/proposals">Proposal</a></li>
 {% endblock %}
+
+{% block body %}
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     {{ super() }}<!-- Content Header from base.html -->
@@ -101,7 +103,7 @@
                                 <label>GSA Report</label>
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-excel"></i> Example.xls</a>
+                                        <a href="/files/download?filepath={{roof.gsa_report_file}}" class="btn-link text-secondary"><i class="far fa-fw fa-file-excel"></i> {{roof.gsa_report_file[6:]}}</a>
                                     </li>
                                 </ul>
                             </div>
