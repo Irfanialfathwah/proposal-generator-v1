@@ -17,8 +17,8 @@
         font: 12pt "Open Sans";
         }
         .page {
-        width: 254mm;
-        min-height: 195mm;
+        width: 355.6mm;
+        min-height: 215.9mm;
         padding: 0mm;
         margin: 0mm auto;
         border: 1px #D3D3D3 solid;
@@ -27,23 +27,23 @@
         }
         .subpage-cover{
             padding: 0.2cm;
-            height: 170mm;
-            background: url(/static/dist/img/cover-proposal.png) no-repeat center center;
+            height: 215,9mm;
+            background: rgb(60, 60, 60);
             background-size: contain;
         }
         .subpage {
             padding: 0.2cm;
-            height: 170mm;
-            background: url(/static/dist/img/template.png) no-repeat center center;
+            height: 215.9mm;
+            background: rgb(255, 255, 255);
             background-size: contain;
         }
         .grid-container {
         display: grid;
-        height: 165mm;
+        height: 192.5mm;
         align-content: center;
         grid-template-columns: auto;
         grid-gap: 0px;
-        padding-right: 37px;
+        padding-left: 35px;
         }
         .gallery {
         margin: 5px;
@@ -56,13 +56,13 @@
         height: auto;
         }
         @page {
-        size: 25.4cm 19.5cm;
-        margin: 10mm 0mm 10mm 0mm;
+        size: 35.56cm 21.59cm;
+        margin: 0mm 0mm 0mm 0mm;
         }
         @media print {
             html, body {
-                width: 254mm;
-                height: 195mm;        
+                width: 355.6mm;
+                height: 215.9mm;        
             }
             .page {
                 margin: 0;
@@ -77,27 +77,47 @@
             }
         }
     </style>
-    <body class="layout-fixed">
-        <div class="wrapper">
+    <body>
             <!-- Cover Page -->
             <div class="page">
                 <div class="subpage-cover">
-                    <div class="grid-container">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h1 style="font-family:Open Sans Extrabold; 
-                                font-size: 60pt; color:rgb(60, 60, 60); text-align:right;">
-                                    PROPOSAL
-                                </h1>
-                            </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="grid-container" style="width: 31cm;">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h1 style="font-family:Open Sans Extrabold; 
+                                            font-size: 25pt; color:rgb(255, 255, 255); padding-inline-start: 5pt;">
+                                                {{ customer.name|capitalize }}
+                                            </h1>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h1 style="font-family:Open Sans Extrabold; 
+                                            font-size: 100pt; color:rgb(255, 255, 255);">
+                                                Proposal.
+                                            </h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="vertical-align: top; text-align: left;">
+                                <h6 style="transform: rotate(90deg); color: rgb(153, 153, 153);">{{ date_of_prop }}</h6>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    <div class="row">
+                        <div class="col-sm-12" style="padding-inline-start: 45px; padding-inline-end: 45px;">
+                            <hr style="border-color: rgb(153, 153, 153); border-width: 2pt;">                            
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h1 style="font-family:Open Sans Extrabold; 
-                                font-size: 25pt; color:rgb(60, 60, 60); text-align:right;">
-                                {{ customer.name|capitalize}}
-                                </h1>
-                            </div>
+                        <div class="col-sm-6" style="padding-inline-start: 45px;">
+                            <p style="color:rgb(255, 255, 255);">harvest • store • enjoy</p>
+                        </div>
+                        <div class="col-sm-6" style="text-align: right; padding-inline-end: 45px;">
+                            <img src="../static/dist/img/white-sundaya.png" style="width: 3cm; height: auto;">
                         </div>
                     </div>
                 </div>    
@@ -108,7 +128,7 @@
                 <div class="subpage">
                     <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
                         <div class="row">
-                          <div class="col-sm-12" style="margin-bottom: 15px;">
+                          <div class="col-sm-12" >
                             <h2><b>Project Details</b></h2>
                           </div>
                         </div>
@@ -538,7 +558,6 @@
             </div>
             <!-- end of page seven -->
         <!-- /.content-header -->
-        </div> <!-- /container -->
         {% include "main-layout/scripts.html" %}
         {% include 'charts/yearlyChart.html' %}
         {% include 'charts/dailyChart.html' %}
