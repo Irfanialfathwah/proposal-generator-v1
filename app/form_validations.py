@@ -32,12 +32,12 @@ def validate_proposal_form(form):
 
     customer_id = form.get('customer')
     num_of_roofs = form.get('num_of_roofs')
-    location = form.get('location')
-    geocoordinates = form.get('geocoordinates')
+    # location = form.get('location')
+    # geocoordinates = form.get('geocoordinates')
 
     return {
         'num_of_roofs': num_of_roofs,
-        'location' : location,
-        'geocoordinates' : geocoordinates,
+        # 'location' : location,
+        # 'geocoordinates' : geocoordinates,
         'customer_id': customer_id
     }
