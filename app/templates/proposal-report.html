@@ -17,8 +17,8 @@
         font: 12pt "Open Sans";
         }
         .page {
-        width: 254mm;
-        min-height: 195mm;
+        width: 355.6mm;
+        min-height: 215.9mm;
         padding: 0mm;
         margin: 0mm auto;
         border: 1px #D3D3D3 solid;
@@ -27,42 +27,43 @@
         }
         .subpage-cover{
             padding: 0.2cm;
-            height: 170mm;
-            background: url(/static/dist/img/cover-proposal.png) no-repeat center center;
+            height: 215,9mm;
+            background: rgb(60, 60, 60);
             background-size: contain;
         }
         .subpage {
             padding: 0.2cm;
-            height: 170mm;
-            background: url(/static/dist/img/template.png) no-repeat center center;
+            height: 215.9mm;
+            background: rgb(255, 255, 255);
             background-size: contain;
         }
         .grid-container {
         display: grid;
-        height: 165mm;
+        height: 192mm;
         align-content: center;
         grid-template-columns: auto;
         grid-gap: 0px;
-        padding-right: 37px;
+        padding-left: 35px;
         }
         .gallery {
         margin: 5px;
-        border: 1px solid #ccc;
-        float: left;
-        width: 250px;
+        float: center;
+        width: 768px;
+        margin-left: auto;
+        margin-right: auto;
         }
         .gallery img {
         width: 100%;
         height: auto;
         }
         @page {
-        size: 25.4cm 19.5cm;
-        margin: 10mm 0mm 10mm 0mm;
+        size: 35.56cm 21.59cm;
+        margin: 0mm 0mm 0mm 0mm;
         }
         @media print {
             html, body {
-                width: 254mm;
-                height: 195mm;        
+                width: 355.6mm;
+                height: 215.9mm;        
             }
             .page {
                 margin: 0;
@@ -77,27 +78,56 @@
             }
         }
     </style>
-    <body class="layout-fixed">
-        <div class="wrapper">
+    <body>
             <!-- Cover Page -->
             <div class="page">
                 <div class="subpage-cover">
-                    <div class="grid-container">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h1 style="font-family:Open Sans Extrabold; 
-                                font-size: 60pt; color:rgb(60, 60, 60); text-align:right;">
-                                    PROPOSAL
-                                </h1>
-                            </div>
+                    <table>
+                        <tr>
+                            <td rowspan="4">
+                                <div class="grid-container" style="width: 31.8cm;">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h1 style="font-family:Open Sans Extrabold; 
+                                            font-size: 25pt; color:rgb(255, 255, 255); padding-inline-start: 5pt;">
+                                                {{ customer.name|capitalize }}
+                                            </h1>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h1 style="font-family:Open Sans Extrabold; 
+                                            font-size: 100pt; color:rgb(255, 255, 255);">
+                                                Proposal.
+                                            </h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top; text-align: left;">
+                                <h6 style="transform: rotate(90deg); color: rgb(153, 153, 153);">{{ date_of_prop }}</h6>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    <div class="row">
+                        <div class="col-sm-12" style="padding-inline-start: 45px; padding-inline-end: 45px;">
+                            <hr style="border-color: rgb(153, 153, 153); border-width: 2pt;">                            
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h1 style="font-family:Open Sans Extrabold; 
-                                font-size: 25pt; color:rgb(60, 60, 60); text-align:right;">
-                                {{ customer.name|capitalize}}
-                                </h1>
-                            </div>
+                        <div class="col-sm-6" style="padding-inline-start: 45px;">
+                            <p style="color:rgb(255, 255, 255);">harvest • store • enjoy</p>
+                        </div>
+                        <div class="col-sm-6" style="text-align: right; padding-inline-end: 45px;">
+                            <img src="../static/dist/img/white-sundaya.png" style="width: 3cm;">
                         </div>
                     </div>
                 </div>    
@@ -106,105 +136,142 @@
             <!-- Page One: Project Details -->
             <div class="page">
                 <div class="subpage">
-                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
-                        <div class="row">
-                          <div class="col-sm-12" style="margin-bottom: 15px;">
-                            <h2><b>Project Details</b></h2>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <h4>Client's Name</h4>
-                          </div>
-                          <div class="col-sm-6">
-                            <h4>: {{ customer.name|capitalize }}</h4>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <h4>Type of Project</h4>
-                          </div>
-                          <div class="col-sm-6">
-                            <h4>: Medium Residental</h4>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <h4>Address</h4>
-                          </div>
-                          <div class="col-sm-6">
-                            <h4>: {{ customer.address|capitalize }}</h4>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <h4>GeoCoordinates</h4>
-                          </div>
-                          <div class="col-sm-6">
-                            <h4>: {{ proposal.geocoordinates }}</h4>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <h4>Date of Proposal</h4>
-                          </div>
-                          <div class="col-sm-6">
-                            <h4>: {{ date_of_prop }}</h4>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <h4>Sundaya Sales Contact</h4>
-                          </div>
-                          <div class="col-sm-6">
-                            <h4>: Irfany</h4>
-                          </div>
+                    <div class="row">
+                      <div class="col-sm-6" style="padding-inline-start: 45px; padding-top: 30px;">
+                        <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;">PROJECT DETAILS.</h2>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4" style="padding-inline-start: 43px;">
+                            <svg height="40" width="300">
+                                <g fill="none" stroke="rgb(245, 5, 5)" stroke-width="6">
+                                    <path stroke-linecap="round" d="M5 10 l050 0" />
+                                </g>
+                            </svg>
                         </div>
                     </div>
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; height: 162mm;">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <table>
+                                    <tr>
+                                        <td style="font-size: 14pt; color: rgb(245, 5, 5);"><b>Client's Name</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 18pt; padding-bottom: 18pt;">{{ customer.name|capitalize }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 14pt; color: rgb(245, 5, 5);"><b>Type of Project</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 18pt; padding-bottom: 18pt;">Medium Residental</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 14pt; color: rgb(245, 5, 5);"><b>Location</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 18pt; padding-bottom: 18pt;">{{ customer.address|capitalize }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 14pt; color: rgb(245, 5, 5);"><b>GeoCoordinates</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 18pt; padding-bottom: 18pt;">{{ proposal.geocoordinates }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 14pt; color: rgb(245, 5, 5);"><b>Date of Proposal</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 18pt; padding-bottom: 18pt;">{{ date_of_prop }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 14pt; color: rgb(245, 5, 5);"><b>Sundaya Sales Contact</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 18pt; padding-bottom: 18pt;">sales@sundaya.com</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    {% include "proposal-report-footer.html" %}
                 </div>    
             </div>
             <!-- end of page one -->
             <!-- Page Two: Sundaya Company Profile -->
             <div class="page">
                 <div class="subpage">
-                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
-                        <div class="row">
-                            <div class="col-sm-12" style="margin-bottom: 15px;">
-                                <h2><b>Sundaya Company Profile</b></h2>
-                            </div>
+                    <div class="row">
+                        <div class="col-sm-6" style="padding-inline-start: 45px; padding-top: 30px;">
+                          <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;">SUNDAYA</h2>
+                          <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;">COMPANY PROFILE.</h2>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4" style="padding-inline-start: 43px;">
+                            <svg height="40" width="300">
+                                <g fill="none" stroke="rgb(245, 5, 5)" stroke-width="6">
+                                    <path stroke-linecap="round" d="M5 10 l050 0" />
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; height: 150mm;">
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-4">
                                 <p style="text-align: justify;">Sundaya’s is a company with 30 years’ experience in off-grid PV solar energy systems with core activity in design, manufacturing, installation, monitoring and servicing of it’s systems.</p>
                                 <p style="text-align: justify;">Off-grid energy systems need to be extremely energy efficient in order to be cost effective and also extremely reliable because systems  are typically installed in extremely remote areas where cost of service is very high.</p>
                                 <p style="text-align: justify;">Sundaya’s 30 year focus and success in the on off-grid PV market has resulted in a deep understanding on the issues of harvest, storage and enjoyment of energy and this understanding we have now transformed into a new service for the on-grid PV market. Now we can support all types of energy users to transform them to the “clean energy age”.</p>   
                             </div>
                         </div>
                     </div>
+                    {% include "proposal-report-footer.html" %}
                 </div>
             </div>
             <!-- end of page two -->
             <!-- Page Three: New Energy Age -->
             <div class="page">
                 <div class="subpage">
-                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
-                        <div class="row">
-                            <div class="col-sm-12" style="margin-bottom: 15px;">
-                                <h2><b>What is the "new energy age"?</b></h2>
-                            </div>
+                    <div class="row">
+                        <div class="col-sm-6" style="padding-inline-start: 45px; padding-top: 30px;">
+                          <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;">What is the</h2>
+                          <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;"><mark>"new energy age"</mark>?</h2>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4" style="padding-inline-start: 43px;">
+                            <svg height="40" width="300">
+                                <g fill="none" stroke="rgb(245, 5, 5)" stroke-width="6">
+                                    <path stroke-linecap="round" d="M5 10 l050 0" />
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; height: 25mm;">
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-4">
                                 <p style="text-align: justify;">In the “clean energy age” ALL energy needs for any human activity (for  industry, home, transport, etc) will be derived from sources that are available from the direct environment.</p>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12" style="margin-bottom: 15px; margin-top: 15px;">
-                                <h2><b>The characteristics of the "new energy age" are:</b></h2>
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6" style="padding-inline-start: 45px; padding-top: 20px;">
+                          <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;">The characteristics of the</h2>
+                          <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;"><mark>"new energy age"</mark> are:</h2>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4" style="padding-inline-start: 43px;">
+                            <svg height="40" width="300">
+                                <g fill="none" stroke="rgb(245, 5, 5)" stroke-width="6">
+                                    <path stroke-linecap="round" d="M5 10 l050 0" />
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; height: 86mm;">
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-4">
                                 <ol style="list-style-type: decimal">
                                     <li style="text-align: justify;">Energy is harvested from direct or nearby available clean sources of energy (mainly solar PV) that cause no harm to the environment.</li>
                                     <li style="text-align: justify;">Energy is stored in multiple forms near the points of usage; to ensure that intermittent available harvest will not disrupt the enjoyment of energy.</li>
@@ -213,96 +280,148 @@
                             </div>
                         </div>
                     </div>
+                    {% include "proposal-report-footer.html" %}
                 </div>
             </div>
             <!-- end of page three -->
             <!-- Page Four: Clean Energy Age -->
             <div class="page">
                 <div class="subpage">
-                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
-                        <div class="row">
-                            <div class="col-sm-12" style="margin-bottom: 15px;">
-                                <h2><b>How can Sundaya support you with the transition to the "clean energy age"?</b></h2>
-                            </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="padding-inline-start: 45px; padding-top: 30px;">
+                          <h2 style="font-family:Open Sans Extrabold; font-size: 23pt; text-align: center;">How can Sundaya support you with the transition</h2>
+                          <h2 style="font-family:Open Sans Extrabold; font-size: 23pt; text-align: center;">to the <mark>"clean energy age"</mark>?</h2>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="padding-inline-start: 282px; text-align: center;">
+                            <svg height="40" width="300" text-anchor="middle">
+                                <g fill="none" stroke="rgb(245, 5, 5)" stroke-width="6">
+                                    <path stroke-linecap="round" d="M5 10 l050 0"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; height: 150mm;">
                         <div class="row">
                             <div class="col-sm-12">
-                                <p style="text-align: justify;">Sundaya can support you with the transition to the clean energy age through our so called “3-step CSR-methodology” which stands for:</p>
-                                <h1 style="text-align: center; margin-bottom: 20px;"><b>C</b>ount  <b>-></b>  <b>S</b>ave  <b>-></b>  <b>R</b>eplace</h1>
+                                <p style="text-align: center;">Sundaya can support you with the transition to the clean energy age through our so called <mark>“3-step CSR-methodology”</mark> which stands for:</p>
+                                <h1 style="text-align: center; margin-bottom: 20px;"><b>C</b>ount  <b>➜</b>  <b>S</b>ave  <b>➜</b>  <b>R</b>eplace</h1>
                                 <p style="text-align: center; font-size: smaller;">Note: CSR also means “Corporate Social Responsibility” and we see the transition to the clean energy age as both a private and especially a Corporate Social Responsibility to make this transition.</p>
                             </div>
                         </div>
                     </div>
+                    {% include "proposal-report-footer.html" %}
                 </div>
             </div>
             <!-- end of page four -->
             <!-- Page Five: Count -->
             <div class="page">
                 <div class="subpage">
-                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
-                        <div class="row">
-                            <div class="col-sm-12" style="margin-bottom: 15px;">
-                                <h2><b>1: Count</b></h2>
-                            </div>
+                    <div class="row">
+                        <div class="col-sm-6" style="padding-inline-start: 45px; padding-top: 30px;">
+                            <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;">1: Count.</h2>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4" style="padding-inline-start: 43px;">
+                            <svg height="40" width="300">
+                                <g fill="none" stroke="rgb(245, 5, 5)" stroke-width="6">
+                                    <path stroke-linecap="round" d="M5 10 l050 0" />
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; height: 162mm;">
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-4">
                                 <p style="text-align: justify;">The first step in your transition to the clean energy age is to install an energy accounting system (EAS). The EAS will provide data to our analytic software tools and our cloud platform will transform the data into information that we need to be able to give you the best possible and most cost effective solution for energy savings in your home, office or industry.</p>
                                 <p style="text-align: justify; font-size: smaller;">Note: trough the Sundaya App you will get access to the information from anywhere in the world</p>
                             </div>
                         </div>
                     </div>
+                    {% include "proposal-report-footer.html" %}
                 </div>
             </div>
             <!-- end of page five -->
             <!-- Page Six: Save -->
             <div class="page">
                 <div class="subpage">
-                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
-                        <div class="row">
-                            <div class="col-sm-12" style="margin-bottom: 15px;">
-                                <h2><b>2: Save</b></h2>
-                            </div>
+                    <div class="row">
+                        <div class="col-sm-6" style="padding-inline-start: 45px; padding-top: 30px;">
+                            <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;">2: Save.</h2>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4" style="padding-inline-start: 43px;">
+                            <svg height="40" width="300">
+                                <g fill="none" stroke="rgb(245, 5, 5)" stroke-width="6">
+                                    <path stroke-linecap="round" d="M5 10 l050 0" />
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; height: 162mm;">
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-4">
                                 <p style="text-align: justify;">After completing the “Count step” we will be able to advise what types of energy saving investments can be made to reduce the energy consumption. Some energy saving advises can be given just after a few days of data collection from the energy accounting system and others will need several months of monitoring and analyses. Depending on the type of appliances that are in use at present some energy saving investments can be earned back in less than 1 year. Sundaya will besides energy saving advise also provide the service of installation of any energy saving solutions either by sundaya itself or through its specialized partners in each specific fields</p>
                             </div>
                         </div>
                     </div>
+                    {% include "proposal-report-footer.html" %}
                 </div>
             </div>
             <!-- end of page six -->
             <!-- Page Seven: Replace -->
             <div class="page">
                 <div class="subpage">
-                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
-                        <div class="row">
-                            <div class="col-sm-12" style="margin-bottom: 15px;">
-                                <h2><b>3: Replace</b></h2>
-                            </div>
+                    <div class="row">
+                        <div class="col-sm-6" style="padding-inline-start: 45px; padding-top: 30px;">
+                            <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;">3: Replace.</h2>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4" style="padding-inline-start: 43px;">
+                            <svg height="40" width="300">
+                                <g fill="none" stroke="rgb(245, 5, 5)" stroke-width="6">
+                                    <path stroke-linecap="round" d="M5 10 l050 0" />
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; height: 162mm;">
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-4">
                                 <p style="text-align: justify;">After all relatively low investment cost measures to reduce energy consumption through the “Save step” have been taken the final step can be made to start replacing the source of energy through substitution with localized energy harvesting and storage. The easiest and presently cheapest source will be PV Solar for which sundaya provides a full service of design, installation, monitoring and monthly servicing.</p>
                                 <p style="text-align: justify; font-size: smaller;">Note: The Energy Accounting system will be a permanent installation that will not only help to determine the best recipe for energy saving measures; but it will also be used to ensure that any of the energy saving measures that have been taken do indeed deliver the expected saving results.</p>
                             </div>
                         </div>
                     </div>
+                    {% include "proposal-report-footer.html" %}
                 </div>
             </div>
             <!-- end of page seven -->
             <!-- Page Eight: SketchUp Model -->
             <div class="page">
                 <div class="subpage">
-                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
-                        <div class="row">
-                            <div class="col-sm-12" style="margin-bottom: 15px;">
-                                <h2><b>Proposed Installation</b></h2>
-                            </div>
+                    <div class="row">
+                        <div class="col-sm-6" style="padding-inline-start: 45px; padding-top: 30px;">
+                            <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;">PROPOSED</h2>
+                            <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;">INSTALLATION.</h2>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4" style="padding-inline-start: 43px;">
+                            <svg height="40" width="300">
+                                <g fill="none" stroke="rgb(245, 5, 5)" stroke-width="6">
+                                    <path stroke-linecap="round" d="M5 10 l050 0" />
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; height: 150mm;">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-12">
                                 <div class="gallery">
                                     <img src="/{{ proposal.sketchup_model }}" alt="Photo 1">
                                 </div>
@@ -310,20 +429,31 @@
                             </div>
                         </div>
                     </div>
+                    {% include "proposal-report-footer.html" %}
                 </div>
             </div>
             <!-- end of page eight -->
             <!-- Page Nine: Yearly Energy Yield -->
             <div class="page">
                 <div class="subpage">
-                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
-                        <div class="row">
-                            <div class="col-sm-12" style="margin-bottom: 15px;">
-                                <h2><b>Yearly Energy Yield Information</b></h2>
-                            </div>
+                    <div class="row">
+                        <div class="col-sm-6" style="padding-inline-start: 45px; padding-top: 30px;">
+                            <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;">YEARLY ENERGY</h2>
+                            <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;">YIELD INFORMATION.</h2>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4" style="padding-inline-start: 43px;">
+                            <svg height="40" width="300">
+                                <g fill="none" stroke="rgb(245, 5, 5)" stroke-width="6">
+                                    <path stroke-linecap="round" d="M5 10 l050 0" />
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; height: 150mm;">
                         <div class="row">
-                            <div class="col-sm-5">
+                            <div class="col-sm-6">
                                 <div class="row">
                                     <table class="table table-sm table-bordered table-striped" style="font-size:9pt;">
                                         <thead>
@@ -373,7 +503,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="col-sm-7">
+                            <div class="col-sm-6">
                                 <div class='alert-dark text-center'> Monthly Energy Yield Graph</div>
                                 <div class="chart">
                                     <canvas id="yearlyChart" style="min-height: 250px; height: 465px; max-height: 465px; max-width: 100%;"></canvas>
@@ -381,18 +511,29 @@
                             </div>
                         </div>
                     </div>
+                    {% include "proposal-report-footer.html" %}
                 </div>
             </div>
             <!-- end of page nine -->
             <!-- Page Ten: Daily Energy Yield -->
             <div class="page">
                 <div class="subpage">
-                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
-                        <div class="row">
-                            <div class="col-sm-12" style="margin-bottom: 15px;">
-                                <h2><b>Daily Energy Yield Information</b></h2>
-                            </div>
+                    <div class="row">
+                        <div class="col-sm-6" style="padding-inline-start: 45px; padding-top: 30px;">
+                            <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;">DAILY ENERGY</h2>
+                            <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;">YIELD INFORMATION.</h2>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4" style="padding-inline-start: 43px;">
+                            <svg height="40" width="300">
+                                <g fill="none" stroke="rgb(245, 5, 5)" stroke-width="6">
+                                    <path stroke-linecap="round" d="M5 10 l050 0" />
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="grid-container" style="padding-inline-start: 100px; padding-inline-end: 100px; height: 150mm;">
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="chart">
@@ -401,18 +542,28 @@
                             </div>
                         </div>
                     </div>
+                    {% include "proposal-report-footer.html" %}
                 </div>
             </div>
             <!-- end of page ten -->
             <!-- Page Eleven: Quotation -->
             <div class="page">
                 <div class="subpage">
-                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
-                        <div class="row">
-                            <div class="col-sm-12" style="margin-bottom: 15px;">
-                                <h2><b>Quotation</b></h2>
-                            </div>
+                    <div class="row">
+                        <div class="col-sm-6" style="padding-inline-start: 45px; padding-top: 30px;">
+                            <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;">QUOTATION.</h2>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4" style="padding-inline-start: 43px;">
+                            <svg height="40" width="300">
+                                <g fill="none" stroke="rgb(245, 5, 5)" stroke-width="6">
+                                    <path stroke-linecap="round" d="M5 10 l050 0" />
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; height: 162mm;">
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-sm table-bordered table-striped" style="font-size: 9pt;">
@@ -458,22 +609,33 @@
                             </div>
                         </div>
                     </div>
+                    {% include "proposal-report-footer.html" %}
                 </div>
             </div>
             <!-- end of page eleven -->
             <!-- Page Twelve: Investment Payback -->
             <div class="page">
                 <div class="subpage">
-                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
-                        <div class="row">
-                            <div class="col-sm-12" style="margin-bottom: 15px;">
-                                <h2><b>Investment Payback Information</b></h2>
-                            </div>
+                    <div class="row">
+                        <div class="col-sm-6" style="padding-inline-start: 45px; padding-top: 30px;">
+                            <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;">INVESTMENT</h2>
+                            <h2 style="font-family:Open Sans Extrabold; font-size: 23pt;">PAYBACK INFORMATION.</h2>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4" style="padding-inline-start: 43px;">
+                            <svg height="40" width="300">
+                                <g fill="none" stroke="rgb(245, 5, 5)" stroke-width="6">
+                                    <path stroke-linecap="round" d="M5 10 l050 0" />
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; height: 150mm;">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <div class="row">
-                                    <table class="table table-sm table-bordered table-striped" style="font-size: 5pt;">
+                                    <table class="table table-sm table-bordered table-striped" style="font-size: 6pt;">
                                         <thead>
                                             <tr>
                                                 <th colspan="4">PV System Investment</th>
@@ -509,36 +671,56 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-6">
                                 <div class="chart">
                                     <canvas id="investmentPaybackChart" style="min-height: 465px; height: 465px; max-height: 465px; max-width: 100%;"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {% include "proposal-report-footer.html" %}
                 </div>
             </div>
             <!-- end of page twelve -->
             <!-- Page End: Thank You -->
             <div class="page">
-                <div class="subpage">
-                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px;">
+                <div class="subpage-cover">
+                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px; height: 192.5mm;">
                         <div class="row">
-                            <div class="col-sm-12" style="margin-bottom: 15px;">
-                                <h2 style="text-align: center;"><b>Thank You</b></h2>
+                            <div class="col-sm-12" style="padding-inline-start: 45px; padding-top: 30px;">
+                              <h2 style="font-family:Open Sans Extrabold; font-size: 23pt; text-align: center; color:rgb(255, 255, 255);">THANK YOU.</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" style="padding-inline-start: 282px; text-align: center;">
+                                <svg height="40" width="300" text-anchor="middle">
+                                    <g fill="none" stroke="rgb(153, 153, 153)" stroke-width="6">
+                                        <path stroke-linecap="round" d="M5 10 l050 0"/>
+                                    </g>
+                                </svg>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <p style="text-align: center;">Please contact sales@sundaya.com for more details about our offering</p>
+                                <p style="text-align: center; color:rgb(255, 255, 255);">Please contact <mark>sales@sundaya.com</mark> for more details about our offering</p>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="padding-inline-start: 45px; padding-inline-end: 45px;">
+                            <hr style="border-color: rgb(153, 153, 153); border-width: 2pt;">                            
+                        </div>
+                        <div class="col-sm-6" style="padding-inline-start: 45px;">
+                            <p style="color:rgb(255, 255, 255);">harvest • store • enjoy</p>
+                        </div>
+                        <div class="col-sm-6" style="text-align: right; padding-inline-end: 45px;">
+                            <img src="../static/dist/img/white-sundaya.png" style="width: 3cm;">
                         </div>
                     </div>
                 </div>
             </div>
             <!-- end of page seven -->
         <!-- /.content-header -->
-        </div> <!-- /container -->
         {% include "main-layout/scripts.html" %}
         {% include 'charts/yearlyChart.html' %}
         {% include 'charts/dailyChart.html' %}

@@ -77,12 +77,10 @@ class Proposal(db.Model):
     def __repr__(self):
         return f'<Proposal {self.customer}'
 
-    def update(self, customer_id, num_of_roofs, location, geocoordinates, sketchup_model=''):
+    def update(self, customer_id, num_of_roofs, sketchup_model=''):
         timestamp = datetime.now().replace(microsecond=0)
         self.customer_id = customer_id
         self.num_of_roofs = num_of_roofs
-        self.location = location
-        self.geocoordinates = geocoordinates
         self.sketchup_model = sketchup_model
         self.updated_at = timestamp
 
