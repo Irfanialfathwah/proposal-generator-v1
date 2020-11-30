@@ -289,11 +289,12 @@ def proposal_report(id):
     value_to_kwh = [int((data*1550)/1000) for data in yield_roof_total]
     avg_energy_perhour = (np.array([data for data in list(map(sum, zip(*proposal.total_energy_perhour)))]) / proposal.num_of_roofs).tolist()
     total_energy_perhour = [e.tolist() for e in proposal.total_energy_perhour]
+    # yield_per_roof = proposal.yield_roof
     context = {
         'customer' : proposal.customer,
         'proposal' : proposal,
         'date_of_prop' : proposal.date_of_proposals.strftime('%B %dth %Y'),
-        'yearly_chart' : zip(calendar,yield_roof_total, value_to_kwh),
+        'yearly_chart' : zip(calendar,yield_roof_total, value_to_kwh, [i for i in range(1,13)]),
         'yearly_total' : [sum(yield_roof_total), sum(value_to_kwh)],
         'daily_chart' : total_energy_perhour,
         'avg_daily' : avg_energy_perhour,
