@@ -17,8 +17,8 @@
         font: 12pt "Open Sans";
         }
         .page {
-        width: 1920px;
-        min-height: 1080px;
+        width: 1280px;
+        min-height: 720px;
         padding: 0mm;
         margin: 0mm auto;
         border: 1px #D3D3D3 solid;
@@ -27,20 +27,20 @@
         }
         .subpage-cover{
             padding: 0.2cm;
-            height: 1080px;
+            height: 720px;
             background-image: url(../static/dist/img/cover-proposal.png);
             background-size: contain;
         }
         .subpage {
             padding: 0.2cm;
-            height: 1080px;
+            height: 720px;
             background: rgb(255, 255, 255);
             background-image: url(../static/dist/img/main-template.png);
             background-size: contain;
         }
         .grid-container {
         display: grid;
-        height: 1080px;
+        height: 720px;
         align-content: center;
         grid-template-columns: auto;
         grid-gap: 0px;
@@ -50,7 +50,7 @@
         margin: 5px;
         float: center;
         height: 100%;
-        max-height: 768px;
+        max-height: 480px;
         margin-left: auto;
         margin-right: auto;
         }
@@ -86,13 +86,13 @@
         background-color:#bababa !important; 
         }
         @page {
-        size: 1920px 1080px;
+        size: 1280px 720px;
         margin: 0mm 0mm 0mm 0mm;
         }
         @media print {
             html, body {
-                width: 1920px;
-                height: 1080px;        
+                width: 1280px;
+                height: 720px;        
             }
             .page {
                 margin: 0;
@@ -124,23 +124,23 @@
                 <div class="subpage-cover">
                     <table>
                         <tr>
-                            <td style="padding-top: 45px; padding-left: 35px;">
-                                <h4 style="color: rgb(255, 255, 255);">{{ date_of_prop }}</h4>
+                            <td style="padding-top: 30px; padding-left: 35px;">
+                                <h6 style="color: rgb(255, 255, 255);">{{ date_of_prop }}</h6>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <div class="grid-container" style="padding-top: 400px;">
+                                <div class="grid-container" style="padding-top: 200px;">
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <h1 style="font-weight: bolder; font-size: 35pt; color:rgb(255, 255, 255); padding-inline-start: 5pt;">
+                                            <h1 style="font-weight: bolder; font-size: 20pt; color:rgb(255, 255, 255); padding-inline-start: 5pt;">
                                                 {{ customer.name }}
                                             </h1>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <h1 style="font-weight: bolder; font-size: 110pt; color:rgb(255, 255, 255);">
+                                            <h1 style="font-weight: bolder; font-size: 70pt; color:rgb(255, 255, 255);">
                                                 <b>Proposal</b>
                                             </h1>
                                         </div>
@@ -156,54 +156,54 @@
             <div class="page">
                 <div class="subpage" style="background-image: url(../static/dist/img/project-details.png);">
                     
-                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; padding-top: 45px; height: 162mm;">
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; padding-top: 10px; height: 500px;">
                         <div class="row">
                             <div class="col-sm-6">
                                 <table>
                                     <tr>
-                                        <td style="font-size: 18pt; color: rgb(128, 128, 128);">Client's Name</td>
+                                        <td style="font-size: 12pt; color: rgb(128, 128, 128);">Client's Name</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 23pt; padding-bottom: 18pt;"><b>{{ customer.name }}</b></td>
+                                        <td style="font-size: 15pt; padding-bottom: 18pt;"><b>{{ customer.name }}</b></td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 18pt; color: rgb(128, 128, 128);">Type of Project</td>
+                                        <td style="font-size: 12pt; color: rgb(128, 128, 128);">Type of Project</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 23pt; padding-bottom: 18pt;"><b>Medium Residental</b></td>
+                                        <td style="font-size: 15pt; padding-bottom: 18pt;"><b>Medium Residental</b></td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 18pt; color: rgb(128, 128, 128);">Location</td>
+                                        <td style="font-size: 12pt; color: rgb(128, 128, 128);">Location</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 23pt; padding-bottom: 18pt;"><b>{{ customer.address|capitalize }}</b></td>
+                                        <td style="font-size: 15pt; padding-bottom: 18pt;"><b>{{ customer.address|capitalize }}</b></td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 18pt; color: rgb(128, 128, 128);">GeoCoordinates</td>
+                                        <td style="font-size: 12pt; color: rgb(128, 128, 128);">GeoCoordinates</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 23pt; padding-bottom: 18pt;"><b>{{ proposal.geocoordinates }}</b></td>
+                                        <td style="font-size: 15pt; padding-bottom: 18pt;"><b>{{ proposal.geocoordinates }}</b></td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 18pt; color: rgb(128, 128, 128);">Date of Proposal</td>
+                                        <td style="font-size: 12pt; color: rgb(128, 128, 128);">Date of Proposal</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 23pt; padding-bottom: 18pt;"><b>{{ date_of_prop }}</b></td>
+                                        <td style="font-size: 15pt; padding-bottom: 18pt;"><b>{{ date_of_prop }}</b></td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 18pt; color: rgb(128, 128, 128);">Sundaya Sales Contact</td>
+                                        <td style="font-size: 12pt; color: rgb(128, 128, 128);">Sundaya Sales Contact</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 23pt; padding-bottom: 18pt;"><b>sales@sundaya.com</b></td>
+                                        <td style="font-size: 15pt; padding-bottom: 18pt;"><b>sales@sundaya.com</b></td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <div class="valign bottom" style="height: 425px;">
+                    <div class="valign bottom" style="height: 180px;">
                         <div class="row">
                             <div class="col-sm-6" style="padding-inline-start: 45px; padding-top: 30px;">
-                              <h2 style="font-weight: bolder; font-size: 35pt;"><b>PROJECT DETAILS</b></h2>
+                              <h2 style="font-weight: bolder; font-size: 25pt;"><b>PROJECT DETAILS</b></h2>
                             </div>
                         </div>
                     </div>
@@ -223,17 +223,17 @@
             <div class="page">
                 <div class="subpage" style="background-image: url(../static/dist/img/company-profile.png);">
                     <div class="row" style="text-align: end;">
-                        <div class="col-sm-12" style="padding-top: 45px; padding-inline-end: 45px;">
-                          <h2 style="font-weight: bolder; font-size: 35pt;">SUNDAYA</h2>
-                          <h2 style="font-weight: bolder; font-size: 35pt;">COMPANY PROFILE</h2>
+                        <div class="col-sm-12" style="padding-top: 30px; padding-inline-end: 45px;">
+                          <h2 style="font-weight: bolder; font-size: 25pt;">SUNDAYA</h2>
+                          <h2 style="font-weight: bolder; font-size: 25pt;">COMPANY PROFILE</h2>
                         </div>
                     </div>
                     <div class="row" style="vertical-align: bottom; padding-inline-start: 45px; padding-inline-end: 45px; height: 150mm; text-align: end;">
                         <div class="col-sm-8">
 
                         </div>
-                        <div class="col-sm-4" style="padding-top: 30px;">
-                            <p style="font-size: 25pt; text-align: right;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea com.</p>
+                        <div class="col-sm-4" style="padding-top: 15px;">
+                            <p style="font-size: 16pt; text-align: right;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea com.</p>
                             <!-- <p style="font-size: 18pt; text-align: right;">Sundaya’s is a company with 30 years’ experience in off-grid PV solar energy systems with core activity in design, manufacturing, installation, monitoring and servicing of it’s systems.</p> -->
                             <!-- <p style="font-size: 18pt; text-align: right;">Off-grid energy systems need to be extremely energy efficient in order to be cost effective and also extremely reliable because systems  are typically installed in extremely remote areas where cost of service is very high.</p> -->
                             <!-- <p style="font-size: 18pt; text-align: right;">Sundaya’s 30 year focus and success in the on off-grid PV market has resulted in a deep understanding on the issues of harvest, storage and enjoyment of energy and this understanding we have now transformed into a new service for the on-grid PV market. Now we can support all types of energy users to transform them to the “clean energy age”.</p>    -->
@@ -416,16 +416,16 @@
             <div class="page">
                 <div class="subpage">
                     <div class="row">
-                        <div class="col-sm-12" style="padding-inline-start: 45px; padding-top: 45px;">
-                            <h2 style="font-weight: bolder; font-size: 35pt; text-align: center;">PROPOSED INSTALLATION</h2>
+                        <div class="col-sm-12" style="padding-inline-start: 45px; padding-top: 30px;">
+                            <h2 style="font-weight: bolder; font-size: 25pt; text-align: center;">PROPOSED INSTALLATION</h2>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12" style="padding-inline-start: 45px; padding-inline-end: 45px; padding-top: 50px; text-align: center;">
+                        <div class="col-sm-12" style="padding-inline-start: 45px; padding-inline-end: 45px; padding-top: 40px; text-align: center;">
                             <div class="gallery">
                                 <img src="/{{ proposal.sketchup_model }}" alt="Photo 1">
                             </div>
-                            <p style="text-align: center; font-size: 15pt;">Roof View</p>
+                            <p style="text-align: center; font-size: 12pt;">Roof View</p>
                         </div>
                     </div>
                 </div>
@@ -435,11 +435,11 @@
             <div class="page">
                 <div class="subpage">
                     <div class="row">
-                        <div class="col-sm-12" style="padding-inline-start: 45px; padding-top: 45px;">
-                            <h2 style="font-weight: bolder; font-size: 35pt; text-align: center;">YEARLY ENERGY YIELD INFORMATION</h2>
+                        <div class="col-sm-12" style="padding-inline-start: 45px; padding-top: 30px;">
+                            <h2 style="font-weight: bolder; font-size: 25pt; text-align: center;">YEARLY ENERGY YIELD INFORMATION</h2>
                         </div>
                     </div>
-                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; padding-top: 50px; height: 850px;">
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; padding-top: 30px; height: 600px;">
                         <div class="row">
                             <div class="col-sm-6">
                                 <!-- <div class="row">
@@ -464,7 +464,7 @@
                                     </table>
                                 </div> -->
                                 <div class="row">
-                                    <table class="table table-sm" style="font-size: 15pt;">
+                                    <table class="table table-sm" style="font-size: 11pt;">
                                         <thead>
                                             <tr>
                                                 <th class="cell"><b>Roof #</b></th>
@@ -547,7 +547,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <table class="table table-sm" style="font-size: 15pt;">
+                                <table class="table table-sm" style="font-size: 11pt;">
                                     <thead>
                                         <tr>
                                             <th class="cell" style="text-align: center;"><b>Monthly Energy Yield Graph</b></th>
@@ -556,9 +556,9 @@
                                 </table>
                                 <!-- <div class='alert-dark alert-lg text-center'> Monthly Energy Yield Graph</div> -->
                                 <div class="chart">
-                                    <canvas id="yearlyChart" style="font-size: 15pt; min-height: 250px; height: 572px; max-height: max-content; max-width: 100%;"></canvas>
+                                    <canvas id="yearlyChart" style="font-size: 11pt; min-height: 250px; height: 452px; max-height: max-content; max-width: 100%;"></canvas>
                                 </div>
-                                <table class="table table-sm" style="font-size: 15pt;">
+                                <table class="table table-sm" style="font-size: 11pt;">
                                     <tfoot>
                                         <tr>
                                             <th class="cell2" style="text-align: center;">text</th>
@@ -575,15 +575,15 @@
             <div class="page">
                 <div class="subpage">
                     <div class="row">
-                        <div class="col-sm-12" style="padding-inline-start: 45px; padding-top: 45px;">
-                            <h2 style="font-weight: bolder; font-size: 35pt; text-align: center;">DAILY ENERGY YIELD INFORMATION</h2>
+                        <div class="col-sm-12" style="padding-inline-start: 45px; padding-top: 30px;">
+                            <h2 style="font-weight: bolder; font-size: 25pt; text-align: center;">DAILY ENERGY YIELD INFORMATION</h2>
                         </div>
                     </div>
-                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; padding-top: 50px; height: 850px;">
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; padding-top: 30px; height: 600px;">
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="chart" style="text-align: center;">
-                                    <canvas id='dailyChart' style="height: 720px; max-width: 75%; margin-left: auto; margin-right: auto;"></canvas>
+                                    <canvas id='dailyChart' style="height: 100%; max-width: 75%; margin-left: auto; margin-right: auto;"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -595,22 +595,22 @@
             <div class="page">
                 <div class="subpage">
                     <div class="row">
-                        <div class="col-sm-12" style="padding-inline-start: 45px; padding-top: 45px;">
-                            <h2 style="font-weight: bolder; font-size: 35pt; text-align: center;">QUOTATION</h2>
+                        <div class="col-sm-12" style="padding-inline-start: 45px; padding-top: 30px;">
+                            <h2 style="font-weight: bolder; font-size: 25pt; text-align: center;">QUOTATION</h2>
                         </div>
                     </div>
-                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; height: 162mm;">
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; height: 600px;">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-sm table-bordered" style="font-size: 15pt;">
+                                <table class="table table-sm table-bordered" style="font-size: 11pt;">
                                     <thead>
                                         <tr>
-                                            <th class="cell">#</th>
-                                            <th class="cell">Description</th>
-                                            <th class="cell">Qty</th>
-                                            <th class="cell">Unit</th>
-                                            <th class="cell">Unit Price</th>
-                                            <th class="cell">Price Amount (IDR)</th>
+                                            <th class="cell" style="text-align: center;">#</th>
+                                            <th class="cell" style="text-align: center;">Description</th>
+                                            <th class="cell" style="text-align: center;">Qty</th>
+                                            <th class="cell" style="text-align: center;">Unit</th>
+                                            <th class="cell" style="text-align: center;">Unit Price</th>
+                                            <th class="cell" style="text-align: center;">Price Amount (IDR)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -652,24 +652,24 @@
             <div class="page">
                 <div class="subpage">
                     <div class="row">
-                        <div class="col-sm-12" style="padding-inline-start: 45px; padding-top: 45px;">
-                            <h2 style="font-weight: bolder; font-size: 35pt; text-align: center;">INVESTMENT PAYBACK INFORMATION</h2>
+                        <div class="col-sm-12" style="padding-inline-start: 45px; padding-top: 30px;">
+                            <h2 style="font-weight: bolder; font-size: 25pt; text-align: center;">INVESTMENT PAYBACK INFORMATION</h2>
                         </div>
                     </div>
-                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; padding-top: 50px; height: 850px;">
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; padding-top: 30px; height: 550px;">
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="row">
-                                    <table class="table table-sm table-bordered" style="font-size: 15pt;">
+                                    <table class="table table-sm table-bordered" style="font-size: 11pt;">
                                         <thead>
                                             <tr>
                                                 <th class="cell" colspan="4">PV System Investment</th>
-                                                <th class="cell">{{proposal.amount_after_tax}}</th>
+                                                <th class="cell" style="text-align: right;">{{proposal.amount_after_tax}}</th>
                                                 <th class="cell">M IDR</th>
                                             </tr>
                                             <tr>
                                                 <th class="cell" colspan="4">PLN Price Increase Assumpsion</th>
-                                                <th class="cell">5%</th>
+                                                <th class="cell" style="text-align: right;">5%</th>
                                                 <th class="cell">per year</th>
                                             </tr>
                                             <tr style="vertical-align: middle; text-align: center;">
@@ -705,7 +705,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <table class="table table-sm" style="font-size: 15pt; height: 12%;">
+                                <table class="table table-sm" style="font-size: 11pt; height: 12%;">
                                     <tr>
                                         <th class="cell">ROI in 25 years (in million IDR): </th>
                                         <th class="cell">{{ proposal.end_pv_investment_return | int }}{{ (proposal.end_pv_investment_return / proposal.amount_after_tax) | int }} %</th>
@@ -726,7 +726,7 @@
                                     </div>
                                 </div> -->
                                 <div class="chart">
-                                    <canvas id="investmentPaybackChart" style="min-height: 465px; height: 525px; max-height: 525px; max-width: 100%;"></canvas>
+                                    <canvas id="investmentPaybackChart" style="min-height: 365px; height: 415px; max-height: 415px; max-width: 100%;"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -737,15 +737,15 @@
             <!-- Page End: Thank You -->
             <div class="page">
                 <div class="subpage-cover">
-                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px; height: 1080px;">
+                    <div class="grid-container" style="padding-inline-start: 80px; padding-inline-end: 80px; height: 720px;">
                         <div class="row">
-                            <div class="col-sm-12" style="padding-inline-start: 45px; padding-top: 45px;">
-                              <h2 style="font-size: 35pt; text-align: center; color:rgb(255, 255, 255);"><b>THANK YOU</b></h2>
+                            <div class="col-sm-12" style="padding-inline-start: 45px; padding-top: 30px;">
+                              <h2 style="font-size: 25pt; text-align: center; color:rgb(255, 255, 255);"><b>THANK YOU</b></h2>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <p style="font-size: 25pt; text-align: center; color:rgb(255, 255, 255);">Please contact <mark>sales@sundaya.com</mark> for more details about our offering</p>
+                                <p style="font-size: 15pt; text-align: center; color:rgb(255, 255, 255);">Please contact sales@sundaya.com for more details about our offering</p>
                             </div>
                         </div>
                     </div>
