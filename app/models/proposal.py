@@ -31,7 +31,6 @@ class Proposal(db.Model):
     def calculate_monthly_data(self):
         # day_total = []
         yield_roof = []
-        total_array_size = 0
         roof_data = []
         for roof in self.roofs:
             daily_sum = []
@@ -47,12 +46,38 @@ class Proposal(db.Model):
                 yield_month.append(round(((total * roof.days_in_month[index])/1000) * roof.array_size,2))
             # day_total.append(daily_sum)
             yield_roof.append(yield_month)
-            total_array_size += roof.array_size
         # self.total_energy_perhour= [int(data) for data in list(map(sum, zip(*roof_data)))]
         # self.day_total = day_total
         self.yield_roof = yield_roof
         self.yield_roof_total = [int(data) for data in list(map(sum, zip(*yield_roof)))]
-        self.total_array_size = total_array_size
+
+    @property
+    def total_avg_daily_harvest(self):
+        total = 0
+        for roof in self.roofs:
+            total += roof.avg_daily_harvest
+        return total
+
+    @property
+    def avg_kwh_kwp_day(self):
+        total = 0
+        for roof in self.roofs:
+            total += roof.kwh_kwp_day
+        return total
+
+    @property
+    def total_array_size(self):
+        total = 0
+        for roof in self.roofs:
+            total += roof.array_size
+        return total
+
+    @property
+    def total_panel_qty(self):
+        total = 0
+        for roof in self.roofs:
+            total += roof.pv_panel_qty
+        return total
 
     @property
     def investment_payback_data(self):
@@ -91,6 +116,7 @@ class Proposal(db.Model):
         list_pv_perf = self._compress_end_val(list_pv_perf)
         return pv_investment_return, zip(list_yield_total, list_pln_price, list_harvest_value, pv_graph_investment, list_pv_perf)
 
+
     def _compress_end_val(self,value):
         value_new = value[:10]
         value_new.append(value[14])
@@ -108,7 +134,7 @@ class Proposal(db.Model):
     @property
     def roof_performance_result(self):
         list_kwh_kwp_day = [roof.kwh_kwp_day for roof in self.roofs]
-        result = [(roof.kwh_kwp_day - max(list_kwh_kwp_day))/min(list_kwh_kwp_day) for roof in self.roofs]
+        result = [int((roof.kwh_kwp_day - max(list_kwh_kwp_day))/min(list_kwh_kwp_day) * 100) for roof in self.roofs]
         return ["Best" if r == 0 else r for r in result]
 
     @property

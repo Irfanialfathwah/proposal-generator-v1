@@ -499,28 +499,28 @@
                                                 {% for roof in proposal.roofs %}
                                                 <td>{{ roof.pv_panel_qty }}</td>
                                                 {% endfor %}
-                                                <td><b>total</b></td>
+                                                <td><b>{{proposal.total_panel_qty}}</b></td>
                                             </tr>
                                             <tr style="text-align: center;">
                                                 <th>Array Size</th>
                                                 {% for roof in proposal.roofs %}
                                                 <td>{{ roof.array_size }}</td>
                                                 {% endfor %}
-                                                <td><b>total</b></td>
+                                                <td><b>{{proposal.total_array_size}}</b></td>
                                             </tr>
                                             <tr style="text-align: center;">
                                                 <th>Avg Daily Harvest</th>
                                                 {% for roof in proposal.roofs %}
                                                 <td><b>{{ roof.avg_daily_harvest }}</b></td>
                                                 {% endfor %}
-                                                <td><b>total</b></td>
+                                                <td><b>{{proposal.total_avg_daily_harvest}}</b></td>
                                             </tr>
                                             <tr style="text-align: center;">
                                                 <th>kWh/kWp/day</th>
                                                 {% for roof in proposal.roofs %}
                                                 <td>{{ roof.kwh_kwp_day }}</td>
                                                 {% endfor %}
-                                                <td><b>average</b></td>
+                                                <td><b>{{ proposal.avg_kwh_kwp_day }}</b></td>
                                             </tr>
                                         </tbody>
                                         <tfoot>
@@ -664,7 +664,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="cell" colspan="4">PV System Investment</th>
-                                                <th class="cell" style="text-align: right;">{{proposal.amount_after_tax}}</th>
+                                                <th class="cell" style="text-align: right;">{{proposal.amount_after_tax / 1000000|int}}</th>
                                                 <th class="cell">M IDR</th>
                                             </tr>
                                             <tr>
