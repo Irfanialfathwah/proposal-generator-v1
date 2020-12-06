@@ -63,7 +63,7 @@ class Proposal(db.Model):
         total = 0
         for roof in self.roofs:
             total += roof.kwh_kwp_day
-        return total
+        return round(total,2)
 
     @property
     def total_array_size(self):
