@@ -13,8 +13,8 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # install system dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends gcc
+RUN apk update \
+    && apk add postgresql-dev gcc python3-dev musl-dev
 
 # lint
 RUN pip install --upgrade pip
@@ -45,7 +45,7 @@ RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 # install dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends netcat
+RUN apk update && apk add libpq
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
 RUN pip install --upgrade pip
