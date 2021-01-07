@@ -6,3 +6,4 @@ Pipfile.lock
 *.xlsx
 *.pdf
 test.*
+.env.db
