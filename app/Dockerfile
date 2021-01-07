@@ -36,7 +36,7 @@ FROM python:3.8.1-slim-buster
 RUN mkdir -p /home/app
 
 # create the app user
-RUN addgroup --system app && adduser --system app -G app
+RUN addgroup --system app && adduser --system app --group app
 
 # create the appropriate directories
 ENV HOME=/home/app
