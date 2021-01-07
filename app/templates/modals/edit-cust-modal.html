@@ -1,7 +1,7 @@
 <!-- Modal Form Edit -->
 {% for data in customers %}
 <div class="modal fade" id="modal-edit-cust{{loop.index}}">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Edit Customer Details</h4>
@@ -12,34 +12,38 @@
         <div class="modal-body">
           <form method="post" action="/customers/update">
             <div class="row">
-              <div class="col-sm-6">
+              <div class="col-sm-12">
                 <!-- text input -->
                 <div class="form-group">
                   <label>Name</label>
                   <input type="text" class="form-control" placeholder="Enter Name" id='name' name='name' value={{data.name}}>
                 </div>
               </div>
-              <div class="col-sm-6">
+            </div><!-- end of row 1 -->
+            <div class="row">
+              <div class="col-sm-12">
                 <div class="form-group">
                   <label for="inputEmail3">Email Address</label>
                   <input type="email" class="form-control" placeholder="Enter Email" id='email' name='email' value={{data.email}}>
                 </div>
               </div>
-            </div> <!-- end of row 1 -->
+            </div> <!-- end of row 2 -->
             <div class="row">
-              <div class="col-sm-6">
+              <div class="col-sm-12">
                 <div class="form-group">
                   <label>Phone Number</label>
                   <input type="text" class="form-control" placeholder="Enter Phone Number" id='phone_number' name='phone_number' value='{{data.phone_number}}'>
                 </div>
               </div>
-              <div class="col-sm-6">
+            </div> <!-- end of row 3 -->
+            <div class="row">
+              <div class="col-sm-12">
                 <div class="form-group">
                   <label>Address</label>
                   <textarea class="form-control" placeholder="Enter Address" id='address' name='address'>{{data.address}}</textarea>
                 </div>
               </div>
-            </div>
+            </div><!-- end of row 4 -->
           <div class="modal-footer justify-content-between">
             <input type="hidden" name='id' value='{{data.id}}'>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
