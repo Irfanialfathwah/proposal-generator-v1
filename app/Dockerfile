@@ -3,7 +3,7 @@
 ###########
 
 # pull official base image
-FROM python:3.8.1-slim-buster as builder
+FROM python:3.8.0-alpine as builder
 
 # set work directory
 WORKDIR /usr/src/app
@@ -30,13 +30,13 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requir
 #########
 
 # pull official base image
-FROM python:3.8.1-slim-buster
+FROM python:3.8.0-alpine
 
 # create directory for the app user
 RUN mkdir -p /home/app
 
 # create the app user
-RUN addgroup --system app && adduser --system app --group app
+RUN addgroup -S app && adduser -S app -G app
 
 # create the appropriate directories
 ENV HOME=/home/app
