@@ -21,7 +21,7 @@ services:
     env_file:
       - ./app/.env.db
   nginx:
-    build: ./services/nginx
+    build: ./nginx
     volumes:
       - static_volume:/home/app/app/static
     ports:
