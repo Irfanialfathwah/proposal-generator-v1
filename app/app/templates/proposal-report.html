@@ -222,21 +222,25 @@
             <!-- Page Two: Sundaya Company Profile -->
             <div class="page">
                 <div class="subpage" style="background-image: url(../static/dist/img/company-profile.png);">
-                    <div class="row" style="text-align: end;">
-                        <div class="col-sm-12" style="padding-top: 30px; padding-inline-end: 45px;">
-                          <h2 style="font-weight: bolder; font-size: 25pt;">SUNDAYA</h2>
-                          <h2 style="font-weight: bolder; font-size: 25pt;">COMPANY PROFILE</h2>
+                    <div class="grid-container" style="padding-top: 220px;">
+                        <div class="row" >
+                            <div class="col-sm-6">
+    
+                            </div>
+                            <div class="col-sm-6" style="padding-top: 30px; padding-inline-end: 45px;">
+                              <h2 style="font-weight: bolder; font-size: 25pt;">SUNDAYA</h2>
+                              <h2 style="font-weight: bolder; font-size: 25pt;">COMPANY PROFILE</h2>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row" style="vertical-align: bottom; padding-inline-start: 45px; padding-inline-end: 45px; height: 150mm; text-align: end;">
-                        <div class="col-sm-8">
-
-                        </div>
-                        <div class="col-sm-4" style="padding-top: 15px;">
-                            <p style="font-size: 16pt; text-align: right;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea com.</p>
-                            <!-- <p style="font-size: 18pt; text-align: right;">Sundaya’s is a company with 30 years’ experience in off-grid PV solar energy systems with core activity in design, manufacturing, installation, monitoring and servicing of it’s systems.</p> -->
-                            <!-- <p style="font-size: 18pt; text-align: right;">Off-grid energy systems need to be extremely energy efficient in order to be cost effective and also extremely reliable because systems  are typically installed in extremely remote areas where cost of service is very high.</p> -->
-                            <!-- <p style="font-size: 18pt; text-align: right;">Sundaya’s 30 year focus and success in the on off-grid PV market has resulted in a deep understanding on the issues of harvest, storage and enjoyment of energy and this understanding we have now transformed into a new service for the on-grid PV market. Now we can support all types of energy users to transform them to the “clean energy age”.</p>    -->
+                        <div class="row" style="vertical-align: bottom; padding-inline-start: 45px; padding-inline-end: 45px; height: 150mm;">
+                            <div class="col-sm-6">
+    
+                            </div>
+                            <div class="col-sm-6" style="padding-top: 15px;">
+                                <p style="font-size: 12pt; ">Sundaya’s is a company with 30 years’ experience in off-grid PV solar energy systems with core activity in design, manufacturing, installation, monitoring and servicing of it’s systems.</p>
+                                <p style="font-size: 12pt; ;">Off-grid energy systems need to be extremely energy efficient in order to be cost effective and also extremely reliable because systems  are typically installed in extremely remote areas where cost of service is very high.</p>
+                                <p style="font-size: 12pt; ">Sundaya’s 30 year focus and success in the on off-grid PV market has resulted in a deep understanding on the issues of harvest, storage and enjoyment of energy and this understanding we have now transformed into a new service for the on-grid PV market. Now we can support all types of energy users to transform them to the “clean energy age”.</p>   
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -616,7 +620,7 @@
                                     <tbody>
                                         {% for roof in proposal.roofs %}
                                         <tr>
-                                            <td style="text-align: center;">{{ loop.index }}</td>
+                                            <td style="text-align: center;">{{ loop.index+6 }}</td>
                                             <td>PV System Roof {{ loop.index }}</td>
                                             <td style="text-align: center;">{{roof.array_size|replace('.',',')}}</td>
                                             <td>kWp</td>
