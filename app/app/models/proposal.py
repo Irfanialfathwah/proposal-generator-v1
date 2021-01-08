@@ -14,6 +14,12 @@ class Proposal(db.Model):
     sketchup_model = db.Column(db.String(100), nullable=True)
     pv_system_model = db.Column(db.String(30), nullable=True)
     status = db.Column(db.String(20), nullable=False)
+    inverter_stg3 = db.Column(db.Integer, nullable=True)
+    inverter_stg6 = db.Column(db.Integer, nullable=True)
+    inverter_stg20 = db.Column(db.Integer, nullable=True)
+    energy_accounting_system = db.Column(db.Integer, nullable=True)
+    transport_price = db.Column(db.Integer, nullable=True)
+    installation_price = db.Column(db.Integer, nullable=True)
     roofs = db.relationship("Roof", backref="proposal", cascade="all,delete")
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
@@ -26,8 +32,15 @@ class Proposal(db.Model):
         self.customer_id = customer_id
         self.num_of_roofs = num_of_roofs
         self.sketchup_model = sketchup_model
+        # self.inverter_stg3 = inverter_stg3
+        # self.inverter_stg6 = inverter_stg6
+        # self.inverter_stg20 = inverter_stg20
+        # self.energy_accounting_system = energy_accounting_system
+        # self.transport_price = transport_price
+        # self.installation_price = installation_price
         self.updated_at = timestamp
-
+        #, inverter_stg3, inverter_stg6, inverter_stg20, energy_accounting_system, transport_price, installation_price
+        
     def calculate_monthly_data(self):
         # day_total = []
         yield_roof = []
@@ -151,11 +164,27 @@ class Proposal(db.Model):
         return [data for data in list(map(sum, zip(*roof_data)))]
 
     @property
+    def inverter_stg3_amount(self):
+        return self.inverter_stg3 * 4500000
+
+    @property
+    def inverter_stg6_amount(self):
+        return self.inverter_stg6 * 8000000
+
+    @property
+    def inverter_stg20_amount(self):
+        return self.inverter_stg20 * 18000000
+
+    @property
+    def eas_amount(self):
+        return self.energy_accounting_system * 5000000
+
+    @property
     def amount_before_tax(self):
         amount = 0
         for roof in self.roofs:
             amount += roof.total_amount
-        return int(amount)
+        return int(amount + self.inverter_stg3_amount + self.inverter_stg6_amount + self.inverter_stg20_amount + self.eas_amount + self.transport_price + self.installation_price)
 
     @property
     def amount_tax(self):
