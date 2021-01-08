@@ -110,6 +110,38 @@
                         </div>
                         <hr>
                         {% endfor %}
+                        <h3>Others</h3>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Inverter STG 3.0 (pcs)</label>
+                                <p class="text-muted">{{ proposal.inverter_stg3 }}</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Energy Accounting System (pcs)</label>
+                                <p class="text-muted">{{ proposal.energy_accounting_system }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Inverter STG 6.0 (pcs)</label>
+                                <p class="text-muted">{{ proposal.inverter_stg6 }}</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Transport Price (Rp)</label>
+                                <p class="text-muted">{{ proposal.transport_price }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Inverter STG 20 (pcs)</label>
+                                <p class="text-muted">{{ proposal.inverter_stg20 }}</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Installation Price (Rp)</label>
+                                <p class="text-muted">{{ proposal.installation_price }}</p>
+                            </div>
+                        </div>
+                        <hr>
                         {% else %}
                             <div class="h2 mb-md-4">No roof data to display.</div>
                         {% endif %}

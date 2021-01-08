@@ -149,10 +149,13 @@ def proposaldetails(id):
     if proposal is None:
         return redirect('/proposals')
     customers = Customer.query.order_by(Customer.id).all()
+    print(proposal.__dict__)
     if request.method == 'POST':
         is_valid = validate_proposal_form(request.form)
         if 'errors' not in is_valid:
+            print(request.files)
             if 'sketchup_model' in request.files:
+                print("masuk")
                 file = request.files['sketchup_model']
                 if file and allowed_file(file.filename):
                     filename = secure_filename(file.filename)
@@ -214,9 +217,16 @@ def add_order(id):
         roof.solar_data.extend(s_data[nums-1])
         roofs.append(roof)
     proposal.roofs.extend(roofs)
+    print(request.form)
     proposal.geocoordinates = proposal_data.get('geocoordinates')
     proposal.location = proposal_data.get('location')
     proposal.pv_system_model = proposal_data.get('pv_system_model')
+    proposal.inverter_stg3 = request.form.get('inverter_stg3')
+    proposal.inverter_stg6 = request.form.get('inverter_stg6')
+    proposal.inverter_stg20 = request.form.get('inverter_stg20')
+    proposal.energy_accounting_system = request.form.get('energy_accounting_system')
+    proposal.transport_price = request.form.get('transport_price')
+    proposal.installation_price = request.form.get('installation_price')
     db.session.add(proposal)
     db.session.add_all(roofs)
     db.session.commit()
@@ -249,6 +259,12 @@ def update_order(id):
         data['azimuth'] = request.form.get(f"azimuth{nums}")
         data['angle'] = request.form.get(f"angle{nums}")
         proposal.roofs[nums-1].update(**data, gsa_report_file=s_data[nums-1])
+    proposal.inverter_stg3 = proposal_data.get('inverter_stg3')
+    proposal.inverter_stg6 = proposal_data.get('inverter_stg6')
+    proposal.inverter_stg20 = proposal_data.get('inverter_stg20')
+    proposal.energy_accounting_system = proposal_data.get('energy_accounting_system')
+    proposal.transport_price = proposal_data.get('transport_price')
+    proposal.installation_price = proposal_data.get('installation_price')
     db.session.commit()
     flash('successfully update roofs', category='success')
     return redirect(f'/proposal-details/{id}')

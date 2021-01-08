@@ -27,11 +27,12 @@ class Proposal(db.Model):
     def __repr__(self):
         return f'<Proposal {self.customer}'
 
-    def update(self, customer_id, num_of_roofs, sketchup_model=''):
+    def update(self, customer_id, num_of_roofs, sketchup_model=None):
         timestamp = datetime.now().replace(microsecond=0)
         self.customer_id = customer_id
         self.num_of_roofs = num_of_roofs
-        self.sketchup_model = sketchup_model
+        if sketchup_model is not None:
+            self.sketchup_model = sketchup_model
         # self.inverter_stg3 = inverter_stg3
         # self.inverter_stg6 = inverter_stg6
         # self.inverter_stg20 = inverter_stg20
