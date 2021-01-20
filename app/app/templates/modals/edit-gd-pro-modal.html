@@ -58,10 +58,19 @@
                 </div>
                 <label for="exampleInputFile">SketchUp Model (rendered file)</label>
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                         <a href="/{{ proposal.sketchup_model }}" data-toggle="lightbox" data-title="SketchUp Model" data-gallery="gallery">
-                        <img src="/{{ proposal.sketchup_model }}" class="img-fluid mb-2" alt="sketchup model"/>
+                            <img src="/{{ proposal.sketchup_model }}" class="img-fluid mb-2" alt="sketchup model"/>
                         </a>
+                    </div>
+                    <div class="col-sm-8 input-group" style="text-align: middle;">
+                        <div class="custom-file">
+                        <input type="file" class="custom-file-input" id='sketchup_model' name='sketchup_model'>
+                        <label class="custom-file-label" for='sketchup_model'>Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                        <!-- <span class="input-group-text">Upload</span> -->
+                        </div>
                     </div>
                 </div>
                 <!-- <div class="custom-file">

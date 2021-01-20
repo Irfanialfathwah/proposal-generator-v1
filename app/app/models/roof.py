@@ -23,7 +23,7 @@ class Roof(db.Model):
     def __repr__(self):
         return f'<Roof {self.id}>'
 
-    def update(self, pv_panel, pv_panel_qty, pv_cable, add_construction_qty, add_construction_price, azimuth, angle, gsa_report_file=''):
+    def update(self, pv_panel, pv_panel_qty, pv_cable, add_construction_qty, add_construction_price, azimuth, angle, gsa_report_file=None):
         timestamp = datetime.now().replace(microsecond=0)
         self.updated_at = timestamp
         self.pv_panel = pv_panel
@@ -33,7 +33,8 @@ class Roof(db.Model):
         self.add_construction_price = add_construction_price
         self.azimuth = azimuth
         self.angle = angle
-        self.gsa_report_file = gsa_report_file
+        if gsa_report_file is not None:
+            self.gsa_report_file = gsa_report_file
 
     @property
     def roof_yearly_yield(self):
