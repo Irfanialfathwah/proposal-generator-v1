@@ -7,7 +7,7 @@ class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(50), nullable=False)
-    address = db.Column(db.String(80), nullable=False)
+    address = db.Column(db.String(120), nullable=False)
     phone_number = db.Column(db.String(18), nullable=False)
     proposals = db.relationship('Proposal', backref="customer", cascade="all,delete")
     created_at = db.Column(db.DateTime, nullable=False)

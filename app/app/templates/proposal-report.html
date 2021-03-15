@@ -134,7 +134,7 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <h1 style="font-weight: bolder; font-size: 20pt; color:rgb(255, 255, 255); padding-inline-start: 5pt;">
-                                                {{ customer.name }}
+                                                {{ proposal.project_name }}
                                             </h1>
                                         </div>
                                     </div>
@@ -170,7 +170,7 @@
                                         <td style="font-size: 12pt; color: rgb(128, 128, 128);">Type of Project</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 15pt; padding-bottom: 18pt;"><b>Small Residental</b></td>
+                                        <td style="font-size: 15pt; padding-bottom: 18pt;"><b>{{ proposal.pv_system_model }}</b></td>
                                     </tr>
                                     <tr>
                                         <td style="font-size: 12pt; color: rgb(128, 128, 128);">Location</td>
@@ -489,7 +489,7 @@
                                             <tr style="text-align: center;">
                                                 <td>{{ month }}</td>
                                                 {% for roof in proposal.yield_roof %}
-                                                <td>{{roof[nums] | int}}</td>
+                                                <td>{{roof[nums-1] | int}}</td>
                                                 {% endfor %}
                                                 <td><b>{{ energy_yield }}</b></td>
                                                 <!-- <td>{{ value }}</td> -->
@@ -623,7 +623,7 @@
                                             <td>Inverter STG 3.0</td>
                                             <td style="text-align: center;">{{ proposal.inverter_stg3 }}</td>
                                             <td> </td>
-                                            <td style="text-align: right;">4.500.000</td>
+                                            <td style="text-align: right;">5.700.000</td>
                                             <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg3_amount)|replace(',','.') }}</td>
                                         </tr>
                                         <tr>
@@ -631,7 +631,7 @@
                                             <td>Inverter STG 6.0</td>
                                             <td style="text-align: center;">{{ proposal.inverter_stg6 }}</td>
                                             <td> </td>
-                                            <td style="text-align: right;">8.000.000</td>
+                                            <td style="text-align: right;">14.500.000</td>
                                             <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg6_amount)|replace(',','.') }}</td>
                                         </tr>
                                         <tr>
@@ -639,7 +639,7 @@
                                             <td>Inverter STG 20</td>
                                             <td style="text-align: center;">{{ proposal.inverter_stg20 }}</td>
                                             <td> </td>
-                                            <td style="text-align: right;">18.000.000</td>
+                                            <td style="text-align: right;">37.700.000</td>
                                             <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg20_amount)|replace(',','.') }}</td>
                                         </tr>
                                         <tr>

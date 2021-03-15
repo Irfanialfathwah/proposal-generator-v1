@@ -44,11 +44,11 @@ class Roof(db.Model):
         for index,solar_data in enumerate(self.solar_data):
             total = 0
             # total_with_array = 0
-            for count,data in enumerate(solar_data.hourly):
-                total += data.energy
+            # for count,data in enumerate(solar_data.hourly):
+            #     total += data.energy
             # daily_sum.append(total)
             # daily_energy.append(total_with_array)
-            yield_month.append(round(((total * self.days_in_month[index])/1000) * self.array_size,2))
+            yield_month.append(round(((solar_data.energy * self.days_in_month[index])/1000) * self.array_size,2))
         return yield_month
 
     @property

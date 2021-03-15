@@ -46,6 +46,7 @@ def add_gsa_report_to_db(files):
         result_hourly = hourly_profiles.to_dict('splits')
         collection_data.append(result_hourly)
     yearly = []
+    print(collection_data)
     for data in collection_data:
         monthly = []
         for num,column in enumerate(data.get('columns')):
