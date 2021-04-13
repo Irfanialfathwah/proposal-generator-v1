@@ -18,6 +18,7 @@ class Proposal(db.Model):
     inverter_stg3 = db.Column(db.Integer, nullable=True)
     inverter_stg6 = db.Column(db.Integer, nullable=True)
     inverter_stg20 = db.Column(db.Integer, nullable=True)
+    # inverter_stg125 = db.Column(db.Integer, nullable=True)
     energy_accounting_system = db.Column(db.Integer, nullable=True)
     transport_price = db.Column(db.Integer, nullable=True)
     installation_price = db.Column(db.Integer, nullable=True)
@@ -50,6 +51,7 @@ class Proposal(db.Model):
         self.inverter_stg3 = inverter_stg3
         self.inverter_stg6 = inverter_stg6
         self.inverter_stg20 = inverter_stg20
+        # self.inverter_stg125 = inverter_stg125
         self.energy_accounting_system = energy_accounting_system
         self.transport_price = transport_price
         self.installation_price = installation_price
@@ -187,6 +189,10 @@ class Proposal(db.Model):
     @property
     def inverter_stg20_amount(self):
         return self.inverter_stg20 * 37700000
+
+    # @property
+    # def inverter_stg125_amount(self):
+        # return self.inverter_stg125 * 174000000
 
     @property
     def eas_amount(self):

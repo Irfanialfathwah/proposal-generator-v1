@@ -140,7 +140,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <h1 style="font-weight: bolder; font-size: 70pt; color:rgb(255, 255, 255);">
+                                            <h1 style="font-size: 70pt; color:rgb(255, 255, 255);">
                                                 <b>Proposal</b>
                                             </h1>
                                         </div>
@@ -156,7 +156,7 @@
             <div class="page">
                 <div class="subpage" style="background-image: url(../static/dist/img/project-details.png);">
                     
-                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; padding-top: 10px; height: 500px;">
+                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; padding-top: 70px; height: 500px;">
                         <div class="row">
                             <div class="col-sm-6">
                                 <table style="width: 300px;">
@@ -203,7 +203,7 @@
                     <div class="valign bottom" style="height: 180px;">
                         <div class="row">
                             <div class="col-sm-6" style="padding-inline-start: 45px; padding-top: 30px;">
-                              <h2 style="font-weight: bolder; font-size: 25pt;"><b>PROJECT DETAILS</b></h2>
+                              <h2 style="font-size: 25pt;"><b>PROJECT DETAILS</b></h2>
                             </div>
                         </div>
                     </div>
@@ -496,24 +496,24 @@
                                             </tr>
                                             {% endfor %}
                                             <tr>
-                                                <th class="cell3" colspan="{{ proposal.num_of_roofs+2 }}">Roof Performance</th>
+                                                <th class="cell3" colspan="{{ proposal.num_of_roofs+2 }}"> </th>
                                             </tr>
                                             <tr style="text-align: center;">
-                                                <th>Panel Qty</th>
+                                                <th>Panel Qty (pcs)</th>
                                                 {% for roof in proposal.roofs %}
                                                 <td>{{ roof.pv_panel_qty }}</td>
                                                 {% endfor %}
                                                 <td><b>{{proposal.total_panel_qty}}</b></td>
                                             </tr>
                                             <tr style="text-align: center;">
-                                                <th>Array Size</th>
+                                                <th>Array Size (kWp)</th>
                                                 {% for roof in proposal.roofs %}
                                                 <td>{{ roof.array_size }}</td>
                                                 {% endfor %}
                                                 <td><b>{{proposal.total_array_size}}</b></td>
                                             </tr>
                                             <tr style="text-align: center;">
-                                                <th>Avg Daily Harvest</th>
+                                                <th>Avg Daily Harvest (kWh)</th>
                                                 {% for roof in proposal.roofs %}
                                                 <td><b>{{ roof.avg_daily_harvest }}</b></td>
                                                 {% endfor %}
@@ -642,6 +642,7 @@
                                             <td style="text-align: right;">37.700.000</td>
                                             <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg20_amount)|replace(',','.') }}</td>
                                         </tr>
+                                        
                                         <tr>
                                             <td style="text-align: center;">4</td>
                                             <td>Energy Accounting System</td>
@@ -716,7 +717,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="cell" colspan="4">PV System Investment</th>
-                                                <th class="cell" style="text-align: right;">{{proposal.amount_after_tax / 1000000|int}}</th>
+                                                <th class="cell" style="text-align: right;">{{ (proposal.amount_after_tax/1000000) | round| int  }}</th>
                                                 <th class="cell">M IDR</th>
                                             </tr>
                                             <tr>
@@ -726,7 +727,7 @@
                                             </tr>
                                             <tr style="vertical-align: middle; text-align: center;">
                                                 <th style="width: 10%; vertical-align: middle;">Year</th>
-                                                <th>Yiels (MWh)</th>
+                                                <th>Yield (MWh)</th>
                                                 <th>PLN Price (IDR)</th>
                                                 <th>Harvest Value (M IDR)</th>
                                                 <th>End of Year Value</th>
@@ -749,7 +750,7 @@
                                                 <td style="text-align: right;">{{pln_price|int}}</td>
                                                 <td style="text-align: right;">{{harvest_value|int}}</td>
                                                 <td style="text-align: right;">{{investment_value|int}}</td>
-                                                <td style="text-align: right;">{{pv_perf}}</td>
+                                                <td style="text-align: right;">{{pv_perf}} %</td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>

@@ -252,7 +252,7 @@ def update_order(id):
                 file_path = app.config.get('UPLOAD_FILES_FOLDER') / filename
                 file.save(file_path)
                 filepaths.append(file_path)
-                s_data = add_gsa_report_to_db(filepaths)
+                s_data, proposal_data = add_gsa_report_to_db(filepaths)
     for nums in range(1,proposal.num_of_roofs+1):
         data['pv_panel'] = request.form.get(f"pv_panel{nums}")
         data['pv_panel_qty'] = request.form.get(f"pv_panel_qty{nums}")
@@ -261,6 +261,8 @@ def update_order(id):
         data['add_construction_price'] = request.form.get(f"add_construction_price{nums}")
         data['azimuth'] = request.form.get(f"azimuth{nums}")
         data['angle'] = request.form.get(f"angle{nums}")
+        print('proposals', len(proposal.roofs))
+        print('sdata', s_data)
         proposal.roofs[nums-1].update(**data, gsa_report_file=s_data[nums-1]) if s_data is not None else proposal.roofs[nums-1].update(**data, gsa_report_file=None)
     proposal.inverter_stg3 = request.form.get('inverter_stg3')
     proposal.inverter_stg6 = request.form.get('inverter_stg6')
