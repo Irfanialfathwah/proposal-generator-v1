@@ -34,7 +34,8 @@
             <tr>
               <th style="width: 1%">#</th>
               <th>Id</th>
-              <th>Name of Location</th>
+              <th>Project Name</th>
+              <th>Location</th>
               <th>Customer</th>
               <th>Number of Roof</th>
               <th>GeoCoordinates</th>
@@ -47,6 +48,7 @@
             <tr>
               <td>{{ loop.index }}</td>
               <td>{{proposal.id}}</td>
+              <td>{{proposal.project_name}}</td>
               <td>{{proposal.location}}</td>
               <td>{{proposal.customer.name}}</td>
               <td>{{proposal.num_of_roofs}}</td>

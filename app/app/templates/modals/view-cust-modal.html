@@ -23,12 +23,11 @@
                 <hr>
                 <strong><i class="fas fa-map-marker-alt mr-1 "></i> Address</strong>
                 <p class="text-muted">{{data.address}}</p>
-                <ul class="list-group list-group-unbordered mb-3 list-unstyled">
-                    <li class="list-group-item">
-                        <b>Total Proposal</b> <a class="float-right">{{ data.proposals|length }}</a>
-                    </li>
-                </ul>
-                <strong>Proposal Complete</strong>
+                <hr>
+                <strong><i class="fas fa-archive mr-1 "></i> Total Proposal</strong>
+                <p class="text-muted">{{ data.proposals|length }}</p>
+                <hr>
+                <strong><i class="fas fa-book mr-1 "></i> Proposal Complete</strong>
                 <ul class="list-unstyled">
                     {% for proposal in data.proposals %}
                     {% if proposal.status == 'Completed' %}

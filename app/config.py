@@ -21,3 +21,5 @@ DATABASE = {
     "SQLALCHEMY_DATABASE_URI" : os.getenv('DB_URL'),
     "SQLALCHEMY_TRACK_MODIFICATIONS" : True,
 }
+print(env_path)
+print(DATABASE)

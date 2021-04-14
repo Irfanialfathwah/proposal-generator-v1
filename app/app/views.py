@@ -70,6 +70,7 @@ def logout():
 def customers():
     if request.method == 'POST':
         is_valid = validate_customer_form(request.form)
+        print(is_valid)
         if 'errors' not in is_valid:
             timestamp = datetime.now().replace(microsecond=0)
             customer = Customer(**is_valid, created_at=timestamp, updated_at=timestamp)
@@ -132,7 +133,7 @@ def addproposal():
                     file_path = app.config.get('UPLOAD_IMAGES_FOLDER') / filename
                     file.save(file_path)
                     is_valid.update({'sketchup_model' : file_path.relative_to(Path('app')).__str__()})
-            proposal = Proposal(**is_valid, date_of_proposals=date_of_proposals, created_at=timestamp, updated_at=timestamp, status='Pending')
+            proposal = Proposal(**is_valid, date_of_proposals=date_of_proposals, project_name=request.form.get('project_name'), created_at=timestamp, updated_at=timestamp,  status='Pending')
             db.session.add(proposal)
             db.session.commit()
             flash('successfully added', 'success')
@@ -149,17 +150,21 @@ def proposaldetails(id):
     if proposal is None:
         return redirect('/proposals')
     customers = Customer.query.order_by(Customer.id).all()
+    # print(proposal.__dict__)
     if request.method == 'POST':
         is_valid = validate_proposal_form(request.form)
+        print('is_valid', is_valid)
         if 'errors' not in is_valid:
+            print(request.files)
             if 'sketchup_model' in request.files:
+                print("masuk")
                 file = request.files['sketchup_model']
                 if file and allowed_file(file.filename):
                     filename = secure_filename(file.filename)
                     file_path = app.config.get('UPLOAD_IMAGES_FOLDER') / filename
                     file.save(file_path)
                     is_valid.update({'sketchup_model' : file_path.relative_to(Path('app')).__str__()})
-            proposal.update(**is_valid)
+            proposal.update(**is_valid, project_name=request.form.get('project_name'))
             db.session.commit()
             flash('successfully updated', 'success')
             return redirect(f'/proposal-details/{id}')
@@ -214,9 +219,16 @@ def add_order(id):
         roof.solar_data.extend(s_data[nums-1])
         roofs.append(roof)
     proposal.roofs.extend(roofs)
+    print(request.form)
     proposal.geocoordinates = proposal_data.get('geocoordinates')
     proposal.location = proposal_data.get('location')
     proposal.pv_system_model = proposal_data.get('pv_system_model')
+    proposal.inverter_stg3 = request.form.get('inverter_stg3')
+    proposal.inverter_stg6 = request.form.get('inverter_stg6')
+    proposal.inverter_stg20 = request.form.get('inverter_stg20')
+    proposal.energy_accounting_system = request.form.get('energy_accounting_system')
+    proposal.transport_price = request.form.get('transport_price')
+    proposal.installation_price = request.form.get('installation_price')
     db.session.add(proposal)
     db.session.add_all(roofs)
     db.session.commit()
@@ -230,6 +242,7 @@ def update_order(id):
     data = {}
     roofs = []
     proposal = Proposal.query.filter_by(id=id).first()
+    s_data = None
     if request.files:
         filepaths = []
         for index,gsa_report in enumerate(request.files):
@@ -248,7 +261,13 @@ def update_order(id):
         data['add_construction_price'] = request.form.get(f"add_construction_price{nums}")
         data['azimuth'] = request.form.get(f"azimuth{nums}")
         data['angle'] = request.form.get(f"angle{nums}")
-        proposal.roofs[nums-1].update(**data, gsa_report_file=s_data[nums-1])
+        proposal.roofs[nums-1].update(**data, gsa_report_file=s_data[nums-1]) if s_data is not None else proposal.roofs[nums-1].update(**data, gsa_report_file=None)
+    proposal.inverter_stg3 = request.form.get('inverter_stg3')
+    proposal.inverter_stg6 = request.form.get('inverter_stg6')
+    proposal.inverter_stg20 = request.form.get('inverter_stg20')
+    proposal.energy_accounting_system = request.form.get('energy_accounting_system')
+    proposal.transport_price = request.form.get('transport_price')
+    proposal.installation_price = request.form.get('installation_price')
     db.session.commit()
     flash('successfully update roofs', category='success')
     return redirect(f'/proposal-details/{id}')
@@ -285,7 +304,8 @@ def proposal_report(id):
         return redirect(f'/proposal-details/{id}')
     proposal.calculate_monthly_data()
     yield_roof_total = proposal.yield_roof_total
-    calendar = ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Nov', 'Dec']
+    print(yield_roof_total)
+    calendar = ['Jan', 'Feb', 'Mar', 'Apr','May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     value_to_kwh = [int((data*1550)/1000) for data in yield_roof_total]
     avg_energy_perhour = (np.array([data for data in list(map(sum, zip(*proposal.total_energy_perhour)))]) / proposal.num_of_roofs).tolist()
     total_energy_perhour = [e.tolist() for e in proposal.total_energy_perhour]

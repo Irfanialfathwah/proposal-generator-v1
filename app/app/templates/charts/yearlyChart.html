@@ -3,7 +3,7 @@ ctx = document.getElementById('yearlyChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Nov', 'Dec'],
+        labels: ['Jan', 'Feb', 'Mar', 'Apr','May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         datasets: [{
             data: {{ proposal.yield_roof_total }},
             backgroundColor: 'rgba(4, 186, 85, 1)',
