@@ -28,14 +28,14 @@
         .subpage-cover{
             padding: 0.2cm;
             height: 720px;
-            background-image: url(../static/dist/img/cover-proposal.png);
+            background-image: url(../static/dist/img/cover-proposal-min.png);
             background-size: contain;
         }
         .subpage {
             padding: 0.2cm;
             height: 720px;
             background: rgb(255, 255, 255);
-            background-image: url(../static/dist/img/main-template.png);
+            background-image: url(../static/dist/img/main-template-min.png);
             background-size: contain;
         }
         .grid-container {
@@ -154,7 +154,7 @@
             <!-- end of cover page -->
             <!-- Page One: Project Details -->
             <div class="page">
-                <div class="subpage" style="background-image: url(../static/dist/img/project-details.png);">
+                <div class="subpage" style="background-image: url(../static/dist/img/project-details-min.png);">
                     
                     <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; padding-top: 70px; height: 500px;">
                         <div class="row">
@@ -194,7 +194,7 @@
                                         <td style="font-size: 12pt; color: rgb(128, 128, 128);">Sundaya Sales Contact</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 15pt; padding-bottom: 18pt;"><b>sales@sundaya.com</b></td>
+                                        <td style="font-size: 15pt; padding-bottom: 18pt;"><b>info@sundaya.com</b></td>
                                     </tr>
                                 </table>
                             </div>
@@ -221,7 +221,7 @@
             <!-- end of page one -->
             <!-- Page Two: Sundaya Company Profile -->
             <div class="page">
-                <div class="subpage" style="background-image: url(../static/dist/img/company-profile.png);">
+                <div class="subpage" style="background-image: url(../static/dist/img/company-profile-min.png);">
                     <div class="grid-container" style="padding-top: 220px;">
                         <div class="row" >
                             <div class="col-sm-6">
@@ -618,14 +618,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% if proposal.inverter_stg3_amount != 0 %}
                                         <tr>
                                             <td style="text-align: center;">1</td>
                                             <td>Inverter STG 3.0</td>
-                                            <td style="text-align: center;">{{ proposal.inverter_stg3 }}</td>
+                                            <td style="text-align: center;">{{ proposal.inverter_stg3_amount }}</td>
                                             <td> </td>
                                             <td style="text-align: right;">5.700.000</td>
                                             <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg3_amount)|replace(',','.') }}</td>
                                         </tr>
+                                        {% endif %}
+                                        {% if proposal.inverter_stg6_amount != 0 %}
                                         <tr>
                                             <td style="text-align: center;">2</td>
                                             <td>Inverter STG 6.0</td>
@@ -634,15 +637,17 @@
                                             <td style="text-align: right;">14.500.000</td>
                                             <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg6_amount)|replace(',','.') }}</td>
                                         </tr>
+                                        {% endif %}
+                                        {% if proposal.inverter_stg20_amount != 0 %}
                                         <tr>
                                             <td style="text-align: center;">3</td>
-                                            <td>Inverter STG 20</td>
+                                            <td>Inverter STG 125</td>
                                             <td style="text-align: center;">{{ proposal.inverter_stg20 }}</td>
                                             <td> </td>
-                                            <td style="text-align: right;">37.700.000</td>
+                                            <td style="text-align: right;">174.000.000</td>
                                             <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg20_amount)|replace(',','.') }}</td>
                                         </tr>
-                                        
+                                        {% endif %}
                                         <tr>
                                             <td style="text-align: center;">4</td>
                                             <td>Energy Accounting System</td>
@@ -670,7 +675,7 @@
                                         {% for roof in proposal.roofs %}
                                         <tr>
                                             <td style="text-align: center;">{{ loop.index+6 }}</td>
-                                            <td>PV System Roof {{ loop.index }}</td>
+                                            <td>PV System Roof {{ loop.index}} ({{ roof.pv_panel }} Wp)</td>
                                             <td style="text-align: center;">{{roof.array_size|replace('.',',')}}</td>
                                             <td>kWp</td>
                                             <td style="text-align: right;">{{"{:,.0f}".format(roof.price_perunit)|replace(',','.') }}</td>
@@ -798,7 +803,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <p style="font-size: 15pt; text-align: center; color:rgb(255, 255, 255);">Please contact sales@sundaya.com for more details about our offering</p>
+                                <p style="font-size: 15pt; text-align: center; color:rgb(255, 255, 255);">Please contact info@sundaya.com for more details about our offering</p>
                             </div>
                         </div>
                     </div>
