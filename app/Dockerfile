@@ -40,12 +40,13 @@ RUN addgroup -S app && adduser -S app -G app
 
 # create the appropriate directories
 ENV HOME=/home/app
-ENV APP_HOME=/home/app
+ENV APP_HOME=/home/app/app
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 # install dependencies
-RUN apk update && apk add libpq
+RUN apk update && apk add libpq && \
+    apk add libstdc++
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
 RUN pip install --upgrade pip
@@ -59,9 +60,10 @@ COPY . $APP_HOME
 
 # chown all the files to the app user
 RUN chown -R app:app $APP_HOME
+RUN chmod +x $APP_HOME/entrypoint.sh
 
 # change to the app user
 USER app
 
 # run entrypoint.prod.sh
-ENTRYPOINT ["/home/app/entrypoint.sh"]
+ENTRYPOINT ["/home/app/app/entrypoint.sh"]
