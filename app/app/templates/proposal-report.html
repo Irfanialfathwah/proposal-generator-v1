@@ -452,11 +452,31 @@
                                         {% if proposal.inverter_stg20_amount != 0 %}
                                         <tr>
                                             <td style="text-align: center;">3</td>
-                                            <td>Inverter STG 125</td>
+                                            <td>Inverter STG 20</td>
                                             <td style="text-align: center;">{{ proposal.inverter_stg20 }}</td>
                                             <td> </td>
-                                            <td style="text-align: right;">174.000.000</td>
+                                            <td style="text-align: right;">37.700.000</td>
                                             <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg20_amount)|replace(',','.') }}</td>
+                                        </tr>
+                                        {% endif %}
+                                        {% if proposal.inverter_stg125_amount != 0 %}
+                                        <tr>
+                                            <td style="text-align: center;">3</td>
+                                            <td>Inverter STG 125</td>
+                                            <td style="text-align: center;">{{ proposal.inverter_stg125 }}</td>
+                                            <td> </td>
+                                            <td style="text-align: right;">174.000.000</td>
+                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg125_amount)|replace(',','.') }}</td>
+                                        </tr>
+                                        {% endif %}
+                                        {% if proposal.inverter_stg250_amount != 0 %}
+                                        <tr>
+                                            <td style="text-align: center;">3</td>
+                                            <td>Inverter STG 250</td>
+                                            <td style="text-align: center;">{{ proposal.inverter_stg250 }}</td>
+                                            <td> </td>
+                                            <td style="text-align: right;">174.000.000</td>
+                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg250_amount)|replace(',','.') }}</td>
                                         </tr>
                                         {% endif %}
                                         <tr>
@@ -486,7 +506,7 @@
                                         {% for roof in proposal.roofs %}
                                         <tr>
                                             <td style="text-align: center;">{{ loop.index+6 }}</td>
-                                            <td>PV System Roof {{ loop.index}} ({{ roof.pv_panel }} Wp)</td>
+                                            <td>PV System Roof {{ loop.index }} ({{ roof.pv_panel }} Wp)</td>
                                             <td style="text-align: center;">{{roof.array_size|replace('.',',')}}</td>
                                             <td>kWp</td>
                                             <td style="text-align: right;">{{"{:,.0f}".format(roof.price_perunit)|replace(',','.') }}</td>
