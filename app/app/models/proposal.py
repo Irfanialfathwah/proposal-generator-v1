@@ -25,6 +25,7 @@ class Proposal(db.Model):
     roofs = db.relationship("Roof", backref="proposal", cascade="all,delete")
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
+    discount = db.Column(db.Integer, nullable=True)
 
     def __repr__(self):
         return f'<Proposal {self.customer}'
@@ -45,9 +46,10 @@ class Proposal(db.Model):
         self.updated_at = timestamp
         #, inverter_stg3, inverter_stg6, inverter_stg20, energy_accounting_system, transport_price, installation_price
         
-    def update_quotation(self, inverter_stg3, inverter_stg6, inverter_stg20, energy_accounting_system, transport_price, installation_price):
+    def update_quotation(self, id, inverter_stg3, inverter_stg6, inverter_stg20, energy_accounting_system, transport_price, installation_price, discount):
         timestamp = datetime.now().replace(microsecond=0)
         self.updated_at = timestamp
+        self.id = id
         self.inverter_stg3 = inverter_stg3
         self.inverter_stg6 = inverter_stg6
         self.inverter_stg20 = inverter_stg20
@@ -55,6 +57,7 @@ class Proposal(db.Model):
         self.energy_accounting_system = energy_accounting_system
         self.transport_price = transport_price
         self.installation_price = installation_price
+        self.discount = discount
         
     def calculate_monthly_data(self):
         # day_total = []
@@ -207,8 +210,12 @@ class Proposal(db.Model):
 
     @property
     def amount_tax(self):
-        return int(self.amount_before_tax * 10/100)
+        return int(self.amount_after_discount * 10/100)
 
     @property
     def amount_after_tax(self):
-        return int(self.amount_before_tax + self.amount_tax)
+        return int(self.amount_after_discount + self.amount_tax)
+
+    @property
+    def amount_after_discount(self):
+        return int(self.amount_before_tax - self.discount)
