@@ -7,7 +7,7 @@ from functools import wraps
 from datetime import datetime
 from app import app
 from db import db
-from app.models import Customer, Proposal, Roof
+from app.models import Customer, Proposal, Roof, Product
 from app.form_validations import validate_customer_form, validate_proposal_form
 from werkzeug.utils import secure_filename
 from app.functions import allowed_file, add_gsa_report_to_db
@@ -328,3 +328,8 @@ def proposal_report(id):
         'avg_daily' : avg_energy_perhour,
     }
     return render_template('proposal-report.html', **context)
+
+    @app.route('/products')
+    @login_required
+    def products():
+        return render_template("products.html")

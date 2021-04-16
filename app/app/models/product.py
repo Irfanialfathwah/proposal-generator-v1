@@ -5,10 +5,10 @@ class Product(db.Model):
     __tablename__ = "products"
 
     id = db.Column(db.Integer, primary_key=True)
+    proposal_id = db.Column(db.Integer, db.ForeignKey('proposals.id'))
     product_name = db.Column(db.String(100), nullable=True)
     std_price = db.Column(db.Integer, nullable=True)
     brochure = db.Column(db.String(100), nullable=True)
-    proposals = db.relationship('Proposal', backref="product", cascade="all,delete")
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
 

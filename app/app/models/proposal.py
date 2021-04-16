@@ -7,7 +7,6 @@ class Proposal(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
     customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
     date_of_proposals = db.Column(db.DateTime, nullable=False)
     project_name = db.Column(db.String(100), nullable=True)
     num_of_roofs = db.Column(db.Integer, nullable=False)
@@ -25,6 +24,7 @@ class Proposal(db.Model):
     transport_price = db.Column(db.Integer, nullable=True)
     installation_price = db.Column(db.Integer, nullable=True)
     roofs = db.relationship("Roof", backref="proposal", cascade="all,delete")
+    products = db.relationship("Product", backref="proposal", cascade="all,delete")
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
     discount = db.Column(db.Integer, nullable=True)
