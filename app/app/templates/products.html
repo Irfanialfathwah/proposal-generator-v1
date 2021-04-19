@@ -1,0 +1,79 @@
+{% extends "main-layout/base.html" %}
+{% block title %}Product{% endblock %}
+{% block body %}
+<div class="content-wrapper">
+    {{ super() }}
+    {% with messages = get_flashed_messages(category_filter=['success'], with_categories=True) %}
+    {% if messages %}
+    {% for category,message in messages %}
+    <div class="alert alert-{{category}}" role="alert">
+      <strong class='h4'>{{ message }}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-primary cadr-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Our Products</h3>
+                    <div class="card-tools dropdown">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-prod">
+                            Add Product
+                        </button>
+                    </div><!-- /.card-tools-button -->
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 1%">#</th>
+                                <th>Id</th>
+                                <th>Product Name</th>
+                                <th>Standard Price</th>
+                                <th>Last Update</th>
+                                <th style="width: 25%;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data,prop_comp in table_data %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ data.id }}</td>
+                                <td>{{ data.product_name }}</td>
+                                <td>{{ data.std_price }}</td>
+                                <td>{{ data.updated_at }}</td>
+                                <td class="project-actions text-center">
+                                    <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="modal-view-prod{{loop.index}}">
+                                        <i class="fas fa-folder">
+                                        </i>
+                                        View
+                                    </a>
+                                    <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="modal-edit-prod{{loop.index}}">
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+                                        Edit
+                                    </a>
+                                    <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="modal-delete-prod{{loop.index}}">
+                                        <i class="fas fa-trash">
+                                        </i>
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% include "modals/add-prod-modal.html" %}
+        {% include "modals/view-prod-modal.html" %}
+        {% include "modals/edit-prod-modal.html" %}
+        {% include "modals/delete-prod-modal.html" %}
+    </section>
+</div>
+{% endblock %}

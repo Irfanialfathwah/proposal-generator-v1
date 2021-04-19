@@ -7,7 +7,7 @@ from functools import wraps
 from datetime import datetime
 from app import app
 from db import db
-from app.models import Customer, Proposal, Roof
+from app.models import Customer, Proposal, Roof, Product
 from app.form_validations import validate_customer_form, validate_proposal_form
 from werkzeug.utils import secure_filename
 from app.functions import allowed_file, add_gsa_report_to_db
@@ -226,9 +226,12 @@ def add_order(id):
     proposal.inverter_stg3 = request.form.get('inverter_stg3')
     proposal.inverter_stg6 = request.form.get('inverter_stg6')
     proposal.inverter_stg20 = request.form.get('inverter_stg20')
+    proposal.inverter_stg125 = request.form.get('inverter_stg125')
+    proposal.inverter_stg250 = request.form.get('inverter_stg250')
     proposal.energy_accounting_system = request.form.get('energy_accounting_system')
     proposal.transport_price = request.form.get('transport_price')
     proposal.installation_price = request.form.get('installation_price')
+    proposal.discount = request.form.get('discount')
     db.session.add(proposal)
     db.session.add_all(roofs)
     db.session.commit()
@@ -252,7 +255,7 @@ def update_order(id):
                 file_path = app.config.get('UPLOAD_FILES_FOLDER') / filename
                 file.save(file_path)
                 filepaths.append(file_path)
-                s_data = add_gsa_report_to_db(filepaths)
+                s_data, proposal_data = add_gsa_report_to_db(filepaths)
     for nums in range(1,proposal.num_of_roofs+1):
         data['pv_panel'] = request.form.get(f"pv_panel{nums}")
         data['pv_panel_qty'] = request.form.get(f"pv_panel_qty{nums}")
@@ -261,13 +264,18 @@ def update_order(id):
         data['add_construction_price'] = request.form.get(f"add_construction_price{nums}")
         data['azimuth'] = request.form.get(f"azimuth{nums}")
         data['angle'] = request.form.get(f"angle{nums}")
+        print('proposals', len(proposal.roofs))
+        print('sdata', s_data)
         proposal.roofs[nums-1].update(**data, gsa_report_file=s_data[nums-1]) if s_data is not None else proposal.roofs[nums-1].update(**data, gsa_report_file=None)
     proposal.inverter_stg3 = request.form.get('inverter_stg3')
     proposal.inverter_stg6 = request.form.get('inverter_stg6')
     proposal.inverter_stg20 = request.form.get('inverter_stg20')
+    proposal.inverter_stg125 = request.form.get('inverter_stg125')
+    proposal.inverter_stg250 = request.form.get('inverter_stg250')
     proposal.energy_accounting_system = request.form.get('energy_accounting_system')
     proposal.transport_price = request.form.get('transport_price')
     proposal.installation_price = request.form.get('installation_price')
+    proposal.discount = request.form.get('discount')
     db.session.commit()
     flash('successfully update roofs', category='success')
     return redirect(f'/proposal-details/{id}')
@@ -320,3 +328,8 @@ def proposal_report(id):
         'avg_daily' : avg_energy_perhour,
     }
     return render_template('proposal-report.html', **context)
+
+@app.route('/products')
+@login_required
+def products():
+    return render_template("products.html")

@@ -1,0 +1,37 @@
+<!-- Modal View Customer -->
+{% for data in products %}
+<div class="modal fade" id="modal-view-prod{{loop.index}}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Product Details</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body box-profile">
+                <div class="text-center">
+                    <img class="profile-user-img img-fluid img-circle"
+                         src="../static/dist/img/barcode-solid.svg"
+                         alt="product picture">
+                </div>
+                <h3 class="profile-username text-center">{{ data.product_name }}</h3>
+                <p class="text-muted text-center">{{ data.std_price }}</p>
+                <hr>
+                
+                <strong><i class="fas fa-book mr-1 "></i> Brochure/Datasheet</strong>
+                <ul class="list-unstyled">
+                    <!-- pindahin ke tab baru pas klik brochure -->
+                    <li>
+                        <a target="_blank" rel="noopener noreferrer" href="/files/{{product.id}}" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> {{data.product_name|capitalize}}.pdf</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="modal-footer right-content">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}

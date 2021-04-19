@@ -1,0 +1,57 @@
+<!-- Modal Form Add -->
+<div class="modal fade" id="modal-edit-prod">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Product</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method='post'>
+            <div class="row">
+                <!-- text input -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Product Name" name='product_name' id='product_name' value={{data.product_name}}>
+                </div>
+              </div>
+            </div> <!-- end of row 1 -->
+            <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>Standard Price</label>
+                    <input type="number" class="form-control" placeholder="Enter Standarc Price" name='std_price' id='std_price' value={{data.std_price}}>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                    <div class="form-group">
+                    <label>Brochure</label>
+                    <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="exampleInputFile" name="brochure">
+                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">Upload</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" onsubmit="this.disabled=true;">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
