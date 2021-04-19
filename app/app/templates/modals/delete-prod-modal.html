@@ -1,0 +1,25 @@
+{% for data in products %}
+<div class="modal fade" id="modal-delete-prod{{loop.index}}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Product</h4>
+                <a type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete this product?
+            </div>
+            <div class="modal-footer">
+                <form method="post" action="/products/delete">
+                    <input type="hidden" value="{{data.id}}" name="id">
+                    <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+                    <button type="submit" class="btn btn-danger" onClick="this.disabled=true; this.value='Sending…';">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+{% endfor %}

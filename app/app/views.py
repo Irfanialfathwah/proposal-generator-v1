@@ -329,7 +329,7 @@ def proposal_report(id):
     }
     return render_template('proposal-report.html', **context)
 
-    @app.route('/products')
-    @login_required
-    def products():
-        return render_template("products.html")
+@app.route('/products')
+@login_required
+def products():
+    return render_template("products.html")
