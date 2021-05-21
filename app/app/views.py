@@ -7,7 +7,7 @@ from functools import wraps
 from datetime import datetime
 from app import app
 from db import db
-from app.models import Customer, Proposal, Roof, Product
+from app.models import Customer, Proposal, Roof, Product, Pln_tariff
 from app.form_validations import validate_customer_form, validate_proposal_form
 from werkzeug.utils import secure_filename
 from app.functions import allowed_file, add_gsa_report_to_db
@@ -133,7 +133,7 @@ def addproposal():
                     file_path = app.config.get('UPLOAD_IMAGES_FOLDER') / filename
                     file.save(file_path)
                     is_valid.update({'sketchup_model' : file_path.relative_to(Path('app')).__str__()})
-            proposal = Proposal(**is_valid, date_of_proposals=date_of_proposals, project_name=request.form.get('project_name'), created_at=timestamp, updated_at=timestamp,  status='Pending')
+            proposal = Proposal(**is_valid, date_of_proposals=date_of_proposals, project_name=request.form.get('project_name'), pln_price=float(request.form.get('pln_price')), created_at=timestamp, updated_at=timestamp,  status='Pending')
             db.session.add(proposal)
             db.session.commit()
             flash('successfully added', 'success')
@@ -164,7 +164,7 @@ def proposaldetails(id):
                     file_path = app.config.get('UPLOAD_IMAGES_FOLDER') / filename
                     file.save(file_path)
                     is_valid.update({'sketchup_model' : file_path.relative_to(Path('app')).__str__()})
-            proposal.update(**is_valid, project_name=request.form.get('project_name'))
+            proposal.update(**is_valid, project_name=request.form.get('project_name'), pln_price=float(request.form.get('pln_price')))
             db.session.commit()
             flash('successfully updated', 'success')
             return redirect(f'/proposal-details/{id}')
