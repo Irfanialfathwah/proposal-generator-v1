@@ -225,7 +225,7 @@ class Proposal(db.Model):
 
     @property
     def inverter_stg250_amount(self):
-        return self.inverter_stg250 * 300000000
+        return self.inverter_stg250 * 224000000
     
     @property
     def eas_amount(self):
