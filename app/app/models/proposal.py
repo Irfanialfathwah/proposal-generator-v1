@@ -19,6 +19,7 @@ class Proposal(db.Model):
     inverter_stg3 = db.Column(db.Integer, nullable=True)
     inverter_stg6 = db.Column(db.Integer, nullable=True)
     inverter_stg20 = db.Column(db.Integer, nullable=True)
+    inverter_stg60 = db.Column(db.Integer, nullable=True)
     inverter_stg125 = db.Column(db.Integer, nullable=True)
     inverter_stg250 = db.Column(db.Integer, nullable=True)
     energy_accounting_system = db.Column(db.Integer, nullable=True)
@@ -44,13 +45,14 @@ class Proposal(db.Model):
         self.pln_price = pln_price
         self.updated_at = timestamp
         
-    def update_quotation(self, id, inverter_stg3, inverter_stg6, inverter_stg20, inverter_stg125, inverter_stg250, energy_accounting_system, transport_price, installation_price, discount):
+    def update_quotation(self, id, inverter_stg3, inverter_stg6, inverter_stg20, inverter_stg60, inverter_stg125, inverter_stg250, energy_accounting_system, transport_price, installation_price, discount):
         timestamp = datetime.now().replace(microsecond=0)
         self.updated_at = timestamp
         self.id = id
         self.inverter_stg3 = inverter_stg3
         self.inverter_stg6 = inverter_stg6
         self.inverter_stg20 = inverter_stg20
+        self.inverter_stg60 = inverter_stg60
         self.inverter_stg125 = inverter_stg125
         self.inverter_stg250 = inverter_stg250
         self.energy_accounting_system = energy_accounting_system
@@ -74,7 +76,7 @@ class Proposal(db.Model):
             #     daily_sum.append(total)
             #     daily_energy.append(total_with_array)
             #     yield_month.append(round(((total * roof.days_in_month[index])/1000) * roof.array_size,2))
-            # # day_total.append(daily_sum)
+            # day_total.append(daily_sum)
             yield_roof.append(roof.roof_yearly_yield)
         # self.total_energy_perhour= [int(data) for data in list(map(sum, zip(*roof_data)))]
         # self.day_total = day_total
@@ -214,6 +216,10 @@ class Proposal(db.Model):
         return self.inverter_stg20 * 37700000
 
     @property
+    def inverter_stg60_amount(self):
+        return self.inverter_stg60 * 83100000
+
+    @property
     def inverter_stg125_amount(self):
         return self.inverter_stg125 * 174000000
 
@@ -230,7 +236,7 @@ class Proposal(db.Model):
         amount = 0
         for roof in self.roofs:
             amount += roof.total_amount
-        return int(amount + self.inverter_stg3_amount + self.inverter_stg6_amount + self.inverter_stg20_amount + self.inverter_stg125_amount + self.inverter_stg250_amount + self.eas_amount + self.transport_price + self.installation_price)
+        return int(amount + self.inverter_stg3_amount + self.inverter_stg6_amount + self.inverter_stg20_amount + self.inverter_stg60_amount + self.inverter_stg125_amount + self.inverter_stg250_amount + self.eas_amount + self.transport_price + self.installation_price)
 
     @property
     def amount_tax(self):
