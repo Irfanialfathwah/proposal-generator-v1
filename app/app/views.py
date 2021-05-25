@@ -8,7 +8,7 @@ from datetime import datetime
 from app import app
 from db import db
 from app.models import Customer, Proposal, Roof, Product, Pln_tariff
-from app.form_validations import validate_customer_form, validate_proposal_form
+from app.form_validations import validate_customer_form, validate_proposal_form, validate_product_form
 from werkzeug.utils import secure_filename
 from app.functions import allowed_file, add_gsa_report_to_db
 # Adding encription key with Secret Key Variable for User Authentication
@@ -110,6 +110,22 @@ def edit_customer():
         flash('Success update customers', 'success')
     return redirect('/customers')
 
+@app.route('/products', methods=['GET', 'POST'])
+@login_required
+def products():
+    if request.method == 'POST':
+        is_valid = validate_product_form(request.form)
+        print(is_valid)
+        if 'errors' not in is_valid:
+            timestamp = datetime.now().replace(microsecond=0)
+            product = Product(**is_valid, created_at=timestamp, updated_at=timestamp)
+            db.session.add(product)
+            db.session.commit()
+            flash('successfully added', category='success')
+        else:
+            flash(f'Error {is_valid}', category='danger')
+    products = Product.query.order_by(Product.id).all()
+    return render_template("products.html", products=products)
 
 @app.route('/proposals')
 @login_required
@@ -331,7 +347,3 @@ def proposal_report(id):
     }
     return render_template('proposal-report.html', **context)
 
-@app.route('/products')
-@login_required
-def products():
-    return render_template("products.html")

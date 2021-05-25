@@ -41,3 +41,14 @@ def validate_proposal_form(form):
         # 'geocoordinates' : geocoordinates,
         'customer_id': customer_id
     }
+
+def validate_product_form(form):
+    errors = {}
+
+    product_name = form.get('product_name')
+    std_price = form.get('std_price')
+
+    return {
+        'product_name': product_name,
+        'std_price': std_price
+    }
