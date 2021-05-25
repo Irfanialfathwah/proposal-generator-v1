@@ -39,13 +39,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for data,prop_comp in table_data %}
+                            {% for product in products %}
                             <tr>
                                 <td>{{ loop.index }}</td>
-                                <td>{{ data.id }}</td>
-                                <td>{{ data.product_name }}</td>
-                                <td>{{ data.std_price }}</td>
-                                <td>{{ data.updated_at }}</td>
+                                <td>{{ product.id }}</td>
+                                <td>{{ product.product_name }}</td>
+                                <td>{{ product.std_price }}</td>
+                                <td>{{ product.updated_at }}</td>
                                 <td class="project-actions text-center">
                                     <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="modal-view-prod{{loop.index}}">
                                         <i class="fas fa-folder">
