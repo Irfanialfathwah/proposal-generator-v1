@@ -110,6 +110,7 @@ def edit_customer():
         flash('Success update customers', 'success')
     return redirect('/customers')
 
+
 @app.route('/products', methods=['GET', 'POST'])
 @login_required
 def products():
@@ -126,6 +127,30 @@ def products():
             flash(f'Error {is_valid}', category='danger')
     products = Product.query.order_by(Product.id).all()
     return render_template("products.html", products=products)
+
+
+@app.route('/products/delete', methods=['POST'])
+@login_required
+def delete_product():
+    id = request.form.get('id')
+    product = Product.query.filter_by(id=id).first()
+    db.session.delete(product)
+    db.session.commit()
+    return redirect('/products')
+
+
+@app.route('/products/update', methods=['POST'])
+@login_required
+def edit_product():
+    id = request.form.get('id')
+    is_valid = validate_product_form(request.form)
+    if 'errors' not in is_valid:
+        product = Product.query.filter_by(id=id).first()
+        product.update(**is_valid)
+        db.session.commit()
+        flash('Success update product', 'success')
+    return redirect('/products')
+
 
 @app.route('/proposals')
 @login_required
