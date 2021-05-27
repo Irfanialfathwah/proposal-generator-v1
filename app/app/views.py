@@ -8,7 +8,7 @@ from datetime import datetime
 from app import app
 from db import db
 from app.models import Customer, Proposal, Roof, Product, Pln_tariff
-from app.form_validations import validate_customer_form, validate_proposal_form, validate_product_form
+from app.form_validations import validate_customer_form, validate_proposal_form, validate_product_form, validate_pln_tariff_form
 from werkzeug.utils import secure_filename
 from app.functions import allowed_file, add_gsa_report_to_db
 # Adding encription key with Secret Key Variable for User Authentication
@@ -150,6 +150,47 @@ def edit_product():
         db.session.commit()
         flash('Success update product', 'success')
     return redirect('/products')
+
+
+@app.route('/pln_tariffs', methods=['GET', 'POST'])
+@login_required
+def pln_tariffs():
+    if request.method == 'POST':
+        is_valid = validate_pln_tariff_form(request.form)
+        print(is_valid)
+        if 'errors' not in is_valid:
+            timestamp = datetime.now().replace(microsecond=0)
+            pln_tariff = Pln_tariff(**is_valid, created_at=timestamp, updated_at=timestamp)
+            db.session.add(pln_tariff)
+            db.session.commit()
+            flash('successfully added', category='success')
+        else:
+            flash(f'Error {is_valid}', category='danger')
+    pln_tariffs = Pln_tariff.query.order_by(Pln_tariff.id).all()
+    return render_template("pln-tariffs.html", pln_tariffs=pln_tariffs)
+
+
+@app.route('/pln_tariffs/delete', methods=['POST'])
+@login_required
+def delete_pln_tariff():
+    id = request.form.get('id')
+    pln_tariff = Pln_tariff.query.filter_by(id=id).first()
+    db.session.delete(pln_tariff)
+    db.session.commit()
+    return redirect('/pln_tariffs')
+
+
+@app.route('/pln_tariffs/update', methods=['POST'])
+@login_required
+def edit_pln_tariff():
+    id = request.form.get('id')
+    is_valid = validate_pln_tariff_form(request.form)
+    if 'errors' not in is_valid:
+        pln_tariff = Pln_tariff.query.filter_by(id=id).first()
+        pln_tariff.update(**is_valid)
+        db.session.commit()
+        flash('Success update PLN Tariff', 'success')
+    return redirect('/pln_tariffs')
 
 
 @app.route('/proposals')

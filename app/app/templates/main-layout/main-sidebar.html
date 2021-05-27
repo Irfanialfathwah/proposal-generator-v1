@@ -138,6 +138,21 @@
                     </a>
                 </li>
                 {% endif %}
+                {% if request.path == '/pln_tariffs' %}
+                <li class="nav-item menu-open">
+                    <a href="/pln_tariffs" class="nav-link active">
+                        <i class="nav-icon fas fa-bolt"></i>
+                        <p>PLN Tariff</p>
+                    </a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="/pln_tariffs" class="nav-link">
+                        <i class="nav-icon fas fa-bolt"></i>
+                        <p>PLN Tariff</p>
+                    </a>
+                </li>
+                {% endif %}
                 <!-- <li class="nav-header">User Management</li>
                 {% if request.path == '/user' %}
                 <li class="nav-item menu-open">
