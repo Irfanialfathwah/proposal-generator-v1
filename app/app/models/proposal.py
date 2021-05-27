@@ -8,6 +8,7 @@ class Proposal(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
     customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
+    pln_tariff_id = db.Column(db.Integer, db.ForeignKey('pln_tariffs.id'))
     date_of_proposals = db.Column(db.DateTime, nullable=False)
     project_name = db.Column(db.String(100), nullable=True)
     num_of_roofs = db.Column(db.Integer, nullable=False)

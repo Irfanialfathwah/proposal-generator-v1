@@ -10,6 +10,7 @@ class Pln_tariff(db.Model):
     pln_price = db.Column(db.Float, nullable=True)
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
+    proposals = db.relationship('Proposal', backref="pln_tariff", cascade="all,delete")
 
     def update(self, pln_tariff_group, power_limit, pln_price):
         timestamp = datetime.now().replace(microsecond=0)
