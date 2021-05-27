@@ -311,7 +311,9 @@
                                                 <th class="cell3" colspan="{{ proposal.num_of_roofs+2 }}"> </th>
                                             </tr>
                                             <tr style="text-align: center;">
-                                                <th>Panel Qty (pcs)</th>
+                                                {% for roof in proposal.roofs[:1] %}
+                                                <th>Panel Qty - {{ roof.pv_panel }} Wp (pcs)</th>
+                                                {% endfor %}
                                                 {% for roof in proposal.roofs %}
                                                 <td>{{ "{:,.0f}".format(roof.pv_panel_qty) }}</td>
                                                 {% endfor %}
