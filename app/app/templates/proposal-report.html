@@ -417,10 +417,10 @@
                             <h2 style="font-weight: bolder; font-size: 25pt; text-align: center;">QUOTATION</h2>
                         </div>
                     </div>
-                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; height: 600px;">
+                    <div class="grid-container" style="padding-inline-start: 30px; padding-inline-end: 30px; height: 600px;">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-sm table-bordered" style="font-size: 11pt;">
+                                <table class="table table-sm table-bordered" style="font-size: 7.88pt;">
                                     <thead>
                                         <tr>
                                             <!-- <th class="cell" style="text-align: center;">#</th> -->
@@ -435,7 +435,11 @@
                                         {% for roof in proposal.roofs %}
                                         <tr>
                                             <!-- <td style="text-align: center;">{{ loop.index+6 }}</td> -->
-                                            <td>PV System Roof {{ loop.index }} ({{ roof.pv_panel }} Wp)</td>
+                                            <td><b>PV System Roof {{ loop.index }} </b><br/> 
+                                                &emsp;PV Panel {{ roof.pv_panel }}Wp <br/>
+                                                &emsp;PV Support <br/>
+                                                &emsp;PV Installation (Cable & MCB)
+                                            </td>
                                             <td style="text-align: center;">{{"{:,.1f}".format(roof.array_size)}}</td>
                                             <td>kWp</td>
                                             <td style="text-align: right;">{{"{:,.0f}".format(roof.price_perunit) }}</td>
@@ -445,7 +449,7 @@
                                         {% if proposal.inverter_stg3_amount != 0 %}
                                         <tr>
                                             <!-- <td style="text-align: center;">1</td> -->
-                                            <td>Inverter STG 3.0</td>
+                                            <td><b>Inverter STG 3.0</b></td>
                                             <td style="text-align: center;">{{ proposal.inverter_stg3 }}</td>
                                             <td>Set</td>
                                             <td style="text-align: right;">5,700,000</td>
@@ -455,7 +459,7 @@
                                         {% if proposal.inverter_stg6_amount != 0 %}
                                         <tr>
                                             <!-- <td style="text-align: center;">2</td> -->
-                                            <td>Inverter STG 6.0</td>
+                                            <td><b>Inverter STG 6.0</b></td>
                                             <td style="text-align: center;">{{ proposal.inverter_stg6 }}</td>
                                             <td>Set</td>
                                             <td style="text-align: right;">14,500,000</td>
@@ -465,7 +469,7 @@
                                         {% if proposal.inverter_stg20_amount != 0 %}
                                         <tr>
                                             <!-- <td style="text-align: center;">3</td> -->
-                                            <td>Inverter STG 20</td>
+                                            <td><b>Inverter STG 20</b></td>
                                             <td style="text-align: center;">{{ proposal.inverter_stg20 }}</td>
                                             <td>Set</td>
                                             <td style="text-align: right;">37,700,000</td>
@@ -475,7 +479,7 @@
                                         {% if proposal.inverter_stg60_amount != 0 %}
                                         <tr>
                                             <!-- <td style="text-align: center;">3</td> -->
-                                            <td>Inverter STG 60</td>
+                                            <td><b>Inverter STG 60</b></td>
                                             <td style="text-align: center;">{{ proposal.inverter_stg60 }}</td>
                                             <td>Set</td>
                                             <td style="text-align: right;">83,100,000</td>
@@ -485,7 +489,7 @@
                                         {% if proposal.inverter_stg125_amount != 0 %}
                                         <tr>
                                             <!-- <td style="text-align: center;">3</td> -->
-                                            <td>Inverter STG 125</td>
+                                            <td><b>Inverter STG 125</b></td>
                                             <td style="text-align: center;">{{ proposal.inverter_stg125 }}</td>
                                             <td>Set</td>
                                             <td style="text-align: right;">174,000,000</td>
@@ -495,7 +499,7 @@
                                         {% if proposal.inverter_stg250_amount != 0 %}
                                         <tr>
                                             <!-- <td style="text-align: center;">3</td> -->
-                                            <td>Inverter STG 250</td>
+                                            <td><b>Inverter STG 250</b></td>
                                             <td style="text-align: center;">{{ proposal.inverter_stg250 }}</td>
                                             <td>Set</td>
                                             <td style="text-align: right;">224,000,000</td>
@@ -504,7 +508,7 @@
                                         {% endif %}
                                         <tr>
                                             <!-- <td style="text-align: center;">4</td> -->
-                                            <td>Energy Accounting System</td>
+                                            <td><b>Energy Accounting System</b></td>
                                             <td style="text-align: center;">{{ proposal.energy_accounting_system }}</td>
                                             <td>Set</td>
                                             <td style="text-align: right;">5,000,000</td>
@@ -512,7 +516,9 @@
                                         </tr>
                                         <tr>
                                             <!-- <td style="text-align: center;">5</td> -->
-                                            <td>Transport</td>
+                                            <td><b>Transport</b><br/>
+                                                &emsp;Sentul-Project Location
+                                            </td>
                                             <td> </td>
                                             <td> </td>
                                             <td style="text-align: right;">{{ "{:,.0f}".format(proposal.transport_price) }}</td>
@@ -520,7 +526,12 @@
                                         </tr>
                                         <tr>
                                             <!-- <td style="text-align: center;">6</td> -->
-                                            <td>Installation</td>
+                                            <td><b>Installation</b><br>
+                                                &emsp;Rooftop Installation <br/>
+                                                &emsp;Electrical Installation <br/>
+                                                &emsp;Commissioning & Testing <br/>
+                                                &emsp;kWh Meter EX-IM
+                                            </td>
                                             <td> </td>
                                             <td> </td>
                                             <td style="text-align: right;">{{ "{:,.0f}".format(proposal.installation_price) }}</td>
