@@ -215,14 +215,15 @@ def addproposal():
                     file_path = app.config.get('UPLOAD_IMAGES_FOLDER') / filename
                     file.save(file_path)
                     is_valid.update({'sketchup_model' : file_path.relative_to(Path('app')).__str__()})
-            proposal = Proposal(**is_valid, date_of_proposals=date_of_proposals, project_name=request.form.get('project_name'), pln_price=float(request.form.get('pln_price')), created_at=timestamp, updated_at=timestamp,  status='Pending')
+            proposal = Proposal(**is_valid, date_of_proposals=date_of_proposals, project_name=request.form.get('project_name'), created_at=timestamp, updated_at=timestamp,  status='Pending')
             db.session.add(proposal)
             db.session.commit()
             flash('successfully added', 'success')
             proposal_current = Proposal.query.filter_by(created_at=proposal.created_at).first()
             return redirect(f'/proposal-details/{proposal_current.id}')
     customers = Customer.query.order_by(Customer.id).all()
-    return render_template("add-proposal.html", customers=customers)
+    pln_tariffs = Pln_tariff.query.order_by(Pln_tariff.id).all()
+    return render_template("add-proposal.html", customers=customers, pln_tariffs=pln_tariffs)
 
 
 @app.route('/proposal-details/<int:id>', methods=('POST','GET'))
@@ -232,6 +233,7 @@ def proposaldetails(id):
     if proposal is None:
         return redirect('/proposals')
     customers = Customer.query.order_by(Customer.id).all()
+    pln_tariffs = Pln_tariff.query.order_by(Pln_tariff.id).all()
     # print(proposal.__dict__)
     if request.method == 'POST':
         is_valid = validate_proposal_form(request.form)
@@ -250,7 +252,12 @@ def proposaldetails(id):
             db.session.commit()
             flash('successfully updated', 'success')
             return redirect(f'/proposal-details/{id}')
-    return render_template("proposal-details.html", proposal=proposal, customers=customers)
+    context = {
+        'customer' : proposal.customer,
+        'proposal' : proposal,
+        'pln_tariff' : proposal.pln_tariff
+    }
+    return render_template("proposal-details.html", **context)
 
 
 @app.route('/proposals/delete', methods=('POST',))
@@ -261,12 +268,6 @@ def delete_proposal():
     db.session.delete(proposal)
     db.session.commit()
     return redirect('/proposals')
-
-
-@app.route('/proposal-details-un')
-@login_required
-def proposaldetailsun():
-    return render_template("proposal-details-un.html")
 
 
 @app.route('/proposal-details/<int:id>/add', methods=("POST",))
