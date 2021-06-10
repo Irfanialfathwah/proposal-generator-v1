@@ -60,7 +60,7 @@
                             <label>PLN Tariff Adjustment</label>
                             <select class="form-control select2bs4" style="width: 100%;" id='pln_tariff' name='pln_tariff' required>
                               {% for pln_tariff in pln_tariffs %}
-                              <option value={{pln_tariff.pln_price}}>{{ pln_tariff.pln_tariff_group }} ({{ pln_tariff.power_limit }})</option>
+                              <option value="{{pln_tariff.id}}">{{ pln_tariff.pln_tariff_group }} ({{ pln_tariff.power_limit }})</option>
                               {% endfor %}
                             </select>
                         </div>

@@ -548,7 +548,7 @@
                                         {% if proposal.discount != 0 %}
                                         <tr>
                                             <!-- <td></td> -->
-                                            <td colspan="3">Discount Amount</td>
+                                            <td colspan="4">Discount Amount ({{ "{:,.1f}".format(proposal.discount / proposal.amount_before_tax * 100) }}%)</td>
                                             <td style="text-align: right;">{{ "{:,.0f}".format(proposal.discount) }}</td>
                                         </tr>
                                         <tr>

@@ -42,7 +42,7 @@
                         <p class="text-muted">{{ proposal.location }}</p>
                         <hr>
                         <strong><i class="fas fa-bolt mr-1"></i> Tariff Group </strong>
-                        <p class="text-muted">{{ proposal.pln_tariff.pln_tariff_group }} ({{ "{:,.2f}".format(proposal.pln_tariff.pln_price) }} IDR/kWh)</p>
+                        <p class="text-muted">{{ proposal.pln_tariff.pln_tariff_group }} ({{proposal.pln_tariff.pln_price}} IDR/kWh)</p>
                         <hr>
                         <strong><i class="fas fa-solar-panel mr-1"></i> Number of Roofs</strong>
                         <p class="text-muted">{{ proposal.num_of_roofs }}</p>

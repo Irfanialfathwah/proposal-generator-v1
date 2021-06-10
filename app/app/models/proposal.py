@@ -31,19 +31,18 @@ class Proposal(db.Model):
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
     discount = db.Column(db.Integer, nullable=True)
-    pln_price = db.Column(db.Float, nullable=True)
 
     def __repr__(self):
         return f'<Proposal {self.customer}'
 
-    def update(self, customer_id, project_name, num_of_roofs, pln_price, sketchup_model=None ):
+    def update(self, customer_id, project_name, num_of_roofs, pln_tariff_id, sketchup_model=None ):
         timestamp = datetime.now().replace(microsecond=0)
         self.customer_id = customer_id
         self.project_name = project_name
         self.num_of_roofs = num_of_roofs
         if sketchup_model is not None:
             self.sketchup_model = sketchup_model
-        self.pln_price = pln_price
+        self.pln_tariff_id = pln_tariff_id
         self.updated_at = timestamp
         
     def update_quotation(self, id, inverter_stg3, inverter_stg6, inverter_stg20, inverter_stg60, inverter_stg125, inverter_stg250, energy_accounting_system, transport_price, installation_price, discount):
@@ -115,7 +114,7 @@ class Proposal(db.Model):
     @property
     def investment_payback_data(self):
         pv_system_investment = self.amount_after_tax / 1000000
-        pln_price = self.pln_price
+        pln_price = self.pln_tariff.pln_price
         pln_price_incr = 5/100
         static_total_yield = self.total_yield
         total_yield = self.total_yield
@@ -250,3 +249,7 @@ class Proposal(db.Model):
     @property
     def amount_after_discount(self):
         return int(self.amount_before_tax - self.discount)
+
+    @property
+    def disc_percentage(self):
+        return int(self.discount / self.amount_before_tax * 100)
