@@ -253,9 +253,9 @@ def proposaldetails(id):
             flash('successfully updated', 'success')
             return redirect(f'/proposal-details/{id}')
     context = {
-        'customer' : proposal.customer,
         'proposal' : proposal,
-        'pln_tariff' : proposal.pln_tariff
+        'customers' : customers,
+        'pln_tariffs' : pln_tariffs
     }
     return render_template("proposal-details.html", **context)
 

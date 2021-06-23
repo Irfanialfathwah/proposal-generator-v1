@@ -44,7 +44,7 @@
                     <select class="form-control select2bs4" style="width: 100%;" id='pln_tariff' name="pln_tariff">
                         <option selected="selected" value={{proposal.pln_tariff.id}}>{{proposal.pln_tariff.pln_tariff_group}}</option>
                         {% for pln_tariff in pln_tariffs %}
-                        {% if proposal.pln_tariff.pln_tariff_group == pln_tariff.pln_tariff.group %}
+                        {% if proposal.pln_tariff.pln_tariff_group != pln_tariff.pln_tariff_group %}
                             <option value={{pln_tariff.id}}>{{pln_tariff.pln_tariff_group}}</option>
                         {% endif %}
                         {% endfor %}
@@ -77,7 +77,7 @@
                 </div>
                 <div class="form-group">
                     <label>GeoCoordinates</label>
-                    <input type="text" class="form-control" id="GeoCoordinates" placeholder="Enter GeoCoordinates" name="geocoordinates" value="{{ proposal.geocoordinates }}">
+                    <input type="text" class="form-control" id="GeoCoordinates" placeholder="Enter GeoCoordinates" name="geocoordinates" value="{{ proposal.geocoordinates }}" disabled>
                 </div>
                 <label for="exampleInputFile">SketchUp Model (rendered file)</label>
                 <div class="row">
