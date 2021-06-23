@@ -36,7 +36,7 @@ class Proposal(db.Model):
     def __repr__(self):
         return f'<Proposal {self.customer}>'
 
-    def update(self, customer_id, project_name, proposal_no, num_of_roofs, pln_tariff_id, location, sketchup_model=None ):
+    def update(self, customer_id, project_name, proposal_no, num_of_roofs, pln_tariff_id, location, pv_system_model, sketchup_model=None ):
         timestamp = datetime.now().replace(microsecond=0)
         self.customer_id = customer_id
         self.project_name = project_name
@@ -46,6 +46,7 @@ class Proposal(db.Model):
             self.sketchup_model = sketchup_model
         self.pln_tariff_id = pln_tariff_id
         self. location = location
+        self. pv_system_model = pv_system_model
         self.updated_at = timestamp
         
     def update_quotation(self, id, inverter_stg3, inverter_stg6, inverter_stg20, inverter_stg60, inverter_stg125, inverter_stg250, energy_accounting_system, transport_price, installation_price, discount):
