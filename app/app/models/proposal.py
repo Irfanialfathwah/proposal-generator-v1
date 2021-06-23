@@ -11,6 +11,7 @@ class Proposal(db.Model):
     pln_tariff_id = db.Column(db.Integer, db.ForeignKey('pln_tariffs.id'))
     date_of_proposals = db.Column(db.DateTime, nullable=False)
     project_name = db.Column(db.String(100), nullable=True)
+    proposal_no = db.Column(db.String(100), nullable=True)
     num_of_roofs = db.Column(db.Integer, nullable=False)
     location = db.Column(db.String(500), nullable=True)
     geocoordinates = db.Column(db.String(100), nullable=True)
@@ -33,12 +34,13 @@ class Proposal(db.Model):
     discount = db.Column(db.Integer, nullable=True)
 
     def __repr__(self):
-        return f'<Proposal {self.customer}'
+        return f'<Proposal {self.customer}>'
 
-    def update(self, customer_id, project_name, num_of_roofs, pln_tariff_id, sketchup_model=None ):
+    def update(self, customer_id, project_name, proposal_no, num_of_roofs, pln_tariff_id, sketchup_model=None ):
         timestamp = datetime.now().replace(microsecond=0)
         self.customer_id = customer_id
         self.project_name = project_name
+        self.proposal_no = proposal_no
         self.num_of_roofs = num_of_roofs
         if sketchup_model is not None:
             self.sketchup_model = sketchup_model

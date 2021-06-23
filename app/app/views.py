@@ -215,7 +215,7 @@ def addproposal():
                     file_path = app.config.get('UPLOAD_IMAGES_FOLDER') / filename
                     file.save(file_path)
                     is_valid.update({'sketchup_model' : file_path.relative_to(Path('app')).__str__()})
-            proposal = Proposal(**is_valid, date_of_proposals=date_of_proposals, project_name=request.form.get('project_name'), pln_tariff_id=int(request.form.get('pln_tariff')),created_at=timestamp, updated_at=timestamp,  status='Pending')
+            proposal = Proposal(**is_valid, date_of_proposals=date_of_proposals, project_name=request.form.get('project_name'),proposal_no=request.form.get('proposal_no'), pln_tariff_id=int(request.form.get('pln_tariff')),created_at=timestamp, updated_at=timestamp,  status='Pending')
             db.session.add(proposal)
             db.session.commit()
             flash('successfully added', 'success')
@@ -248,7 +248,7 @@ def proposaldetails(id):
                     file_path = app.config.get('UPLOAD_IMAGES_FOLDER') / filename
                     file.save(file_path)
                     is_valid.update({'sketchup_model' : file_path.relative_to(Path('app')).__str__()})
-            proposal.update(**is_valid, project_name=request.form.get('project_name'), pln_tariff_id=int(request.form.get('pln_tariff')))
+            proposal.update(**is_valid, project_name=request.form.get('project_name'), proposal_no=request.form.get('proposal_no'), pln_tariff_id=int(request.form.get('pln_tariff')))
             db.session.commit()
             flash('successfully updated', 'success')
             return redirect(f'/proposal-details/{id}')
