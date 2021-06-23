@@ -248,7 +248,7 @@ def proposaldetails(id):
                     file_path = app.config.get('UPLOAD_IMAGES_FOLDER') / filename
                     file.save(file_path)
                     is_valid.update({'sketchup_model' : file_path.relative_to(Path('app')).__str__()})
-            proposal.update(**is_valid, project_name=request.form.get('project_name'), proposal_no=request.form.get('proposal_no'), pln_tariff_id=int(request.form.get('pln_tariff')))
+            proposal.update(**is_valid, project_name=request.form.get('project_name'), proposal_no=request.form.get('proposal_no'), location=request.form.get('location'), pln_tariff_id=int(request.form.get('pln_tariff')))
             db.session.commit()
             flash('successfully updated', 'success')
             return redirect(f'/proposal-details/{id}')
