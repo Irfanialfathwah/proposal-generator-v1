@@ -44,7 +44,7 @@
                                 <td>{{ loop.index }}</td>
                                 <td>{{ product.id }}</td>
                                 <td>{{ product.product_name }}</td>
-                                <td>{{ "{:,.0f}".format(product.std_price) }}</td>
+                                <td class="rp" >{{ product.std_price }}</td>
                                 <td>{{ product.updated_at }}</td>
                                 <td class="project-actions text-center">
                                     <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#modal-view-prod{{loop.index}}">

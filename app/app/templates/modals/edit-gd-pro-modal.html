@@ -1,115 +1,108 @@
 <!-- Modal Form Edit -->
 <div class="modal fade" id="modal-edit-gd-pro">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Edit General Details</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form method="post" enctype=multipart/form-data>
-            <div class="form">
-                <!-- text input -->
-                <div class="form-group">
-                    <label>Project Name</label>
-                    <input type="text" class="form-control" id="project_name" placeholder="Enter Project Name" name="project_name" value="{{ proposal.project_name }}">
-                </div>
-                <div class="form-group">
-                    <label>Proposal Number</label>
-                    <input type="text" class="form-control" id="proposal_no" placeholder="Enter Proposal Number" name="proposal_no" value="{{ proposal.proposal_no }}">
-                </div>
-                <div class="form-group">
-                    <label>Project Type</label>
-                    <input type="text" class="form-control" id="pv_system_model" placeholder="Enter Project Type" name="pv_system_model" value="{{ proposal.pv_system_model }}">
-                </div>
-                <div class="form-group">
-                    <label>Customer Name</label>
-                    <select class="form-control select2bs4" style="width: 100%;" id='customer' name='customer'>
-                        <option selected="selected" value={{proposal.customer.id}}>{{proposal.customer.name}}</option>
-                        {% for customer in customers %}
-                        {% if proposal.customer.name != customer.name %}
-                            <option value={{customer.id}}>{{customer.name}}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Location Name</label>
-                    <input type="text" class="form-control" id="location" placeholder="Enter Location Name" name="location" value="{{ proposal.location }}">
-                </div>
-                <div class="form-group">
-                    <label>Tariff Group</label>
-                    <select class="form-control select2bs4" style="width: 100%;" id='pln_tariff' name="pln_tariff">
-                        <option selected="selected" value={{proposal.pln_tariff.id}}>{{proposal.pln_tariff.pln_tariff_group}}</option>
-                        {% for pln_tariff in pln_tariffs %}
-                        {% if proposal.pln_tariff.pln_tariff_group != pln_tariff.pln_tariff_group %}
-                            <option value={{pln_tariff.id}}>{{pln_tariff.pln_tariff_group}}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Number of Roof (Max. 4)</label>
-                    <select class="form-control select2bs4" style="width: 100%;" name="num_of_roofs">
-                        {% if proposal.num_of_roofs == 1 %}
-                            <option value=1 selected>1</option>
-                        {% else %}
-                            <option value=1>1</option>
-                        {% endif %}
-                        {% if proposal.num_of_roofs == 2 %}
-                            <option value=2 selected>2</option>
-                        {% else %}
-                            <option value=2>2</option>
-                        {% endif %}
-                        {% if proposal.num_of_roofs == 3 %}
-                            <option value=3 selected>3</option>
-                        {% else %}
-                            <option value=3>3</option>
-                        {% endif %}
-                        {% if proposal.num_of_roofs == 4 %}
-                            <option value=4 selected>4</option>
-                        {% else %}
-                            <option value=4>4</option>
-                        {% endif %}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>GeoCoordinates</label>
-                    <input type="text" class="form-control" id="GeoCoordinates" placeholder="Enter GeoCoordinates" name="geocoordinates" value="{{ proposal.geocoordinates }}" disabled>
-                </div>
-                <label for="exampleInputFile">SketchUp Model (rendered file)</label>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <a href="/{{ proposal.sketchup_model }}" data-toggle="lightbox" data-title="SketchUp Model" data-gallery="gallery">
-                            <img src="/{{ proposal.sketchup_model }}" class="img-fluid mb-2" alt="sketchup model"/>
-                        </a>
-                    </div>
-                    <div class="col-sm-8 input-group" style="text-align: middle;">
-                        <div class="custom-file">
-                        <input type="file" class="custom-file-input" id='sketchup_model' name='sketchup_model'>
-                        <label class="custom-file-label" for='sketchup_model'>Choose file</label>
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Edit General Details</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" enctype=multipart/form-data>
+                    <div class="form">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label>Project Name</label>
+                            <input type="text" class="form-control" id="project_name" placeholder="Enter Project Name" name="project_name" value="{{ proposal.project_name }}">
                         </div>
-                        <div class="input-group-append">
-                        <!-- <span class="input-group-text">Upload</span> -->
+                        <div class="form-group">
+                            <label>Proposal Number</label>
+                            <input type="text" class="form-control" id="proposal_no" placeholder="Enter Proposal Number" name="proposal_no" value="{{ proposal.proposal_no }}">
+                        </div>
+                        <div class="form-group">
+                            <label>Project Type</label>
+                            <input type="text" class="form-control" id="pv_system_model" placeholder="Enter Project Type" name="pv_system_model" value="{{ proposal.pv_system_model }}">
+                        </div>
+                        <div class="form-group">
+                            <label>Customer Name</label>
+                            <select class="form-control select2bs4" style="width: 100%;" id='customer' name='customer'>
+                                <option selected="selected" value={{proposal.customer.id}}>{{proposal.customer.name}}</option>
+                                {% for customer in customers %}
+                                {% if proposal.customer.name != customer.name %}
+                                    <option value={{customer.id}}>{{customer.name}}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Location Name</label>
+                            <input type="text" class="form-control" id="location" placeholder="Enter Location Name" name="location" value="{{ proposal.location }}">
+                        </div>
+                        <div class="form-group">
+                            <label>GeoCoordinates</label>
+                            <input type="text" class="form-control" id="GeoCoordinates" placeholder="Enter GeoCoordinates" name="geocoordinates" value="{{ proposal.geocoordinates }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Tariff Group</label>
+                            <select class="form-control select2bs4" style="width: 100%;" id='pln_tariff' name="pln_tariff">
+                                <option selected="selected" value={{proposal.pln_tariff.id}}>{{proposal.pln_tariff.pln_tariff_group}}</option>
+                                {% for pln_tariff in pln_tariffs %}
+                                {% if proposal.pln_tariff.pln_tariff_group != pln_tariff.pln_tariff_group %}
+                                    <option value={{pln_tariff.id}}>{{pln_tariff.pln_tariff_group}}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Number of Roof (Max. 4)</label>
+                            <select class="form-control select2bs4" style="width: 100%;" name="num_of_roofs">
+                                {% if proposal.num_of_roofs == 1 %}
+                                    <option value=1 selected>1</option>
+                                {% else %}
+                                    <option value=1>1</option>
+                                {% endif %}
+                                {% if proposal.num_of_roofs == 2 %}
+                                    <option value=2 selected>2</option>
+                                {% else %}
+                                    <option value=2>2</option>
+                                {% endif %}
+                                {% if proposal.num_of_roofs == 3 %}
+                                    <option value=3 selected>3</option>
+                                {% else %}
+                                    <option value=3>3</option>
+                                {% endif %}
+                                {% if proposal.num_of_roofs == 4 %}
+                                    <option value=4 selected>4</option>
+                                {% else %}
+                                    <option value=4>4</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                        <label for="exampleInputFile">SketchUp Model (rendered file)</label>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <a href="/{{ proposal.sketchup_model }}" data-toggle="lightbox" data-title="SketchUp Model" data-gallery="gallery">
+                                    <img src="/{{ proposal.sketchup_model }}" class="img-fluid mb-2" alt="sketchup model"/>
+                                </a>
+                            </div>
+                            <div class="col-sm-8 input-group" style="text-align: middle;">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id='sketchup_model' name='sketchup_model'>
+                                    <label class="custom-file-label" for='sketchup_model'>Choose file</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="exampleInputFile" name="sketchup_model">
-                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                </div> -->
                 <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
             </form>
-            </div>
         </div>
-      </div>
-      <!-- /.modal-content -->
+        <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
+</div>
+<!-- /.modal -->

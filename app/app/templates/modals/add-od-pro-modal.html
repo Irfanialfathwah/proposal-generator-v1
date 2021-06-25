@@ -1,6 +1,6 @@
 <!-- Modal Form Edit -->
 <div class="modal fade" id="modal-add-od-pro">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Add Order Details</h4>
@@ -20,16 +20,10 @@
                       <label>PV Panel (Wp)</label>
                       <input type="number" class="form-control" placeholder="Enter PV Panel (Wp)" name="pv_panel{{loop.index}}" required>
                     </div>
-                  </div>
-                  <div class="col-sm-6">
                     <div class="form-group">
                       <label>Quantity of PV Panels (pcs)</label>
                       <input type="number" class="form-control" placeholder="Enter Quantity of PV Panels (pcs)" name="pv_panel_qty{{loop.index}}" required>
                     </div>
-                  </div>
-                </div> <!-- end of row 1 -->
-                <div class="row">
-                  <div class="col-sm-6">
                     <div class="form-group">
                       <label>Quantity of PV Cable (meter)</label>
                       <input type="number" class="form-control" placeholder="Enter Quantity of PV Cable (meter)" name="pv_cable{{loop.index}}" required>
@@ -40,44 +34,24 @@
                       <label>Additional Construction (set)</label>
                       <input type="number" class="form-control" placeholder="Enter Additional Construction (set)" name="add_construction_qty{{loop.index}}" required>
                     </div>
-                  </div>
-                </div><!-- end of row 2 -->
-                <!-- <div class="row">
-                  <div class="col-sm-6">
                     <div class="form-group">
-                      <label>Azimuth (deg)</label>
-                      <input type="number" class="form-control" placeholder="Enter Azimuth (deg)" name="azimuth{{loop.index}}">
+                      <label>Additional Construction Price (IDR/set)</label>
+                      <input type="text" class="form-control rp" placeholder="Enter Additional Construction Price (Rp/set)" name="add_construction_price{{loop.index}}" required>
                     </div>
-                  </div>
-                  <div class="col-sm-6">
                     <div class="form-group">
-                      <label>Inclination Angle (deg)</label>
-                      <input type="number" class="form-control" placeholder="Enter Inclination Angle (deg)" name="angle{{loop.index}}">
-                    </div>
-                  </div>
-                </div>end of row 3 -->
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                          <label>Additional Construction Price (Rp/set)</label>
-                          <input type="number" class="form-control" placeholder="Enter Additional Construction Price (Rp/set)" name="add_construction_price{{loop.index}}" required>
-                        </div>
-                      </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>GSA Report (.xls)</label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile" name="gsa_report_file{{loop.index}}" required>
-                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                </div>
-                                <div class="input-group-append">
-                                <span class="input-group-text">Upload</span>
-                                </div>
+                        <label>GSA Report (.xls)</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="exampleInputFile" name="gsa_report_file{{loop.index}}" required>
+                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                            </div>
+                            <div class="input-group-append">
+                            <span class="input-group-text">Upload</span>
                             </div>
                         </div>
                     </div>
-                </div><!-- end of row 4 -->
+                  </div>
+                </div> <!-- end of row 1 -->
                 <hr>
                 {% endfor %}
                 <h3>Others</h3>
@@ -88,81 +62,53 @@
                       <label>Inverter STG 3.0 (pcs)</label>
                       <input type="number" class="form-control" placeholder="Enter Quantity of Inverter STG 3.0" name="inverter_stg3" required>
                     </div>
+                    <div class="form-group">
+                      <label>Inverter STG 6.0 (pcs)</label>
+                      <input type="number" class="form-control" placeholder="Enter Quantity of Inverter STG 6.0" name="inverter_stg6" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Inverter STG 20 (pcs)</label>
+                      <input type="number" class="form-control" placeholder="Enter Quantity of Inverter STG 20" name="inverter_stg20" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Inverter STG 60 (pcs)</label>
+                      <input type="number" class="form-control" placeholder="Enter Quantity of Inverter STG 60" name="inverter_stg60" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Inverter STG 125 (pcs)</label>
+                      <input type="number" class="form-control" placeholder="Enter Quantity of Inverter STG 125" name="inverter_stg125" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Inverter STG 250 (pcs)</label>
+                      <input type="number" class="form-control" placeholder="Enter Quantity of Inverter STG 250" name="inverter_stg250" required>
+                    </div>
                   </div>
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Energy Accounting System (pcs)</label>
                       <input type="number" class="form-control" placeholder="Enter Quantity of Energy Accounting System" name="energy_accounting_system" required>
                     </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <!-- text input -->
                     <div class="form-group">
-                      <label>Inverter STG 6.0 (pcs)</label>
-                      <input type="number" class="form-control" placeholder="Enter Quantity of Inverter STG 6.0" name="inverter_stg6" required>
+                      <label>Transport Price (IDR)</label>
+                      <input type="text" class="form-control rp" placeholder="Enter Transport Price" name="transport_price" required>
                     </div>
-                  </div>
-                  <div class="col-sm-6">
                     <div class="form-group">
-                      <label>Transport Price (Rp)</label>
-                      <input type="number" class="form-control" placeholder="Enter Transport Price" name="transport_price" required>
+                      <label>Installation Price (IDR)</label>
+                      <input type="text" class="form-control rp" placeholder="Enter Installation Price" name="installation_price" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Discount Amount (IDR)</label>
+                      <input type="text" class="form-control rp" placeholder="Enter Nominal Discount" name="discount">
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <!-- text input -->
-                    <div class="form-group">
-                      <label>Inverter STG 20 (pcs)</label>
-                      <input type="number" class="form-control" placeholder="Enter Quantity of Inverter STG 20" name="inverter_stg20" required>
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Installation Price (Rp)</label>
-                      <input type="number" class="form-control" placeholder="Enter Installation Price" name="installation_price" required>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Inverter STG 60 (pcs)</label>
-                      <input type="number" class="form-control" placeholder="Enter Quantity of Inverter STG 60" name="inverter_stg60" required>
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Discount Amount (Rp)</label>
-                      <input type="number" class="form-control" placeholder="Enter Nominal Discount" name="discount">
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Inverter STG 125 (pcs)</label>
-                      <input type="number" class="form-control" placeholder="Enter Quantity of Inverter STG 125" name="inverter_stg125" required>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Inverter STG 250 (pcs)</label>
-                      <input type="number" class="form-control" placeholder="Enter Quantity of Inverter STG 250" name="inverter_stg250" required>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                  <a type="a" class="btn btn-default" data-dismiss="modal">Close</a>
-                  <button type="submit" class="btn btn-primary" onsubmit="this.disabled=true;">Submit</button>
-                </div>
-              </form>
+              </div>
             </div>
-        </div>
+            <div class="modal-footer justify-content-between">
+              <a type="a" class="btn btn-default" data-dismiss="modal">Close</a>
+              <button type="submit" class="btn btn-primary" onsubmit="this.disabled=true;">Submit</button>
+            </div>
+          </form>
       </div>
       <!-- /.modal-content -->
     </div>

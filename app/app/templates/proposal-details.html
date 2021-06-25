@@ -35,30 +35,33 @@
             <div class="card-body">
                 <div class="tab-content">
                     <div class="tab-pane active" id="general">
-                        <strong><i class="fas fa-book mr-1"></i> Proposal Number</strong>
-                        <p class="text-muted">{{ proposal.proposal_no }}</p>
-                        <hr>
-                        <strong><i class="fas fa-file mr-1"></i> Project Type</strong>
-                        <p class="text-muted">{{ proposal.pv_system_model }}</p>
-                        <hr>
-                        <strong><i class="fas fa-user-astronaut mr-1"></i> Customer</strong>
-                        <p class="text-muted">{{ proposal.customer.name }}</p>
-                        <hr>
-                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-                        <p class="text-muted">{{ proposal.location }}</p>
-                        <hr>
-                        <strong><i class="fas fa-bolt mr-1"></i> Tariff Group </strong>
-                        <p class="text-muted">{{ proposal.pln_tariff.pln_tariff_group }} ({{proposal.pln_tariff.pln_price}} IDR/kWh)</p>
-                        <hr>
-                        <strong><i class="fas fa-solar-panel mr-1"></i> Number of Roofs</strong>
-                        <p class="text-muted">{{ proposal.num_of_roofs }}</p>
-                        <hr>
-                        <strong><i class="fas fa-map-marked-alt mr-1"></i> GeoCoordinates</strong>
-                        <p class="text-muted">{{ proposal.geocoordinates }}</p>
-                        <hr>
-                        <strong><i class="fas fa-image mr-1"></i>SketchUp Model</strong>
                         <div class="row">
-                            <div class="col-sm-2">
+                            <div class="col-sm-6">
+                                <strong><i class="fas fa-book mr-1"></i> Proposal Number</strong>
+                                <p class="text-muted">{{ proposal.proposal_no }}</p>
+                                <hr>
+                                <strong><i class="fas fa-file mr-1"></i> Project Type</strong>
+                                <p class="text-muted">{{ proposal.pv_system_model }}</p>
+                                <hr>
+                                <strong><i class="fas fa-user-astronaut mr-1"></i> Customer</strong>
+                                <p class="text-muted">{{ proposal.customer.name }}</p>
+                                <hr>
+                                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+                                <p class="text-muted">{{ proposal.location }}</p>
+                                <hr>
+                                <strong><i class="fas fa-map-marked-alt mr-1"></i> GeoCoordinates</strong>
+                                <p class="text-muted">{{ proposal.geocoordinates }}</p>
+                                <hr>
+                                <strong><i class="fas fa-bolt mr-1"></i> Tariff Group </strong>
+                                <p class="text-muted">{{ proposal.pln_tariff.pln_tariff_group }} ({{proposal.pln_tariff.pln_price}} IDR/kWh)</p>
+                                <hr>
+                                <strong><i class="fas fa-solar-panel mr-1"></i> Number of Roofs</strong>
+                                <p class="text-muted">{{ proposal.num_of_roofs }}</p>
+                                <hr>
+                                
+                            </div>
+                            <div class="col-sm-6 text-center">
+                                <strong><i class="fas fa-image mr-1"></i>SketchUp Model</strong>
                                 <a href="/{{ proposal.sketchup_model }}" data-toggle="lightbox" data-title="SketchUp Model" data-gallery="gallery">
                                 <img src="/{{ proposal.sketchup_model }}" class="img-fluid mb-2" alt="sketchup model"/>
                                 </a>
@@ -70,106 +73,79 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="order">
+                        <div class="row">
                         {% if proposal.roofs %}
                         {% for roof in proposal.roofs %}
-                        <h3>Roof {{ loop.index }}</h3>
-                        <div class="row">
+                            {% if proposal.num_of_roofs == 1 %}
+                            <div class="col-sm-12">
+                            {% elif proposal.num_of_roofs == 2 %}
                             <div class="col-sm-6">
-                                <label>PV Panel (Wp)</label>
-                                <p class="text-muted">{{ roof.pv_panel }}</p>
+                            {% elif proposal.num_of_roofs == 3 %}
+                            <div class="col-sm-4">
+                            {% else %}
+                            <div class="col-sm-3">
+                            {% endif %}
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h2 class="card-title">Roof {{ loop.index }}</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <label>PV Panel (Wp)</label>
+                                        <p class="text-muted">{{ roof.pv_panel }}</p>
+                                        <label>Quantity of PV Panels (pcs)</label>
+                                        <p class="text-muted">{{ roof.pv_panel_qty }}</p>
+                                        <label>Quantity of PV Cable (meter)</label>
+                                        <p class="text-muted">{{ roof.pv_cable }}</p>
+                                        <label>Additional Construction (set)</label>
+                                        <p class="text-muted">{{ roof.add_construction_qty }}</p>
+                                        <label>Additional Construction Price (IDR/set)</label>
+                                        <p class="text-muted rp">{{ roof.add_construction_price }}</p>
+                                        <label>Azimuth (deg)</label>
+                                        <p class="text-muted">{{ roof.azimuth }}</p>
+                                        <label>Inclination Angle (deg)</label>
+                                        <p class="text-muted">{{ roof.angle }}</p>
+                                        <label>GSA Report</label>
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <a href="/files/download?filepath={{roof.gsa_report_file}}" class="btn-link text-secondary"><i class="far fa-fw fa-file-excel"></i> {{roof.gsa_report_file[6:]}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-sm-6">
-                                <label>Quantity of PV Panels (pcs)</label>
-                                <p class="text-muted">{{ roof.pv_panel_qty }}</p>
-                            </div>
+                            {% endfor %}
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Quantity of PV Cable (meter)</label>
-                                <p class="text-muted">{{ roof.pv_cable }}</p>
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h2 class="card-title">Others</h2>
                             </div>
-                            <div class="col-sm-6">
-                                <label>Additional Construction (set)</label>
-                                <p class="text-muted">{{ roof.add_construction_qty }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Azimuth (deg)</label>
-                                <p class="text-muted">{{ roof.azimuth }}</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Inclination Angle (deg)</label>
-                                <p class="text-muted">{{ roof.angle }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Additional Construction Price (Rp/set)</label>
-                                <p class="text-muted">{{ roof.add_construction_price }}</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>GSA Report</label>
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <a href="/files/download?filepath={{roof.gsa_report_file}}" class="btn-link text-secondary"><i class="far fa-fw fa-file-excel"></i> {{roof.gsa_report_file[6:]}}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <hr>
-                        {% endfor %}
-                        <h3>Others</h3>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Inverter STG 3.0 (pcs)</label>
-                                <p class="text-muted">{{ proposal.inverter_stg3 }}</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Energy Accounting System (pcs)</label>
-                                <p class="text-muted">{{ proposal.energy_accounting_system }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Inverter STG 6.0 (pcs)</label>
-                                <p class="text-muted">{{ proposal.inverter_stg6 }}</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Transport Price (Rp)</label>
-                                <p class="text-muted">{{ proposal.transport_price }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Inverter STG 20 (pcs)</label>
-                                <p class="text-muted">{{ proposal.inverter_stg20 }}</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Installation Price (Rp)</label>
-                                <p class="text-muted">{{ proposal.installation_price }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Inverter STG 60 (pcs)</label>
-                                <p class="text-muted">{{ proposal.inverter_stg60 }}</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Discount Amount (Rp)</label>
-                                <p class="text-muted">{{ proposal.discount }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Inverter STG 125 (pcs)</label>
-                                <p class="text-muted">{{ proposal.inverter_stg125 }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Inverter STG 250 (pcs)</label>
-                                <p class="text-muted">{{ proposal.inverter_stg250 }}</p>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label>Inverter STG 3.0 (pcs)</label>
+                                        <p class="text-muted">{{ proposal.inverter_stg3 }}</p>
+                                        <label>Inverter STG 6.0 (pcs)</label>
+                                        <p class="text-muted">{{ proposal.inverter_stg6 }}</p>
+                                        <label>Inverter STG 20 (pcs)</label>
+                                        <p class="text-muted">{{ proposal.inverter_stg20 }}</p>
+                                        <label>Inverter STG 60 (pcs)</label>
+                                        <p class="text-muted">{{ proposal.inverter_stg60 }}</p>
+                                        <label>Inverter STG 125 (pcs)</label>
+                                        <p class="text-muted">{{ proposal.inverter_stg125 }}</p>
+                                        <label>Inverter STG 250 (pcs)</label>
+                                        <p class="text-muted">{{ proposal.inverter_stg250 }}</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label>Energy Accounting System (pcs)</label>
+                                        <p class="text-muted">{{ proposal.energy_accounting_system }}</p>
+                                        <label>Transport Price (IDR)</label>
+                                        <p class="text-muted rp">{{ proposal.transport_price }}</p>
+                                        <label>Installation Price (IDR)</label>
+                                        <p class="text-muted rp">{{ proposal.installation_price }}</p>
+                                        <label>Discount Amount (IDR)</label>
+                                        <p class="text-muted rp">{{ proposal.discount }}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <hr>
@@ -179,7 +155,7 @@
                         <div>
                             {% if proposal.roofs %}
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-od-pro">Edit Details</button>
-                                <a type="submit" class="btn btn-success" href="/proposal-report/{{proposal.id}}">Generate Proposal</a>
+                                <a type="submit" class="btn btn-success" href="/proposal-report/{{proposal.id}}" target="_blank">Generate Proposal</a>
                             {% else %}
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-od-pro">Add Roofs Data</button>
                                 <a type="submit" class="btn btn-success disabled">Generate Proposal</a>

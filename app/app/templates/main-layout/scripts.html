@@ -66,6 +66,7 @@
 <script src="/static/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- Ekko Lightbox -->
 <script src="/static/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+<script src="/static/plugins/jquery.mask.min/jquery.mask.min.js"></script>
 <!-- Page specific script -->
 <script>
   $(function () {
@@ -240,6 +241,10 @@
 </script>
 
 
+<script>
+  $('.rp').mask('000,000,000', {reverse: true});
+   
+</script>
 <!-- <script>
   $('form').submit(function() {
     $(this).find("button[type='submit']").prop('disabled',true);
