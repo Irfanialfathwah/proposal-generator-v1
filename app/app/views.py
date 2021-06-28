@@ -302,7 +302,6 @@ def add_order(id):
         roof.solar_data.extend(s_data[nums-1])
         roofs.append(roof)
     proposal.roofs.extend(roofs)
-    print(request.form)
     proposal.geocoordinates = proposal_data.get('geocoordinates')
     proposal.location = proposal_data.get('location')
     proposal.pv_system_model = proposal_data.get('pv_system_model')

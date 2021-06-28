@@ -46,7 +46,7 @@ def validate_product_form(form):
     errors = {}
 
     product_name = form.get('product_name')
-    std_price = form.get('std_price')
+    std_price = int(form.get('std_price').replace(",",""))
 
     return {
         'product_name': product_name,
@@ -59,7 +59,7 @@ def validate_pln_tariff_form(form):
     pln_tariff_group = form.get('pln_tariff_group')
     power_limit = form.get('power_limit')
     pln_price = form.get('pln_price')
-
+    
     return {
         'pln_tariff_group': pln_tariff_group,
         'power_limit': power_limit,
