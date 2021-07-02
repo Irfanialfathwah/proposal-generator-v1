@@ -234,7 +234,7 @@ def proposaldetails(id):
         return redirect('/proposals')
     customers = Customer.query.order_by(Customer.id).all()
     pln_tariffs = Pln_tariff.query.order_by(Pln_tariff.id).all()
-    # print(proposal.__dict__)
+    products = Product.query.order_by(Product.id).all()
     if request.method == 'POST':
         is_valid = validate_proposal_form(request.form)
         print('is_valid', is_valid)
@@ -255,7 +255,8 @@ def proposaldetails(id):
     context = {
         'proposal' : proposal,
         'customers' : customers,
-        'pln_tariffs' : pln_tariffs
+        'pln_tariffs' : pln_tariffs,
+        'products' : products,
     }
     return render_template("proposal-details.html", **context)
 
@@ -273,11 +274,11 @@ def delete_proposal():
 @app.route('/proposal-details/<int:id>/add', methods=("POST",))
 @login_required
 def add_order(id):
-    # print(request.files)
     data = {}
     roofs = []
     timestamp = datetime.now().replace(microsecond=0)
     proposal = Proposal.query.filter_by(id=id).first()
+    products = Product.query.order_by(Product.id).all()
     if request.files:
         filepaths = []
         for index,gsa_report in enumerate(request.files):
@@ -305,16 +306,16 @@ def add_order(id):
     proposal.geocoordinates = proposal_data.get('geocoordinates')
     proposal.location = proposal_data.get('location')
     proposal.pv_system_model = proposal_data.get('pv_system_model')
-    proposal.inverter_stg3 = request.form.get('inverter_stg3')
-    proposal.inverter_stg6 = request.form.get('inverter_stg6')
-    proposal.inverter_stg20 = request.form.get('inverter_stg20')
-    proposal.inverter_stg60 = request.form.get('inverter_stg60')
-    proposal.inverter_stg125 = request.form.get('inverter_stg125')
-    proposal.inverter_stg250 = request.form.get('inverter_stg250')
-    proposal.energy_accounting_system = request.form.get('energy_accounting_system')
-    proposal.transport_price = int(request.form.get('transport_price').replace(",",""))
-    proposal.installation_price = int(request.form.get('installation_price').replace(",",""))
-    proposal.discount = int(request.form.get('discount').replace(",",""))
+    # proposal.inverter_stg3 = request.form.get('inverter_stg3')
+    # proposal.inverter_stg6 = request.form.get('inverter_stg6')
+    # proposal.inverter_stg20 = request.form.get('inverter_stg20')
+    # proposal.inverter_stg60 = request.form.get('inverter_stg60')
+    # proposal.inverter_stg125 = request.form.get('inverter_stg125')
+    # proposal.inverter_stg250 = request.form.get('inverter_stg250')
+    # proposal.energy_accounting_system = request.form.get('energy_accounting_system')
+    # proposal.transport_price = int(request.form.get('transport_price').replace(",",""))
+    # proposal.installation_price = int(request.form.get('installation_price').replace(",",""))
+    # proposal.discount = int(request.form.get('discount').replace(",",""))
     db.session.add(proposal)
     db.session.add_all(roofs)
     db.session.commit()
@@ -328,6 +329,7 @@ def update_order(id):
     data = {}
     roofs = []
     proposal = Proposal.query.filter_by(id=id).first()
+    products = Product.query.order_by(Product.id).all()
     s_data = None
     if request.files:
         filepaths = []

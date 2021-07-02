@@ -77,21 +77,56 @@
                               <option value=4>4</option>
                             </select>
                         </div>
-                        <!-- <div class="form-group">
-                            <label>GeoCoordinates</label>
-                            <input type="text" class="form-control" id="geocoordinates" name='geocoordinates' placeholder="Enter GeoCoordinates" required>
-                        </div> -->
-                        <label for="exampleInputFile">SketchUp Model (rendered file)</label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                            <input type="file" class="custom-file-input" id='sketchup_model' name='sketchup_model'>
-                            <label class="custom-file-label" for='sketchup_model'>Choose file</label>
-                            </div>
-                            <div class="input-group-append">
-                            <!-- <span class="input-group-text">Upload</span> -->
-                            </div>
+                        <div class="form-group">
+                          <label for="exampleInputFile">SketchUp Model (rendered file)</label>
+                          <div class="input-group">
+                              <div class="custom-file">
+                              <input type="file" class="custom-file-input" id='sketchup_model' name='sketchup_model'>
+                              <label class="custom-file-label" for='sketchup_model'>Choose file</label>
+                              </div>
+                          </div>
                         </div>
-                    </div>
+                        <!-- <div class="form-group">
+                          <div class="row">
+                            <div class="col-3">
+                              <label for="exampleInputFile">Building View (Front)</label>
+                              <div class="form-group">
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" id="customFile">
+                                  <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-3">
+                              <label for="exampleInputFile">Building View (Back)</label>
+                              <div class="form-group">
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" id="customFile">
+                                  <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-3">
+                              <label for="exampleInputFile">Building View (Right Side)</label>
+                              <div class="form-group">
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" id="customFile">
+                                  <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-3">
+                              <label for="exampleInputFile">Building View (Left Side)</label>
+                              <div class="form-group">
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" id="customFile">
+                                  <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div> -->
+                      </div>
                     <button type="submit" class="btn btn-primary float-right" style="margin: 10px; margin-right: 0px; margin-bottom: 20px;" onsubmit="this.disabled=true;">Submit</button>
                     <a class="btn btn-primary float-right" style="margin: 10px;" onclick="stepper.previous()">Previous</a>
                   </form>

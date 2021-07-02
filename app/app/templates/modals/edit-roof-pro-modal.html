@@ -1,9 +1,9 @@
 <!-- Modal Form Edit -->
-<div class="modal fade" id="modal-edit-od-pro">
+<div class="modal fade" id="modal-edit-roof-pro">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Edit Order Details</h4>
+          <h4 class="modal-title">Edit Roof Details</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -65,59 +65,12 @@
               </div> <!-- end of row 1 -->
               <hr>
               {% endfor %}
-              <h3>Others</h3>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <!-- text input -->
-                    <div class="form-group">
-                      <label>Inverter STG 3.0 (pcs)</label>
-                      <input type="number" class="form-control" placeholder="Enter Quantity of Inverter STG 3.0" name="inverter_stg3" value={{proposal.inverter_stg3}}>
-                    </div>
-                    <div class="form-group">
-                      <label>Inverter STG 6.0 (pcs)</label>
-                      <input type="number" class="form-control" placeholder="Enter Quantity of Inverter STG 6.0" name="inverter_stg6" value={{proposal.inverter_stg6}}>
-                    </div>
-                    <div class="form-group">
-                      <label>Inverter STG 20 (pcs)</label>
-                      <input type="number" class="form-control" placeholder="Enter Quantity of Inverter STG 20" name="inverter_stg20" value={{proposal.inverter_stg20}}>
-                    </div>
-                    <div class="form-group">
-                      <label>Inverter STG 60 (pcs)</label>
-                      <input type="number" class="form-control" placeholder="Enter Quantity of Inverter STG 60" name="inverter_stg60" value={{proposal.inverter_stg60}}>
-                    </div>
-                    <div class="form-group">
-                      <label>Inverter STG 125 (pcs)</label>
-                      <input type="number" class="form-control" placeholder="Enter Quantity of Inverter STG 125" name="inverter_stg125" value={{proposal.inverter_stg125}}>
-                    </div>
-                    <div class="form-group">
-                      <label>Inverter STG 250 (pcs)</label>
-                      <input type="number" class="form-control" placeholder="Enter Quantity of Inverter STG 250" name="inverter_stg250" value={{proposal.inverter_stg250}}>
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Energy Accounting System (pcs)</label>
-                      <input type="number" class="form-control" placeholder="Enter Quantity of Energy Accounting System" name="energy_accounting_system" value={{proposal.energy_accounting_system}}>
-                    </div>
-                    <div class="form-group">
-                      <label>Transport Price (IDR)</label>
-                      <input type="text" class="form-control rp" placeholder="Enter Transport Price" name="transport_price" value="{{proposal.transport_price}}">
-                    </div>
-                    <div class="form-group">
-                      <label>Installation Price (IDR)</label>
-                      <input type="text" class="form-control rp" placeholder="Enter Installation Price" name="installation_price" value={{proposal.installation_price}}>
-                    </div>
-                    <div class="form-group">
-                      <label>Discount Amount (IDR)</label>
-                      <input type="text" class="form-control rp" placeholder="Enter Nominal Discount" name="discount" value={{proposal.discount}}>
-                    </div>
-                  </div>
-                </div>
             </div>
         </div>
         <div class="modal-footer justify-content-between">
           <a type="button" class="btn btn-default" data-dismiss="modal">Close</a>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save"></i>&nbsp Save changes</button>
         </div>
       </form>
       </div>

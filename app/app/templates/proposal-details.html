@@ -80,7 +80,9 @@
                         </div>
                         <hr>
                         <div>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-gd-pro">Edit Details</button>
+                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-edit-gd-pro">
+                                <i class="fas fa-pencil-alt"></i>  Edit Details
+                            </button>
                         </div>
                     </div>
                     <div class="tab-pane" id="order">
@@ -99,6 +101,11 @@
                                 <div class="card card-primary">
                                     <div class="card-header">
                                         <h2 class="card-title">Roof {{ loop.index }}</h2>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" href="#" data-toggle="modal" data-target="#modal-delete-roof{{loop.index}}">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <label>PV Panel (Wp)</label>
@@ -126,50 +133,106 @@
                             </div>
                             {% endfor %}
                         </div>
+                        {% if proposal.num_of_roofs == 4 %}
+                        <button type="button" class="btn btn-primary disabled" data-toggle="modal" data-target="#">
+                            <i class="fas fa-plus"></i>  Add Roof
+                        </button>
+                        {% else %}
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-new-roof">
+                            <i class="fas fa-plus"></i>  Add Roof
+                        </button>
+                        {% endif %}
+                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-edit-roof-pro">
+                            <i class="fas fa-pencil-alt"></i>  Edit Roof Data
+                        </button>
+                        <hr>
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h2 class="card-title">Others</h2>
                             </div>
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label>Inverter STG 3.0 (pcs)</label>
-                                        <p class="text-muted">{{ proposal.inverter_stg3 }}</p>
-                                        <label>Inverter STG 6.0 (pcs)</label>
-                                        <p class="text-muted">{{ proposal.inverter_stg6 }}</p>
-                                        <label>Inverter STG 20 (pcs)</label>
-                                        <p class="text-muted">{{ proposal.inverter_stg20 }}</p>
-                                        <label>Inverter STG 60 (pcs)</label>
-                                        <p class="text-muted">{{ proposal.inverter_stg60 }}</p>
-                                        <label>Inverter STG 125 (pcs)</label>
-                                        <p class="text-muted">{{ proposal.inverter_stg125 }}</p>
-                                        <label>Inverter STG 250 (pcs)</label>
-                                        <p class="text-muted">{{ proposal.inverter_stg250 }}</p>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label>Energy Accounting System (pcs)</label>
-                                        <p class="text-muted">{{ proposal.energy_accounting_system }}</p>
-                                        <label>Transport Price (IDR)</label>
-                                        <p class="text-muted rp">{{ proposal.transport_price }}</p>
-                                        <label>Installation Price (IDR)</label>
-                                        <p class="text-muted rp">{{ proposal.installation_price }}</p>
-                                        <label>Discount Amount (IDR)</label>
-                                        <p class="text-muted rp">{{ proposal.discount }}</p>
-                                    </div>
-                                </div>
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr class="bg-gray">
+                                            <th>Description</th>
+                                            <th>Qty</th>
+                                            <th>Unit Price (IDR)</th>
+                                            <th>Total Amount (IDR)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Energy Accounting System</td>
+                                            <td>0</td>
+                                            <td class="rp">0</td>
+                                            <td class="rp">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">Transport (Sentul - Project Location)</td>
+                                            <td class="rp">{{ proposal.transport_price }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">Installations</td>
+                                            <td class="rp">{{ proposal.installation_price }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">Discount Amount</td>
+                                            <td class="rp">{{ proposal.discount }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-prod-pro">
+                                    <i class="fas fa-plus"></i>  Add Product
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-edit-others-pro">
+                                    <i class="fas fa-pencil-alt"></i>  Edit Details
+                                </button>
                             </div>
                         </div>
                         <hr>
                         {% else %}
-                            <div class="h2 mb-md-4">No roof data to display.</div>
+                        <div class="col-sm-12">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h2 class="card-title">Roof</h2>
+                                </div>
+                                <div class="card-body">
+                                    <div class="h2 text-muted">No roof data to display.</div>
+                                    <hr>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-roof-pro">
+                                        <i class="fas fa-plus"></i>&nbsp Add Roof Data
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h2 class="card-title">Others</h2>
+                                </div>
+                                <div class="card-body">
+                                    <div class="h2 text-muted">No product data to display.</div>
+                                    <hr>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-prod-pro">
+                                        <i class="fas fa-plus"></i>&nbsp Add Product
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-edit-others-pro">
+                                        <i class="fas fa-pencil-alt"></i>  Edit Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                         {% endif %}
-                        <div>
-                            {% if proposal.roofs %}
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-od-pro">Edit Details</button>
-                                <a type="submit" class="btn btn-success" href="/proposal-report/{{proposal.id}}" target="_blank">Generate Proposal</a>
+                        <div class="col-sm-12">
+                            {% if proposal.roofs and proposal.products %}
+                                <a type="submit" class="btn btn-success float-right" href="/proposal-report/{{proposal.id}}" target="_blank">
+                                    <i class="fas fa-download"></i>&nbsp Generate Proposal
+                                </a>
                             {% else %}
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-od-pro">Add Roofs Data</button>
-                                <a type="submit" class="btn btn-success disabled">Generate Proposal</a>
+                                <a type="submit" class="btn btn-success float-right disabled">
+                                    <i class="fas fa-download"></i>&nbsp Generate Proposal
+                                </a>
                             {% endif %}
                         </div>
                     </div>
@@ -177,9 +240,14 @@
             </div><!-- /.card-body -->
         </div>
         </div><!-- /.container-fluid -->
+        {% include "modals/add-roof-pro-modal.html" %}
+        {% include "modals/add-new-roof-modal.html" %}
+        {% include "modals/add-prod-pro-modal.html" %}
         {% include "modals/edit-gd-pro-modal.html" %}
         {% include "modals/edit-od-pro-modal.html" %}
-        {% include "modals/add-od-pro-modal.html" %}
+        {% include "modals/edit-roof-pro-modal.html" %}
+        {% include "modals/edit-others-pro-modal.html" %}
+        {% include "modals/delete-roof-modal.html" %}
     </section>
     <!-- /.content -->
 </div>
