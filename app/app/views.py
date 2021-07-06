@@ -4,10 +4,10 @@ import pdfkit
 import os
 from flask import render_template, redirect, url_for, request, session, flash, Response, send_file
 from functools import wraps
-from datetime import datetime
+from datetime import datetime, time
 from app import app
 from db import db
-from app.models import Customer, Proposal, Roof, Product, Pln_tariff
+from app.models import Customer, Proposal, Roof, Product, Pln_tariff, Qty_product
 from app.form_validations import validate_customer_form, validate_proposal_form, validate_product_form, validate_pln_tariff_form
 from werkzeug.utils import secure_filename
 from app.functions import allowed_file, add_gsa_report_to_db
@@ -216,6 +216,7 @@ def addproposal():
                     file.save(file_path)
                     is_valid.update({'sketchup_model' : file_path.relative_to(Path('app')).__str__()})
             proposal = Proposal(**is_valid, date_of_proposals=date_of_proposals, project_name=request.form.get('project_name'),proposal_no=request.form.get('proposal_no'), pln_tariff_id=int(request.form.get('pln_tariff')),created_at=timestamp, updated_at=timestamp,  status='Pending')
+            proposal.products.append(Product.query.filter_by(id=12).first())
             db.session.add(proposal)
             db.session.commit()
             flash('successfully added', 'success')
@@ -235,6 +236,10 @@ def proposaldetails(id):
     customers = Customer.query.order_by(Customer.id).all()
     pln_tariffs = Pln_tariff.query.order_by(Pln_tariff.id).all()
     products = Product.query.order_by(Product.id).all()
+    for product in proposal.products:
+        for qty in product.qty_product:
+            if qty.product_id == product.id and qty.proposal_id == proposal.id:
+                product.quantity = qty.qty
     if request.method == 'POST':
         is_valid = validate_proposal_form(request.form)
         print('is_valid', is_valid)
@@ -270,6 +275,41 @@ def delete_proposal():
     db.session.commit()
     return redirect('/proposals')
 
+@app.route('/proposal-details/<int:id>/add-prod', methods=("POST",))
+@login_required
+def add_prod_pro(id):
+    timestamp = datetime.now().replace(microsecond=0)
+    prod_id = request.form.get('product')
+    quantity = request.form.get('quantity')
+    proposal =Proposal.query.filter_by(id=id).first()
+    product = Product.query.filter_by(id=prod_id).first()
+    qty = Qty_product(qty=quantity)
+    product.qty_product.append(qty)
+    proposal.qty_product.append(qty)
+    proposal.products.append(product)
+    db.session.add(qty)
+    db.session.commit()
+    db.session.refresh(proposal)
+    flash('successfully add product', category='success')
+    return redirect(f'/proposal-details/{id}')
+
+@app.route('/proposal-details/<int:id>/edit-prod', methods=("POST",))
+@login_required
+def edit_prod_pro(id):
+    timestamp = datetime.now().replace(microsecond=0)
+    prod_id = request.form.get('product')
+    quantity = request.form.get('quantity')
+    proposal =Proposal.query.filter_by(id=id).first()
+    product = Product.query.filter_by(id=prod_id).first()
+    qty = Qty_product(qty=quantity)
+    product.qty_product.append(qty)
+    proposal.qty_product.append(qty)
+    proposal.products.append(product)
+    db.session.update(qty)
+    db.session.commit()
+    db.session.refresh(proposal)
+    flash('successfully add product', category='success')
+    return redirect(f'/proposal-details/{id}')
 
 @app.route('/proposal-details/<int:id>/add', methods=("POST",))
 @login_required
@@ -306,12 +346,7 @@ def add_order(id):
     proposal.geocoordinates = proposal_data.get('geocoordinates')
     proposal.location = proposal_data.get('location')
     proposal.pv_system_model = proposal_data.get('pv_system_model')
-    # proposal.inverter_stg3 = request.form.get('inverter_stg3')
-    # proposal.inverter_stg6 = request.form.get('inverter_stg6')
-    # proposal.inverter_stg20 = request.form.get('inverter_stg20')
-    # proposal.inverter_stg60 = request.form.get('inverter_stg60')
-    # proposal.inverter_stg125 = request.form.get('inverter_stg125')
-    # proposal.inverter_stg250 = request.form.get('inverter_stg250')
+    
     # proposal.energy_accounting_system = request.form.get('energy_accounting_system')
     # proposal.transport_price = int(request.form.get('transport_price').replace(",",""))
     # proposal.installation_price = int(request.form.get('installation_price').replace(",",""))
@@ -320,6 +355,51 @@ def add_order(id):
     db.session.add_all(roofs)
     db.session.commit()
     flash('successfully add roofs', category='success')
+    return redirect(f'/proposal-details/{id}')
+
+@app.route('/proposal-details/<int:id>/add-new-roof', methods=("POST",))
+@login_required
+def add_new_roof(id):
+    data = {}
+    roofs = []
+    timestamp = datetime.now().replace(microsecond=0)
+    proposal = Proposal.query.filter_by(id=id).first()
+    products = Product.query.order_by(Product.id).all()
+    if request.files:
+        filepaths = []
+        for index,gsa_report in enumerate(request.files):
+            file = request.files[f'gsa_report_file']
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file_path = app.config.get('UPLOAD_FILES_FOLDER') / filename
+                file.save(file_path)
+                filepaths.append(file_path)
+        s_data, proposal_data = add_gsa_report_to_db(filepaths)
+    roofs_data = proposal_data.pop('roofs')[0]
+    data['pv_panel'] = request.form.get(f"pv_panel")
+    data['pv_panel_qty'] = request.form.get(f"pv_panel_qty")
+    data['pv_cable'] = request.form.get(f"pv_cable")
+    data['add_construction_qty'] = request.form.get(f"add_construction_qty")
+    data['add_construction_price'] = int(request.form.get(f"add_construction_price").replace(",",""))
+    data['azimuth'] = roofs_data.get('azimuth')
+    data['angle'] = roofs_data.get('angle')
+    data['gsa_report_file'] = filepaths[0].relative_to(Path('app')).__str__()
+    roof = Roof(**data, created_at=timestamp, updated_at=timestamp)
+    roof.solar_data.extend(s_data[0])
+    roofs.append(roof)
+    proposal.roofs.extend(roofs)
+    proposal.geocoordinates = proposal_data.get('geocoordinates')
+    proposal.location = proposal_data.get('location')
+    proposal.pv_system_model = proposal_data.get('pv_system_model')
+    
+    # proposal.energy_accounting_system = request.form.get('energy_accounting_system')
+    # proposal.transport_price = int(request.form.get('transport_price').replace(",",""))
+    # proposal.installation_price = int(request.form.get('installation_price').replace(",",""))
+    # proposal.discount = int(request.form.get('discount').replace(",",""))
+    db.session.add(proposal)
+    db.session.add_all(roofs)
+    db.session.commit()
+    flash('successfully add new roofs', category='success')
     return redirect(f'/proposal-details/{id}')
 
 
@@ -350,16 +430,6 @@ def update_order(id):
         data['azimuth'] = request.form.get(f"azimuth{nums}")
         data['angle'] = request.form.get(f"angle{nums}")
         proposal.roofs[nums-1].update(**data, gsa_report_file=s_data[nums-1]) if s_data is not None else proposal.roofs[nums-1].update(**data, gsa_report_file=None)
-    # proposal.inverter_stg3 = request.form.get('inverter_stg3')
-    # proposal.inverter_stg6 = request.form.get('inverter_stg6')
-    # proposal.inverter_stg20 = request.form.get('inverter_stg20')
-    # proposal.inverter_stg60 = request.form.get('inverter_stg60')
-    # proposal.inverter_stg125 = request.form.get('inverter_stg125')
-    # proposal.inverter_stg250 = request.form.get('inverter_stg250')
-    # proposal.energy_accounting_system = request.form.get('energy_accounting_system')
-    # proposal.transport_price = int(request.form.get('transport_price').replace(",",""))
-    # proposal.installation_price = int(request.form.get('installation_price').replace(",",""))
-    # proposal.discount = int(request.form.get('discount').replace(",",""))
     db.session.commit()
     flash('successfully update roofs', category='success')
     return redirect(f'/proposal-details/{id}')

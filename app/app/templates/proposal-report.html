@@ -437,74 +437,16 @@
                                             <td style="text-align: right;">{{"{:,.0f}".format(roof.total_amount) }}</td>
                                         </tr>
                                         {% endfor %}
-                                        {% if proposal.inverter_stg3_amount != 0 %}
-                                        <tr>
-                                            <!-- <td style="text-align: center;">1</td> -->
-                                            <td><b>Inverter STG 3.0</b></td>
-                                            <td style="text-align: center;">{{ proposal.inverter_stg3 }}</td>
-                                            <td>Set</td>
-                                            <td style="text-align: right;">5,700,000</td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg3_amount) }}</td>
-                                        </tr>
-                                        {% endif %}
-                                        {% if proposal.inverter_stg6_amount != 0 %}
-                                        <tr>
-                                            <!-- <td style="text-align: center;">2</td> -->
-                                            <td><b>Inverter STG 6.0</b></td>
-                                            <td style="text-align: center;">{{ proposal.inverter_stg6 }}</td>
-                                            <td>Set</td>
-                                            <td style="text-align: right;">14,500,000</td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg6_amount) }}</td>
-                                        </tr>
-                                        {% endif %}
-                                        {% if proposal.inverter_stg20_amount != 0 %}
-                                        <tr>
-                                            <!-- <td style="text-align: center;">3</td> -->
-                                            <td><b>Inverter STG 20</b></td>
-                                            <td style="text-align: center;">{{ proposal.inverter_stg20 }}</td>
-                                            <td>Set</td>
-                                            <td style="text-align: right;">37,700,000</td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg20_amount) }}</td>
-                                        </tr>
-                                        {% endif %}
-                                        {% if proposal.inverter_stg60_amount != 0 %}
-                                        <tr>
-                                            <!-- <td style="text-align: center;">3</td> -->
-                                            <td><b>Inverter STG 60</b></td>
-                                            <td style="text-align: center;">{{ proposal.inverter_stg60 }}</td>
-                                            <td>Set</td>
-                                            <td style="text-align: right;">83,100,000</td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg60_amount) }}</td>
-                                        </tr>
-                                        {% endif %}
-                                        {% if proposal.inverter_stg125_amount != 0 %}
-                                        <tr>
-                                            <!-- <td style="text-align: center;">3</td> -->
-                                            <td><b>Inverter STG 125</b></td>
-                                            <td style="text-align: center;">{{ proposal.inverter_stg125 }}</td>
-                                            <td>Set</td>
-                                            <td style="text-align: right;">174,000,000</td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg125_amount) }}</td>
-                                        </tr>
-                                        {% endif %}
-                                        {% if proposal.inverter_stg250_amount != 0 %}
-                                        <tr>
-                                            <!-- <td style="text-align: center;">3</td> -->
-                                            <td><b>Inverter STG 250</b></td>
-                                            <td style="text-align: center;">{{ proposal.inverter_stg250 }}</td>
-                                            <td>Set</td>
-                                            <td style="text-align: right;">224,000,000</td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg250_amount) }}</td>
-                                        </tr>
-                                        {% endif %}
-                                        <tr>
-                                            <!-- <td style="text-align: center;">4</td> -->
-                                            <td><b>Energy Accounting System</b></td>
-                                            <td style="text-align: center;">{{ proposal.energy_accounting_system }}</td>
-                                            <td>Set</td>
-                                            <td style="text-align: right;">5,000,000</td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.eas_amount) }}</td>
-                                        </tr>
+                                        {% for product in proposal.products %}
+                                            <tr>
+                                                <!-- <td style="text-align: center;">4</td> -->
+                                                <td><b>{{ product.product_name }}</b></td>
+                                                <td style="text-align: center;">{{ product.quantity }}</td>
+                                                <td>Set</td>
+                                                <td style="text-align: right;">{{ product.std_price }}</td>
+                                                <td style="text-align: right;">{{ product.total }}</td>
+                                            </tr>
+                                        {% endfor %}
                                         <tr>
                                             <!-- <td style="text-align: center;">5</td> -->
                                             <td><b>Transport</b><br/>

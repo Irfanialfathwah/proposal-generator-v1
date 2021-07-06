@@ -56,7 +56,7 @@
                                 <p class="text-muted">{{ proposal.pln_tariff.pln_tariff_group }} ({{proposal.pln_tariff.pln_price}} IDR/kWh)</p>
                                 <hr>
                                 <strong><i class="fas fa-solar-panel mr-1"></i> Number of Roofs</strong>
-                                <p class="text-muted">{{ proposal.num_of_roofs }}</p>
+                                <p class="text-muted">{{ proposal.roofs|length }}</p>
                                 <hr>
                                 
                             </div>
@@ -89,11 +89,11 @@
                         <div class="row">
                         {% if proposal.roofs %}
                         {% for roof in proposal.roofs %}
-                            {% if proposal.num_of_roofs == 1 %}
+                            {% if proposal.roofs|length == 1 %}
                             <div class="col-sm-12">
-                            {% elif proposal.num_of_roofs == 2 %}
+                            {% elif proposal.roofs|length == 2 %}
                             <div class="col-sm-6">
-                            {% elif proposal.num_of_roofs == 3 %}
+                            {% elif proposal.roofs|length == 3 %}
                             <div class="col-sm-4">
                             {% else %}
                             <div class="col-sm-3">
@@ -133,7 +133,7 @@
                             </div>
                             {% endfor %}
                         </div>
-                        {% if proposal.num_of_roofs == 4 %}
+                        {% if proposal.roofs|length == 4 %}
                         <button type="button" class="btn btn-primary disabled" data-toggle="modal" data-target="#">
                             <i class="fas fa-plus"></i>  Add Roof
                         </button>
@@ -158,18 +158,40 @@
                                             <th>Qty</th>
                                             <th>Unit Price (IDR)</th>
                                             <th>Total Amount (IDR)</th>
+                                            <th style="width: 15%">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% for product in proposal.products %}
                                         <tr>
-                                            <td>Energy Accounting System</td>
-                                            <td>0</td>
-                                            <td class="rp">0</td>
-                                            <td class="rp">0</td>
+                                            <td>{{ product.product_name }}</td>
+                                            <td>{{ product.quantity }}</td>
+                                            <td class="rp">{{ product.std_price }}</td>
+                                            <td class="rp">{{ product.std_price * product.quantity }}</td>
+                                            <td class="project-actions text-center">
+                                                <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#modal-edit-prod-pro{{loop.index}}">
+                                                    <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    Edit
+                                                </a>
+                                                <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#">
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                    Delete
+                                                </a>
+                                            </td>
                                         </tr>
+                                        {% endfor %}
                                         <tr>
                                             <td colspan="3">Transport (Sentul - Project Location)</td>
                                             <td class="rp">{{ proposal.transport_price }}</td>
+                                            <td rowspan="3" class="project-actions text-center" style="vertical-align: middle;">
+                                                <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#modal-edit-others-pro">
+                                                    <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    Edit
+                                                </a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td colspan="3">Installations</td>
@@ -184,9 +206,6 @@
                                 <hr>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-prod-pro">
                                     <i class="fas fa-plus"></i>  Add Product
-                                </button>
-                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-edit-others-pro">
-                                    <i class="fas fa-pencil-alt"></i>  Edit Details
                                 </button>
                             </div>
                         </div>
@@ -217,9 +236,6 @@
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-prod-pro">
                                         <i class="fas fa-plus"></i>&nbsp Add Product
                                     </button>
-                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-edit-others-pro">
-                                        <i class="fas fa-pencil-alt"></i>  Edit Details
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -247,6 +263,7 @@
         {% include "modals/edit-od-pro-modal.html" %}
         {% include "modals/edit-roof-pro-modal.html" %}
         {% include "modals/edit-others-pro-modal.html" %}
+        {% include "modals/edit-prod-pro-modal.html" %}
         {% include "modals/delete-roof-modal.html" %}
     </section>
     <!-- /.content -->
