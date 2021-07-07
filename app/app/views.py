@@ -368,11 +368,6 @@ def add_order(id):
     proposal.geocoordinates = proposal_data.get('geocoordinates')
     proposal.location = proposal_data.get('location')
     proposal.pv_system_model = proposal_data.get('pv_system_model')
-    
-    # proposal.energy_accounting_system = request.form.get('energy_accounting_system')
-    # proposal.transport_price = int(request.form.get('transport_price').replace(",",""))
-    # proposal.installation_price = int(request.form.get('installation_price').replace(",",""))
-    # proposal.discount = int(request.form.get('discount').replace(",",""))
     db.session.add(proposal)
     db.session.add_all(roofs)
     db.session.commit()
@@ -413,11 +408,6 @@ def add_new_roof(id):
     proposal.geocoordinates = proposal_data.get('geocoordinates')
     proposal.location = proposal_data.get('location')
     proposal.pv_system_model = proposal_data.get('pv_system_model')
-    
-    # proposal.energy_accounting_system = request.form.get('energy_accounting_system')
-    # proposal.transport_price = int(request.form.get('transport_price').replace(",",""))
-    # proposal.installation_price = int(request.form.get('installation_price').replace(",",""))
-    # proposal.discount = int(request.form.get('discount').replace(",",""))
     db.session.add(proposal)
     db.session.add_all(roofs)
     db.session.commit()
@@ -479,6 +469,11 @@ def register():
 @login_required
 def proposal_report(id):
     proposal = Proposal.query.filter_by(id=id).first()
+    products = Product.query.order_by(Product.id).all()
+    for product in proposal.products:
+        for qty in product.qty_product:
+            if qty.product_id == product.id and qty.proposal_id == proposal.id:
+                product.quantity = qty.qty
     if proposal is None:
         return redirect('/proposals')
     if proposal.roofs:
@@ -502,6 +497,7 @@ def proposal_report(id):
         'yearly_total' : [sum(yield_roof_total), sum(value_to_kwh)],
         'daily_chart' : total_energy_perhour,
         'avg_daily' : avg_energy_perhour,
+        'products' : products,
     }
     return render_template('proposal-report.html', **context)
 

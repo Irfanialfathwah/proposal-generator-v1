@@ -18,13 +18,6 @@ class Proposal(db.Model):
     sketchup_model = db.Column(db.String(100), nullable=True)
     pv_system_model = db.Column(db.String(30), nullable=True)
     status = db.Column(db.String(20), nullable=False)
-    inverter_stg3 = db.Column(db.Integer, nullable=True)
-    inverter_stg6 = db.Column(db.Integer, nullable=True)
-    inverter_stg20 = db.Column(db.Integer, nullable=True)
-    inverter_stg60 = db.Column(db.Integer, nullable=True)
-    inverter_stg125 = db.Column(db.Integer, nullable=True)
-    inverter_stg250 = db.Column(db.Integer, nullable=True)
-    energy_accounting_system = db.Column(db.Integer, nullable=True)
     transport_price = db.Column(db.Integer, nullable=True)
     installation_price = db.Column(db.Integer, nullable=True)
     roofs = db.relationship("Roof", backref="proposal", cascade="all,delete")
@@ -213,6 +206,7 @@ class Proposal(db.Model):
                 if qty.product_id == product.id and qty.proposal_id == self.id:
                     product.quantity = qty.qty
                     product.total = qty.qty * product.std_price
+
     @property
     def total_amount_product(self):
         self.sum_product_amount()
