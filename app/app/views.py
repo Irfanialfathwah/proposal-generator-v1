@@ -7,7 +7,7 @@ from functools import wraps
 from datetime import datetime, time
 from app import app
 from db import db
-from app.models import Customer, Proposal, Roof, Product, Pln_tariff, Qty_product
+from app.models import Customer, Proposal, Roof, Product, Pln_tariff, Qty_product, Proposal_product
 from app.form_validations import validate_customer_form, validate_proposal_form, validate_product_form, validate_pln_tariff_form
 from werkzeug.utils import secure_filename
 from app.functions import allowed_file, add_gsa_report_to_db
@@ -301,14 +301,36 @@ def edit_prod_pro(id):
     quantity = request.form.get('quantity')
     proposal =Proposal.query.filter_by(id=id).first()
     product = Product.query.filter_by(id=prod_id).first()
-    qty = Qty_product(qty=quantity)
-    product.qty_product.append(qty)
-    proposal.qty_product.append(qty)
-    proposal.products.append(product)
-    db.session.update(qty)
+    for qty in product.qty_product:
+        if qty.product_id == product.id and qty.proposal_id == proposal.id:
+            qty.qty = quantity
     db.session.commit()
-    db.session.refresh(proposal)
-    flash('successfully add product', category='success')
+    db.session.refresh(qty)
+    flash('successfully edit product', category='success')
+    return redirect(f'/proposal-details/{id}')
+
+@app.route('/proposal-details/<int:id>/del-prod', methods=("POST",))
+@login_required
+def delete_prod_pro(id):
+    prod_id = int(request.form.get('id'))
+    to_delete = Proposal_product.query.filter_by(product_id=prod_id, proposal_id=id).first()
+    qty = Qty_product.query.filter_by(product_id=prod_id, proposal_id=id).first()
+    db.session.delete(to_delete)
+    db.session.delete(qty)
+    db.session.commit()
+    flash('successfully delete product from proposal', category='success')
+    return redirect(f'/proposal-details/{id}')
+    
+@app.route('/proposal-details/<int:id>/edit-others', methods=("POST",))
+@login_required
+def edit_others_pro(id):
+    proposal = Proposal.query.filter_by(id=id).first()
+    proposal.transport_price = int(request.form.get('transport_price').replace(",",""))
+    proposal.installation_price = int(request.form.get('installation_price').replace(",",""))
+    proposal.discount = int(request.form.get('discount').replace(",",""))
+    db.session.add(proposal)
+    db.session.commit()
+    flash('successfully save other details', category='success')
     return redirect(f'/proposal-details/{id}')
 
 @app.route('/proposal-details/<int:id>/add', methods=("POST",))

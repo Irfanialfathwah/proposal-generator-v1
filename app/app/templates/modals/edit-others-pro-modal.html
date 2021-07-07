@@ -3,13 +3,13 @@
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Edit Order Details</h4>
+          <h4 class="modal-title">Edit Other Details</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form action="./{{ proposal.id }}/update" method="post" enctype=multipart/form-data>
+          <form action="./{{ proposal.id }}/edit-others" method="post" enctype=multipart/form-data>
             <div class="form">
               <div class="form-group">
                 <label>Transport Price (IDR)</label>

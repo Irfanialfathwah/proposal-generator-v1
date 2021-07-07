@@ -174,7 +174,7 @@
                                                     </i>
                                                     Edit
                                                 </a>
-                                                <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#">
+                                                <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#modal-delete-prod-pro{{loop.index}}">
                                                     <i class="fas fa-trash">
                                                     </i>
                                                     Delete
@@ -265,6 +265,7 @@
         {% include "modals/edit-others-pro-modal.html" %}
         {% include "modals/edit-prod-pro-modal.html" %}
         {% include "modals/delete-roof-modal.html" %}
+        {% include "modals/delete-prod-pro-modal.html" %}
     </section>
     <!-- /.content -->
 </div>

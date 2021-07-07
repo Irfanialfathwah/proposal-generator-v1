@@ -28,5 +28,5 @@ class Qty_product(db.Model):
     proposal_id = db.Column(db.Integer, db.ForeignKey('proposals.id'))
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
     qty = db.Column(db.Integer, nullable=True)
-    products = db.relationship('Product', backref="qty_product", cascade="all,delete")
-    proposals = db.relationship('Proposal', backref="qty_product", cascade="all,delete")
+    products = db.relationship('Product', backref="qty_product")
+    proposals = db.relationship('Proposal', backref="qty_product")
