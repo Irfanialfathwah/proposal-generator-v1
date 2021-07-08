@@ -95,6 +95,7 @@ def delete_customer():
     customer = Customer.query.filter_by(id=id).first()
     db.session.delete(customer)
     db.session.commit()
+    flash('successfully delete customer', category='danger')
     return redirect('/customers')
 
 
@@ -107,7 +108,7 @@ def edit_customer():
         customer = Customer.query.filter_by(id=id).first()
         customer.update(**is_valid)
         db.session.commit()
-        flash('Success update customers', 'success')
+        flash('Success update customers', category='info')
     return redirect('/customers')
 
 
@@ -136,6 +137,7 @@ def delete_product():
     product = Product.query.filter_by(id=id).first()
     db.session.delete(product)
     db.session.commit()
+    flash('successfully delete product', category='danger')
     return redirect('/products')
 
 
@@ -148,7 +150,7 @@ def edit_product():
         product = Product.query.filter_by(id=id).first()
         product.update(**is_valid)
         db.session.commit()
-        flash('Success update product', 'success')
+        flash('Success update product', category='info')
     return redirect('/products')
 
 
@@ -177,6 +179,7 @@ def delete_pln_tariff():
     pln_tariff = Pln_tariff.query.filter_by(id=id).first()
     db.session.delete(pln_tariff)
     db.session.commit()
+    flash('successfully delete pln tariff', category='danger')
     return redirect('/pln_tariffs')
 
 
@@ -189,7 +192,7 @@ def edit_pln_tariff():
         pln_tariff = Pln_tariff.query.filter_by(id=id).first()
         pln_tariff.update(**is_valid)
         db.session.commit()
-        flash('Success update PLN Tariff', 'success')
+        flash('Success update PLN Tariff', category='info')
     return redirect('/pln_tariffs')
 
 
@@ -255,7 +258,7 @@ def proposaldetails(id):
                     is_valid.update({'sketchup_model' : file_path.relative_to(Path('app')).__str__()})
             proposal.update(**is_valid, project_name=request.form.get('project_name'), proposal_no=request.form.get('proposal_no'), location=request.form.get('location'), pv_system_model=request.form.get('pv_system_model'), pln_tariff_id=int(request.form.get('pln_tariff')))
             db.session.commit()
-            flash('successfully updated', 'success')
+            flash('successfully updated', category='info')
             return redirect(f'/proposal-details/{id}')
     context = {
         'proposal' : proposal,
@@ -273,6 +276,7 @@ def delete_proposal():
     proposal = Proposal.query.filter_by(id=id).first()
     db.session.delete(proposal)
     db.session.commit()
+    flash('successfully delete proposal', category='danger')
     return redirect('/proposals')
 
 @app.route('/proposal-details/<int:id>/add-prod', methods=("POST",))
@@ -306,7 +310,7 @@ def edit_prod_pro(id):
             qty.qty = quantity
     db.session.commit()
     db.session.refresh(qty)
-    flash('successfully edit product', category='success')
+    flash('successfully update product', category='info')
     return redirect(f'/proposal-details/{id}')
 
 @app.route('/proposal-details/<int:id>/del-prod', methods=("POST",))
@@ -318,7 +322,7 @@ def delete_prod_pro(id):
     db.session.delete(to_delete)
     db.session.delete(qty)
     db.session.commit()
-    flash('successfully delete product from proposal', category='success')
+    flash('successfully delete product from proposal', category='danger')
     return redirect(f'/proposal-details/{id}')
     
 @app.route('/proposal-details/<int:id>/edit-others', methods=("POST",))
@@ -330,7 +334,7 @@ def edit_others_pro(id):
     proposal.discount = int(request.form.get('discount').replace(",",""))
     db.session.add(proposal)
     db.session.commit()
-    flash('successfully save other details', category='success')
+    flash('successfully update others', category='info')
     return redirect(f'/proposal-details/{id}')
 
 @app.route('/proposal-details/<int:id>/add', methods=("POST",))
@@ -443,7 +447,17 @@ def update_order(id):
         data['angle'] = request.form.get(f"angle{nums}")
         proposal.roofs[nums-1].update(**data, gsa_report_file=s_data[nums-1]) if s_data is not None else proposal.roofs[nums-1].update(**data, gsa_report_file=None)
     db.session.commit()
-    flash('successfully update roofs', category='success')
+    flash('successfully update roofs', category='info')
+    return redirect(f'/proposal-details/{id}')
+
+@app.route('/proposal-details/<int:id>/delete-roof', methods=("POST",))
+@login_required
+def delete_roof(id):
+    roof_id = int(request.form.get('id'))
+    roof = Roof.query.filter_by(id=roof_id).first()
+    db.session.delete(roof)
+    db.session.commit()
+    flash('successfully delete roof', category='danger')
     return redirect(f'/proposal-details/{id}')
 
 @app.route('/files/download')
@@ -483,7 +497,6 @@ def proposal_report(id):
         return redirect(f'/proposal-details/{id}')
     proposal.calculate_monthly_data()
     yield_roof_total = proposal.yield_roof_total
-    print(yield_roof_total)
     calendar = ['Jan', 'Feb', 'Mar', 'Apr','May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     value_to_kwh = [int((data*1550)/1000) for data in yield_roof_total]
     avg_energy_perhour = (np.array([data for data in list(map(sum, zip(*proposal.total_energy_perhour)))]) / proposal.num_of_roofs).tolist()

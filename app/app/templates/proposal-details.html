@@ -12,7 +12,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            {% with messages = get_flashed_messages(category_filter=['success'], with_categories=True) %}
+            {% with messages = get_flashed_messages(category_filter=['success', 'danger', 'info'], with_categories=True) %}
             {% if messages %}
             {% for category,message in messages %}
                 <div class="alert alert-{{category}}" role="alert">
@@ -231,7 +231,58 @@
                                     <h2 class="card-title">Others</h2>
                                 </div>
                                 <div class="card-body">
-                                    <div class="h2 text-muted">No product data to display.</div>
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr class="bg-gray">
+                                                <th>Description</th>
+                                                <th>Qty</th>
+                                                <th>Unit Price (IDR)</th>
+                                                <th>Total Amount (IDR)</th>
+                                                <th style="width: 15%">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for product in proposal.products %}
+                                            <tr>
+                                                <td>{{ product.product_name }}</td>
+                                                <td>{{ product.quantity }}</td>
+                                                <td class="rp">{{ product.std_price }}</td>
+                                                <td class="rp">{{ product.std_price * product.quantity }}</td>
+                                                <td class="project-actions text-center">
+                                                    <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#modal-edit-prod-pro{{loop.index}}">
+                                                        <i class="fas fa-pencil-alt">
+                                                        </i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#modal-delete-prod-pro{{loop.index}}">
+                                                        <i class="fas fa-trash">
+                                                        </i>
+                                                        Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            <tr>
+                                                <td colspan="3">Transport (Sentul - Project Location)</td>
+                                                <td class="rp">{{ proposal.transport_price }}</td>
+                                                <td rowspan="3" class="project-actions text-center" style="vertical-align: middle;">
+                                                    <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#modal-edit-others-pro">
+                                                        <i class="fas fa-pencil-alt">
+                                                        </i>
+                                                        Edit
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">Installations</td>
+                                                <td class="rp">{{ proposal.installation_price }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">Discount Amount</td>
+                                                <td class="rp">{{ proposal.discount }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                     <hr>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-prod-pro">
                                         <i class="fas fa-plus"></i>&nbsp Add Product
@@ -260,7 +311,6 @@
         {% include "modals/add-new-roof-modal.html" %}
         {% include "modals/add-prod-pro-modal.html" %}
         {% include "modals/edit-gd-pro-modal.html" %}
-        {% include "modals/edit-od-pro-modal.html" %}
         {% include "modals/edit-roof-pro-modal.html" %}
         {% include "modals/edit-others-pro-modal.html" %}
         {% include "modals/edit-prod-pro-modal.html" %}

@@ -12,7 +12,7 @@
                 Are you sure to delete this roof data?
             </div>
             <div class="modal-footer">
-                <form method="post" action="/roofs/delete">
+                <form method="post" action="./{{ proposal.id }}/delete-roof">
                     <input type="hidden" value="{{roof.id}}" name="id">
                     <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
                     <button type="submit" class="btn btn-danger">Delete</button>
