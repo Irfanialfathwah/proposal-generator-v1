@@ -9,6 +9,7 @@ class Proposal(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
     pln_tariff_id = db.Column(db.Integer, db.ForeignKey('pln_tariffs.id'))
+    bid_id = db.Column(db.Integer, db.ForeignKey('bids.id'))
     date_of_proposals = db.Column(db.DateTime, nullable=False)
     project_name = db.Column(db.String(100), nullable=True)
     proposal_no = db.Column(db.String(100), nullable=True)
@@ -29,11 +30,12 @@ class Proposal(db.Model):
     def __repr__(self):
         return f'<Proposal {self.customer}>'
 
-    def update(self, customer_id, project_name, proposal_no, num_of_roofs, pln_tariff_id, location, pv_system_model, sketchup_model=None ):
+    def update(self, customer_id, project_name, proposal_no, bid_id, num_of_roofs, pln_tariff_id, location, pv_system_model, sketchup_model=None ):
         timestamp = datetime.now().replace(microsecond=0)
         self.customer_id = customer_id
         self.project_name = project_name
         self.proposal_no = proposal_no
+        self.bid_id = bid_id
         self.num_of_roofs = num_of_roofs
         if sketchup_model is not None:
             self.sketchup_model = sketchup_model
@@ -42,17 +44,10 @@ class Proposal(db.Model):
         self. pv_system_model = pv_system_model
         self.updated_at = timestamp
         
-    def update_quotation(self, id, inverter_stg3, inverter_stg6, inverter_stg20, inverter_stg60, inverter_stg125, inverter_stg250, energy_accounting_system, transport_price, installation_price, discount):
+    def update_quotation(self, id, transport_price, installation_price, discount):
         timestamp = datetime.now().replace(microsecond=0)
         self.updated_at = timestamp
         self.id = id
-        self.inverter_stg3 = inverter_stg3
-        self.inverter_stg6 = inverter_stg6
-        self.inverter_stg20 = inverter_stg20
-        self.inverter_stg60 = inverter_stg60
-        self.inverter_stg125 = inverter_stg125
-        self.inverter_stg250 = inverter_stg250
-        self.energy_accounting_system = energy_accounting_system
         self.transport_price = transport_price
         self.installation_price = installation_price
         self.discount = discount

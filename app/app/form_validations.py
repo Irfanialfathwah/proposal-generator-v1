@@ -65,3 +65,12 @@ def validate_pln_tariff_form(form):
         'power_limit': power_limit,
         'pln_price': pln_price
     }
+
+def validate_bid_form(form):
+    errors = {}
+
+    number = form.get('number')
+
+    return {
+        'number': number
+    }

@@ -5,3 +5,4 @@ from .solardata import SolarHourData, SolarMonthData
 from .product import Product, Qty_product
 from .pln_tariff import Pln_tariff
 from .proposal_product import Proposal_product
+from .bid import Bid

@@ -7,8 +7,8 @@ from functools import wraps
 from datetime import datetime, time
 from app import app
 from db import db
-from app.models import Customer, Proposal, Roof, Product, Pln_tariff, Qty_product, Proposal_product
-from app.form_validations import validate_customer_form, validate_proposal_form, validate_product_form, validate_pln_tariff_form
+from app.models import Customer, Proposal, Roof, Product, Pln_tariff, Qty_product, Proposal_product, Bid
+from app.form_validations import validate_customer_form, validate_proposal_form, validate_product_form, validate_pln_tariff_form, validate_bid_form
 from werkzeug.utils import secure_filename
 from app.functions import allowed_file, add_gsa_report_to_db
 # Adding encription key with Secret Key Variable for User Authentication
@@ -117,7 +117,6 @@ def edit_customer():
 def products():
     if request.method == 'POST':
         is_valid = validate_product_form(request.form)
-        print(is_valid)
         if 'errors' not in is_valid:
             timestamp = datetime.now().replace(microsecond=0)
             product = Product(**is_valid, created_at=timestamp, updated_at=timestamp)
@@ -153,13 +152,27 @@ def edit_product():
         flash('Success update product', category='info')
     return redirect('/products')
 
+@app.route('/bids', methods=['GET', 'POST'])
+@login_required
+def bid():
+    if request.method == 'POST' :
+        is_valid = validate_bid_form(request.form)
+        if 'errors' not in is_valid:
+            timestamp = datetime.now().replace(microsecond=0)
+            bid = Bid(**is_valid, created_at=timestamp, updated_at=timestamp)
+            db.session.add(bid)
+            db.session.commit()
+            flash('successfully added', category='success')
+        else:
+            flash(f'Error {is_valid}', category='danger')
+    bids = Bid.query.order_by(Bid.id).all()
+    return render_template("bids.html", bids=bids)
 
 @app.route('/pln_tariffs', methods=['GET', 'POST'])
 @login_required
 def pln_tariffs():
     if request.method == 'POST':
         is_valid = validate_pln_tariff_form(request.form)
-        print(is_valid)
         if 'errors' not in is_valid:
             timestamp = datetime.now().replace(microsecond=0)
             pln_tariff = Pln_tariff(**is_valid, created_at=timestamp, updated_at=timestamp)
@@ -218,7 +231,7 @@ def addproposal():
                     file_path = app.config.get('UPLOAD_IMAGES_FOLDER') / filename
                     file.save(file_path)
                     is_valid.update({'sketchup_model' : file_path.relative_to(Path('app')).__str__()})
-            proposal = Proposal(**is_valid, date_of_proposals=date_of_proposals, project_name=request.form.get('project_name'),proposal_no=request.form.get('proposal_no'), pln_tariff_id=int(request.form.get('pln_tariff')),created_at=timestamp, updated_at=timestamp,  status='Pending')
+            proposal = Proposal(**is_valid, date_of_proposals=date_of_proposals, project_name=request.form.get('project_name'),proposal_no=request.form.get('proposal_no'), bid_no=request.form.get('bid_no'), pln_tariff_id=int(request.form.get('pln_tariff')),created_at=timestamp, updated_at=timestamp,  status='Pending')
             proposal.products.append(Product.query.filter_by(id=12).first())
             db.session.add(proposal)
             db.session.commit()
@@ -256,7 +269,7 @@ def proposaldetails(id):
                     file_path = app.config.get('UPLOAD_IMAGES_FOLDER') / filename
                     file.save(file_path)
                     is_valid.update({'sketchup_model' : file_path.relative_to(Path('app')).__str__()})
-            proposal.update(**is_valid, project_name=request.form.get('project_name'), proposal_no=request.form.get('proposal_no'), location=request.form.get('location'), pv_system_model=request.form.get('pv_system_model'), pln_tariff_id=int(request.form.get('pln_tariff')))
+            proposal.update(**is_valid, project_name=request.form.get('project_name'), proposal_no=request.form.get('proposal_no'), bid_no=request.form.get('bid_no'), location=request.form.get('location'), pv_system_model=request.form.get('pv_system_model'), pln_tariff_id=int(request.form.get('pln_tariff')))
             db.session.commit()
             flash('successfully updated', category='info')
             return redirect(f'/proposal-details/{id}')
