@@ -102,7 +102,7 @@
     //Datemask2 mm/dd/yyyy
     $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
     //Money Euro
-    $('[data-mask]').inputmask('999,999,999', { numericInput: true })
+    $('[data-mask]').inputmask()
 
     //Date range picker
     $('#reservationdate').datetimepicker({
@@ -245,6 +245,10 @@
 
 <script>
   $('.rp').mask('000,000,000', {reverse: true});
+   
+</script>
+<script>
+  $('.bid').mask('BID-000-V00', {placeholder: "BID-___-V__"});
    
 </script>
 <!-- <script>

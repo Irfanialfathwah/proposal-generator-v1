@@ -70,7 +70,11 @@ def validate_bid_form(form):
     errors = {}
 
     number = form.get('number')
+    customer_id = form.get('customer')
+    proposal_id = form.get('project_name')
 
     return {
-        'number': number
+        'number': number,
+        'customer_id': customer_id,
+        'proposal_id': proposal_id
     }

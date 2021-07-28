@@ -111,6 +111,45 @@ def edit_customer():
         flash('Success update customers', category='info')
     return redirect('/customers')
 
+@app.route('/bids', methods=['GET', 'POST'])
+@login_required
+def bid():
+    if request.method == 'POST' :
+        is_valid = validate_bid_form(request.form)
+        if 'errors' not in is_valid:
+            timestamp = datetime.now().replace(microsecond=0)
+            bid = Bid(**is_valid, created_at=timestamp, updated_at=timestamp)
+            db.session.add(bid)
+            db.session.commit()
+            flash('successfully added', category='success')
+        else:
+            flash(f'Error {is_valid}', category='danger')
+    bids = Bid.query.order_by(Bid.id).all()
+    proposals = Proposal.query.order_by(Proposal.id).all()
+    customers = Customer.query.order_by(Customer.id).all()
+    return render_template("bids.html", bids=bids, proposals=proposals, customers=customers)
+
+@app.route('/bids/delete', methods=['POST'])
+@login_required
+def delete_bid():
+    id = request.form.get('id')
+    bid = Bid.query.filter_by(id=id).first()
+    db.session.delete(bid)
+    db.session.commit()
+    flash('successfully delete bid number', category='danger')
+    return redirect('/bids')
+
+@app.route('/bids/update', methods=['POST'])
+@login_required
+def edit_bid():
+    id = request.form.get('id')
+    is_valid = validate_bid_form(request.form)
+    if 'errors' not in is_valid:
+        bid = Bid.query.filter_by(id=id).first()
+        bid.update(**is_valid)
+        db.session.commit()
+        flash('Success update bid number', category='info')
+    return redirect('/bids')
 
 @app.route('/products', methods=['GET', 'POST'])
 @login_required
@@ -152,21 +191,6 @@ def edit_product():
         flash('Success update product', category='info')
     return redirect('/products')
 
-@app.route('/bids', methods=['GET', 'POST'])
-@login_required
-def bid():
-    if request.method == 'POST' :
-        is_valid = validate_bid_form(request.form)
-        if 'errors' not in is_valid:
-            timestamp = datetime.now().replace(microsecond=0)
-            bid = Bid(**is_valid, created_at=timestamp, updated_at=timestamp)
-            db.session.add(bid)
-            db.session.commit()
-            flash('successfully added', category='success')
-        else:
-            flash(f'Error {is_valid}', category='danger')
-    bids = Bid.query.order_by(Bid.id).all()
-    return render_template("bids.html", bids=bids)
 
 @app.route('/pln_tariffs', methods=['GET', 'POST'])
 @login_required
@@ -231,8 +255,7 @@ def addproposal():
                     file_path = app.config.get('UPLOAD_IMAGES_FOLDER') / filename
                     file.save(file_path)
                     is_valid.update({'sketchup_model' : file_path.relative_to(Path('app')).__str__()})
-            proposal = Proposal(**is_valid, date_of_proposals=date_of_proposals, project_name=request.form.get('project_name'),proposal_no=request.form.get('proposal_no'), bid_no=request.form.get('bid_no'), pln_tariff_id=int(request.form.get('pln_tariff')),created_at=timestamp, updated_at=timestamp,  status='Pending')
-            proposal.products.append(Product.query.filter_by(id=12).first())
+            proposal = Proposal(**is_valid, date_of_proposals=date_of_proposals, project_name=request.form.get('project_name'),proposal_no=request.form.get('proposal_no'), pln_tariff_id=int(request.form.get('pln_tariff')),created_at=timestamp, updated_at=timestamp,  status='Pending')
             db.session.add(proposal)
             db.session.commit()
             flash('successfully added', 'success')
@@ -258,18 +281,15 @@ def proposaldetails(id):
                 product.quantity = qty.qty
     if request.method == 'POST':
         is_valid = validate_proposal_form(request.form)
-        print('is_valid', is_valid)
         if 'errors' not in is_valid:
-            print(request.files)
             if 'sketchup_model' in request.files:
-                print("masuk")
                 file = request.files['sketchup_model']
                 if file and allowed_file(file.filename):
                     filename = secure_filename(file.filename)
                     file_path = app.config.get('UPLOAD_IMAGES_FOLDER') / filename
                     file.save(file_path)
                     is_valid.update({'sketchup_model' : file_path.relative_to(Path('app')).__str__()})
-            proposal.update(**is_valid, project_name=request.form.get('project_name'), proposal_no=request.form.get('proposal_no'), bid_no=request.form.get('bid_no'), location=request.form.get('location'), pv_system_model=request.form.get('pv_system_model'), pln_tariff_id=int(request.form.get('pln_tariff')))
+            proposal.update(**is_valid, project_name=request.form.get('project_name'), proposal_no=request.form.get('proposal_no'), location=request.form.get('location'), pv_system_model=request.form.get('pv_system_model'), pln_tariff_id=int(request.form.get('pln_tariff')))
             db.session.commit()
             flash('successfully updated', category='info')
             return redirect(f'/proposal-details/{id}')

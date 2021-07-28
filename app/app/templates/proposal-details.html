@@ -40,9 +40,6 @@
                                 <strong><i class="fas fa-book mr-1"></i> Proposal Number</strong>
                                 <p class="text-muted">{{ proposal.proposal_no }}</p>
                                 <hr>
-                                <strong><i class="fas fa-qrcode mr-1"></i> Bid Number</strong>
-                                <p class="text-muted">{{ proposal.bid.number }}</p>
-                                <hr>
                                 <strong><i class="fas fa-file mr-1"></i> Project Type</strong>
                                 <p class="text-muted">{{ proposal.pv_system_model }}</p>
                                 <hr>
@@ -248,9 +245,21 @@
                                             {% for product in proposal.products %}
                                             <tr>
                                                 <td>{{ product.product_name }}</td>
+                                                {% if product.quantity %}
                                                 <td>{{ product.quantity }}</td>
+                                                
+                                                {% else %}
+                                                <td>0</td>
+                                                    
+                                                {% endif %}
                                                 <td class="rp">{{ product.std_price }}</td>
-                                                <td class="rp">{{ product.std_price * product.quantity }}</td>
+                                                <td class="rp">
+                                                    {% if product.quantity %}
+                                                    {{ product.std_price * product.quantity }}
+                                                    {% else %}
+                                                        0
+                                                    {% endif %}
+                                                </td>
                                                 <td class="project-actions text-center">
                                                     <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#modal-edit-prod-pro{{loop.index}}">
                                                         <i class="fas fa-pencil-alt">

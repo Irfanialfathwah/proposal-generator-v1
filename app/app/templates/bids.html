@@ -23,7 +23,7 @@
                         <h4><i class="nav-icon fas fa-qrcode" style="vertical-align: middle;"></i>  Bid Number</h4>
                     </div>
                     <div class="card-tools dropdown">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-tariff">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-bid">
                             Add Bid Number
                         </button>
                     </div><!-- /.card-tools-button -->
@@ -35,29 +35,32 @@
                                 <th style="width: 1%">#</th>
                                 <th>Id</th>
                                 <th>Bid Number</th>
-                                <th>Proposal Number</th>
+                                <th>Customer</th>
                                 <th>Lead Name</th>
                                 <th>Geolocation</th>
-                                <th>Project Name</th>
-                                <th style="width: 25%;">Action</th>
+                                <th>Attachment</th>
+                                <th>Created at</th>
+                                <th style="width: 12%;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for proposal in proposals %}
+                            {% for bid in bids %}
                             <tr>
                                 <td>{{ loop.index }}</td>
-                                <td>{{ proposal.bid.id }}</td>
-                                <td>{{ proposal.bid.number }}</td>
-                                <td>{{ proposal.proposal_no }}</td>
-                                <td>{{ proposal.customer.name }}</td>
-                                <td>{{ proposal.bid.updated_at }}</td>
+                                <td>{{ bid.id }}</td>
+                                <td>{{ bid.number }}</td>
+                                <td>{{ bid.customer.name }}</td>
+                                <td>{{ bid.proposal.project_name }}</td>
+                                <td>{{ bid.proposal.geocoordinates }}</td>
+                                <td>{{ bid.attachment }}</td>
+                                <td>{{ bid.updated_at }}</td>
                                 <td class="project-actions text-center">
-                                    <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#modal-edit-tariff{{loop.index}}">
+                                    <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#modal-edit-bid{{loop.index}}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Edit
                                     </a>
-                                    <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#modal-delete-tariff{{loop.index}}">
+                                    <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#modal-delete-bid{{loop.index}}">
                                         <i class="fas fa-trash">
                                         </i>
                                         Delete
@@ -70,9 +73,9 @@
                 </div>
             </div>
         </div>
-        {% include "modals/add-tariff-modal.html" %}
-        {% include "modals/edit-tariff-modal.html" %}
-        {% include "modals/delete-tariff-modal.html" %}
+        {% include "modals/add-bid-modal.html" %}
+        {% include "modals/edit-bid-modal.html" %}
+        {% include "modals/delete-bid-modal.html" %}
     </section>
 </div>
 {% endblock %}

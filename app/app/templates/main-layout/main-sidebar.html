@@ -50,6 +50,21 @@
                     </a>
                 </li>
                 {% endif %}
+                {% if request.path == '/bids' %}
+                <li class="nav-item menu-open">
+                    <a href="/bids" class="nav-link active">
+                        <i class="nav-icon fas fa-qrcode"></i>
+                        <p>Bid Number</p>
+                    </a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="/bids" class="nav-link">
+                        <i class="nav-icon fas fa-qrcode"></i>
+                        <p>Bid Number</p>
+                    </a>
+                </li>
+                {% endif %}
                 {% if request.path == '/add-proposal' %}
                 <li class="nav-item menu-open">
                     <a href="#" class="nav-link active">
@@ -150,21 +165,6 @@
                     <a href="/pln_tariffs" class="nav-link">
                         <i class="nav-icon fas fa-bolt"></i>
                         <p>PLN Tariff</p>
-                    </a>
-                </li>
-                {% endif %}
-                {% if request.path == '/bids' %}
-                <li class="nav-item menu-open">
-                    <a href="/bids" class="nav-link active">
-                        <i class="nav-icon fas fa-qrcode"></i>
-                        <p>Bid Number</p>
-                    </a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a href="/bids" class="nav-link">
-                        <i class="nav-icon fas fa-qrcode"></i>
-                        <p>Bid Number</p>
                     </a>
                 </li>
                 {% endif %}
