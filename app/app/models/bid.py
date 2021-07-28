@@ -12,9 +12,11 @@ class Bid(db.Model):
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
 
-    def update(self, number, attachment=None):
+    def update(self, number, customer_id, proposal_id, attachment=None):
         timestamp = datetime.now().replace(microsecond=0)
         self.number = number
+        self.customer_id = customer_id
+        self.proposal_id = proposal_id
         if attachment is not None:
             self.attachment = attachment
         self.update_at = timestamp
