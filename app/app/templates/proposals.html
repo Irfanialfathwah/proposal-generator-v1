@@ -35,7 +35,7 @@
             <thead>
             <tr>
               <th style="width: 1%">#</th>
-              <th>Id</th>
+              <!-- <th>Id</th> -->
               <th>Project Name</th>
               <th>Location</th>
               <th>Customer</th>
@@ -49,7 +49,7 @@
             {% for proposal in proposals %}
             <tr>
               <td>{{ loop.index }}</td>
-              <td>{{proposal.id}}</td>
+              <!-- <td>{{proposal.id}}</td> -->
               <td>{{proposal.project_name}}</td>
               <td>{{proposal.location}}</td>
               <td>{{proposal.customer.name}}</td>

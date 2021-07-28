@@ -33,7 +33,7 @@
                         <thead>
                             <tr>
                                 <th style="width: 1%">#</th>
-                                <th>Id</th>
+                                <!-- <th>Id</th> -->
                                 <th>PLN Tariff Group</th>
                                 <th>Power Limit</th>
                                 <th>Electrical Charges (IDR/kWh)</th>
@@ -45,7 +45,7 @@
                             {% for pln_tariff in pln_tariffs %}
                             <tr>
                                 <td>{{ loop.index }}</td>
-                                <td>{{ pln_tariff.id }}</td>
+                                <!-- <td>{{ pln_tariff.id }}</td> -->
                                 <td>{{ pln_tariff.pln_tariff_group }}</td>
                                 <td>{{ pln_tariff.power_limit }}</td>
                                 <td>{{ "{:,.2f}".format(pln_tariff.pln_price) }}</td>

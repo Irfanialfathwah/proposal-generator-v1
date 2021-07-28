@@ -35,7 +35,7 @@
             <thead>
             <tr>
               <th style="width: 1%">#</th>
-              <th>Id</th>
+              <!-- <th>Id</th> -->
               <th>Name</th>
               <th>Email</th>
               <th>Total Proposal</th>
@@ -48,7 +48,7 @@
             {% for data,prop_comp in table_data %}
             <tr>
               <td>{{ loop.index }}</td>
-              <td>{{ data.id }}</td>
+              <!-- <td>{{ data.id }}</td> -->
               <td>{{ data.name }}</td>
               <td>{{ data.email }}</td>
               <td>{{ data.proposals|length }}</td>
