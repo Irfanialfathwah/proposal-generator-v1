@@ -10,7 +10,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="post" action="/bids/update">
+          <form method="post" action="/bids/update" enctype="multipart/form-data" >
             <div class="row">
                 <!-- text input -->
               <div class="col-sm-12">
@@ -41,13 +41,28 @@
                   <div class="form-group">
                     <label>Lead Name (Project Name as in Proposal Details)</label>
                     <select class="form-control select2bs4" style="width: 100%;" id='project_name' name='project_name'>
+                      <option selected="selected" value={{bid.proposal.id}}>{{bid.proposal.proposal_no}} - {{bid.proposal.project_name}}</option>
                       {% for proposal in proposals %}
                       <option value={{proposal.id}}>{{proposal.proposal_no}} - {{proposal.project_name}}</option>
                       {% endfor %}
                     </select>
                   </div>
                 </div>
-            </div>            
+            </div>   
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="exampleInputFile">Attachment (pdf proposal file)</label>
+                  <div class="input-group">
+                      <div class="custom-file">
+                      <input type="file" class="custom-file-input" id='attachment' name='attachment'>
+                      <label class="custom-file-label" for='attachment'>Choose file</label>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>  
+            
             <div class="modal-footer justify-content-between">
               <input type="hidden" name='id' value='{{bid.id}}'>
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

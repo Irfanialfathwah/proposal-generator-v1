@@ -52,7 +52,13 @@
                                 <td>{{ bid.customer.name }}</td>
                                 <td>{{ bid.proposal.project_name }}</td>
                                 <td>{{ bid.proposal.geocoordinates }}</td>
-                                <td>{{ bid.attachment }}</td>
+                                <td>
+                                    {% if bid.attachment is not none %}
+                                    <a href="/{{ bid.attachment }}" target="_blank">{{ bid.attachment}}</a>
+                                    {% else %}
+                                    -
+                                    {% endif %}
+                                </td>
                                 <td>{{ bid.updated_at }}</td>
                                 <td class="project-actions text-center">
                                     <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#modal-edit-bid{{loop.index}}">
