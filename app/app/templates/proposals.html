@@ -36,6 +36,7 @@
             <tr>
               <th style="width: 1%">#</th>
               <!-- <th>Id</th> -->
+              <th>Bid Number</th>
               <th>Project Name</th>
               <th>Location</th>
               <th>Customer</th>
@@ -49,7 +50,13 @@
             {% for proposal in proposals %}
             <tr>
               <td>{{ loop.index }}</td>
-              <!-- <td>{{proposal.id}}</td> -->
+              <td>
+                {% if proposal.proposal_no is not none %}
+                {{proposal.proposal_no}}
+                {% else %}
+                -
+                {% endif %}
+              </td>
               <td>{{proposal.project_name}}</td>
               <td>{{proposal.location}}</td>
               <td>{{proposal.customer.name}}</td>

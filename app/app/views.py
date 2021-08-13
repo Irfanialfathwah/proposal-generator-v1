@@ -127,6 +127,7 @@ def bid():
     bids = Bid.query.order_by(Bid.id).all()
     proposals = Proposal.query.order_by(Proposal.id).all()
     customers = Customer.query.order_by(Customer.id).all()
+    print(proposals)
     return render_template("bids.html", bids=bids, proposals=proposals, customers=customers)
 
 @app.route('/bids/delete', methods=['POST'])
@@ -139,17 +140,6 @@ def delete_bid():
     flash('successfully delete bid number', category='danger')
     return redirect('/bids')
 
-@app.route('/bids/update', methods=['POST'])
-@login_required
-def edit_bid():
-    id = request.form.get('id')
-    is_valid = validate_bid_form(request.form)
-    if 'errors' not in is_valid:
-        bid = Bid.query.filter_by(id=id).first()
-        bid.update(**is_valid)
-        db.session.commit()
-        flash('Success update bid number', category='info')
-    return redirect('/bids')
 
 @app.route('/products', methods=['GET', 'POST'])
 @login_required
@@ -265,6 +255,25 @@ def addproposal():
     pln_tariffs = Pln_tariff.query.order_by(Pln_tariff.id).all()
     return render_template("add-proposal.html", customers=customers, pln_tariffs=pln_tariffs)
 
+@app.route('/bids/update', methods=['POST'])
+@login_required
+def edit_bid():
+    id = request.form.get('id')
+    is_valid = validate_bid_form(request.form)
+    if 'errors' not in is_valid:
+        if 'attachment' in request.files:
+            timestamp =  datetime.now().microsecond
+            file = request.files['attachment']
+            if file and allowed_file(file.filename):
+                filename = secure_filename(f'${timestamp}-${file.filename}')
+                file_path = app.config.get('UPLOAD_PROPOSALS_FOLDER') / filename
+                file.save(file_path)
+                is_valid.update({'attachment' : file_path.relative_to(Path('app')).__str__()})
+        bid = Bid.query.filter_by(id=id).first()
+        bid.update(**is_valid)
+        db.session.commit()
+        flash('Success update bid number', category='info')
+    return redirect('/bids')
 
 @app.route('/proposal-details/<int:id>', methods=('POST','GET'))
 @login_required
@@ -381,9 +390,10 @@ def add_order(id):
     if request.files:
         filepaths = []
         for index,gsa_report in enumerate(request.files):
+            timestamp_micros =  datetime.now().microsecond
             file = request.files[f'gsa_report_file{index+1}']
             if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
+                filename = secure_filename(f'${timestamp_micros}-${file.filename}')
                 file_path = app.config.get('UPLOAD_FILES_FOLDER') / filename
                 file.save(file_path)
                 filepaths.append(file_path)
@@ -422,9 +432,10 @@ def add_new_roof(id):
     if request.files:
         filepaths = []
         for index,gsa_report in enumerate(request.files):
+            timestamp_micros =  datetime.now().microsecond
             file = request.files[f'gsa_report_file']
             if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
+                filename = secure_filename(f'${timestamp_micros}-${file.filename}')
                 file_path = app.config.get('UPLOAD_FILES_FOLDER') / filename
                 file.save(file_path)
                 filepaths.append(file_path)
@@ -463,9 +474,10 @@ def update_order(id):
     if request.files:
         filepaths = []
         for index,gsa_report in enumerate(request.files):
+            timestamp_micros =  datetime.now().microsecond
             file = request.files[f'gsa_report_file{index+1}']
             if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
+                filename = secure_filename(f'${timestamp_micros}-${file.filename}')
                 file_path = app.config.get('UPLOAD_FILES_FOLDER') / filename
                 file.save(file_path)
                 filepaths.append(file_path)

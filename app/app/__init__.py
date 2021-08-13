@@ -9,6 +9,7 @@ from config import (
         CSRF_ENABLED,
         UPLOAD_IMAGES_FOLDER,
         UPLOAD_FILES_FOLDER,
+        UPLOAD_PROPOSALS_FOLDER,
     )
 
 app.secret_key = SECRET_KEY
@@ -18,6 +19,7 @@ app.config["DEBUG"] = DEBUG
 app.config["CSRF_ENABLED"] = CSRF_ENABLED
 app.config["UPLOAD_IMAGES_FOLDER"] = UPLOAD_IMAGES_FOLDER
 app.config["UPLOAD_FILES_FOLDER"] = UPLOAD_FILES_FOLDER
+app.config["UPLOAD_PROPOSALS_FOLDER"] = UPLOAD_PROPOSALS_FOLDER
 # Load the views
 import db
 from app import views, models

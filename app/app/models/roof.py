@@ -13,7 +13,7 @@ class Roof(db.Model):
     pv_cable = db.Column(db.Integer, nullable=True)
     add_construction_qty = db.Column(db.Integer, nullable=True)
     add_construction_price = db.Column(db.Integer, nullable=True)
-    gsa_report_file = db.Column(db.String(50), nullable=True)
+    gsa_report_file = db.Column(db.String(100), nullable=True)
     azimuth = db.Column(db.Integer, nullable=False)
     angle = db.Column(db.Integer, nullable=False)
     solar_data = db.relationship("SolarMonthData", backref='roof', cascade="all,delete")
