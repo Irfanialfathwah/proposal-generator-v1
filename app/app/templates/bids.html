@@ -54,7 +54,7 @@
                                 <td>{{ bid.proposal.geocoordinates }}</td>
                                 <td>
                                     {% if bid.attachment is not none %}
-                                    <a href="/{{ bid.attachment }}" target="_blank">{{ bid.attachment}}</a>
+                                    <a href="/{{ bid.attachment }}" target="_blank">{{ bid.attachment[17:]}}</a>
                                     {% else %}
                                     -
                                     {% endif %}

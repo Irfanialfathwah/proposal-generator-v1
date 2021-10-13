@@ -24,7 +24,7 @@
                 <div class="col-sm-12">
                   <div class="form-group">
                     <label>Customer Name</label>
-                    <select class="form-control select2bs4" style="width: 100%;" id='customer' name='customer'>
+                    <select class="form-control select2bs4 customer" style="width: 100%;" id='customer' name='customer'>
                         <option selected="selected" value={{bid.customer.id}}>{{bid.customer.name}}
                         </option>
                         {% for customer in customers %}
@@ -56,7 +56,13 @@
                   <div class="input-group">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" id='attachment' name='attachment'>
-                        <label class="custom-file-label" for='attachment'>Choose file</label>
+                        <label class="custom-file-label" for='attachment'>
+                          {% if bid.attachment is not none %}
+                          {{ bid.attachment[17:]}}
+                          {% else %}
+                          Choose File
+                          {% endif %}
+                        </label>
                       </div>
                   </div>
                 </div>

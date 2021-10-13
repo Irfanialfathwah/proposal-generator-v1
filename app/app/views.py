@@ -127,7 +127,6 @@ def bid():
     bids = Bid.query.order_by(Bid.id).all()
     proposals = Proposal.query.order_by(Proposal.id).all()
     customers = Customer.query.order_by(Customer.id).all()
-    print(proposals)
     return render_template("bids.html", bids=bids, proposals=proposals, customers=customers)
 
 @app.route('/bids/delete', methods=['POST'])
