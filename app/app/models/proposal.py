@@ -1,3 +1,4 @@
+from operator import length_hint
 from db import db
 from datetime import datetime
 from statistics import mean
@@ -86,7 +87,7 @@ class Proposal(db.Model):
         total = 0
         for roof in self.roofs:
             total += roof.kwh_kwp_day
-        return round(total / self.num_of_roofs,2)
+        return round(total / len(self.roofs),2)
 
     @property
     def total_array_size(self):

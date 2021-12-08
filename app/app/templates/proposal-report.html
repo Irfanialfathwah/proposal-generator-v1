@@ -254,7 +254,7 @@
                             <div class="gallery">
                                 <img src="/{{ proposal.sketchup_model }}" alt="Photo 1">
                             </div>
-                            <p style="text-align: center; font-size: 12pt;">Roof View</p>
+                            <!-- <p style="text-align: center; font-size: 12pt;">Roof View</p> -->
                         </div>
                     </div>
                 </div>
@@ -315,16 +315,16 @@
                                             <tr style="text-align: center;">
                                                 <th>Array Size (kWp)</th>
                                                 {% for roof in proposal.roofs %}
-                                                <td>{{ "{:,.0f}".format(roof.array_size) }}</td>
+                                                <td>{{ "{:,.1f}".format(roof.array_size) }}</td>
                                                 {% endfor %}
-                                                <td><b>{{"{:,.0f}".format(proposal.total_array_size)}}</b></td>
+                                                <td><b>{{"{:,.1f}".format(proposal.total_array_size)}}</b></td>
                                             </tr>
                                             <tr style="text-align: center;">
                                                 <th>Avg Daily Harvest (kWh)</th>
                                                 {% for roof in proposal.roofs %}
-                                                <td><b>{{ "{:,.0f}".format(roof.avg_daily_harvest) }}</b></td>
+                                                <td><b>{{ "{:,.1f}".format(roof.avg_daily_harvest) }}</b></td>
                                                 {% endfor %}
-                                                <td><b>{{"{:,.0f}".format(proposal.total_avg_daily_harvest)}}</b></td>
+                                                <td><b>{{"{:,.1f}".format(proposal.total_avg_daily_harvest)}}</b></td>
                                             </tr>
                                             <tr style="text-align: center;">
                                                 <th>HR</th>

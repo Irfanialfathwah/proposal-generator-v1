@@ -139,6 +139,25 @@ def delete_bid():
     flash('successfully delete bid number', category='danger')
     return redirect('/bids')
 
+@app.route('/bids/update', methods=['POST'])
+@login_required
+def edit_bid():
+    id = request.form.get('id')
+    is_valid = validate_bid_form(request.form)
+    if 'errors' not in is_valid:
+        if 'attachment' in request.files:
+            timestamp =  datetime.now().microsecond
+            file = request.files['attachment']
+            if file and allowed_file(file.filename):
+                filename = secure_filename(f'${timestamp}-${file.filename}')
+                file_path = app.config.get('UPLOAD_PROPOSALS_FOLDER') / filename
+                file.save(file_path)
+                is_valid.update({'attachment' : file_path.relative_to(Path('app')).__str__()})
+        bid = Bid.query.filter_by(id=id).first()
+        bid.update(**is_valid)
+        db.session.commit()
+        flash('Success update bid number', category='info')
+    return redirect('/bids')
 
 @app.route('/products', methods=['GET', 'POST'])
 @login_required
@@ -254,25 +273,6 @@ def addproposal():
     pln_tariffs = Pln_tariff.query.order_by(Pln_tariff.id).all()
     return render_template("add-proposal.html", customers=customers, pln_tariffs=pln_tariffs)
 
-@app.route('/bids/update', methods=['POST'])
-@login_required
-def edit_bid():
-    id = request.form.get('id')
-    is_valid = validate_bid_form(request.form)
-    if 'errors' not in is_valid:
-        if 'attachment' in request.files:
-            timestamp =  datetime.now().microsecond
-            file = request.files['attachment']
-            if file and allowed_file(file.filename):
-                filename = secure_filename(f'${timestamp}-${file.filename}')
-                file_path = app.config.get('UPLOAD_PROPOSALS_FOLDER') / filename
-                file.save(file_path)
-                is_valid.update({'attachment' : file_path.relative_to(Path('app')).__str__()})
-        bid = Bid.query.filter_by(id=id).first()
-        bid.update(**is_valid)
-        db.session.commit()
-        flash('Success update bid number', category='info')
-    return redirect('/bids')
 
 @app.route('/proposal-details/<int:id>', methods=('POST','GET'))
 @login_required
