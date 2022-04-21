@@ -315,9 +315,9 @@
                                             <tr style="text-align: center;">
                                                 <th>Array Size (kWp)</th>
                                                 {% for roof in proposal.roofs %}
-                                                <td>{{ "{:,.1f}".format(roof.array_size) }}</td>
+                                                <td>{{ "{:,.2f}".format(roof.array_size) }}</td>
                                                 {% endfor %}
-                                                <td><b>{{"{:,.1f}".format(proposal.total_array_size)}}</b></td>
+                                                <td><b>{{"{:,.2f}".format(proposal.total_array_size)}}</b></td>
                                             </tr>
                                             <tr style="text-align: center;">
                                                 <th>Avg Daily Harvest (kWh)</th>

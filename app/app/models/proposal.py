@@ -216,7 +216,7 @@ class Proposal(db.Model):
 
     @property
     def amount_tax(self):
-        return int(self.amount_after_discount * 10/100)
+        return int(self.amount_after_discount * 11/100)
 
     @property
     def amount_after_tax(self):
