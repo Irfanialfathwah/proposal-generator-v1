@@ -236,6 +236,7 @@
                                             <tr class="bg-gray">
                                                 <th>Description</th>
                                                 <th>Qty</th>
+                                                <th>Unit</th>
                                                 <th>Unit Price (IDR)</th>
                                                 <th>Total Amount (IDR)</th>
                                                 <th style="width: 15%">Action</th>
@@ -252,6 +253,7 @@
                                                 <td>0</td>
                                                     
                                                 {% endif %}
+                                                <td>{{ product.unit }}</td>
                                                 <td class="rp">{{ product.std_price }}</td>
                                                 <td class="rp">
                                                     {% if product.quantity %}
@@ -275,9 +277,9 @@
                                             </tr>
                                             {% endfor %}
                                             <tr>
-                                                <td colspan="3">Transport (Sentul - Project Location)</td>
+                                                <td colspan="4">Transport (Sentul - Project Location)</td>
                                                 <td class="rp">{{ proposal.transport_price }}</td>
-                                                <td rowspan="3" class="project-actions text-center" style="vertical-align: middle;">
+                                                <td rowspan="4" class="project-actions text-center" style="vertical-align: middle;">
                                                     <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#modal-edit-others-pro">
                                                         <i class="fas fa-pencil-alt">
                                                         </i>
@@ -286,11 +288,11 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td colspan="3">Installations</td>
+                                                <td colspan="4">Installations</td>
                                                 <td class="rp">{{ proposal.installation_price }}</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="3">Discount Amount</td>
+                                                <td colspan="4">Discount Amount</td>
                                                 <td class="rp">{{ proposal.discount }}</td>
                                             </tr>
                                         </tbody>

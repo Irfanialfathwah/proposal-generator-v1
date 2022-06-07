@@ -46,10 +46,12 @@ def validate_product_form(form):
     errors = {}
 
     product_name = form.get('product_name')
+    unit = form.get('unit')
     std_price = int(form.get('std_price').replace(",",""))
 
     return {
         'product_name': product_name,
+        'unit': unit,
         'std_price': std_price
     }
 

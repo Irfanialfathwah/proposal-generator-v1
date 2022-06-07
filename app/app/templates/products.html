@@ -35,6 +35,7 @@
                                 <th style="width: 1%">#</th>
                                 <!-- <th>Id</th> -->
                                 <th>Product Name</th>
+                                <th>Unit</th>
                                 <th>Standard Price (IDR)</th>
                                 <th>Last Update</th>
                                 <th style="width: 25%;">Action</th>
@@ -44,8 +45,8 @@
                             {% for product in products %}
                             <tr>
                                 <td>{{ loop.index }}</td>
-                                <!-- <td>{{ product.id }}</td> -->
                                 <td>{{ product.product_name }}</td>
+                                <td>{{ product.unit }}</td>
                                 <td class="rp" >{{ product.std_price }}</td>
                                 <td>{{ product.updated_at }}</td>
                                 <td class="project-actions text-center">
