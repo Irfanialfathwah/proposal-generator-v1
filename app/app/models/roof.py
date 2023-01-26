@@ -69,7 +69,7 @@ class Roof(db.Model):
 
     @property
     def pv_panel_amount(self):
-        return self.array_size * 10350000
+        return self.array_size * 11137038
 
     @property
     def add_construction_amount(self):
