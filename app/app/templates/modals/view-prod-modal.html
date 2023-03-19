@@ -1,5 +1,5 @@
 <!-- Modal View Customer -->
-{% for data in products %}
+{% for product in products %}
 <div class="modal fade" id="modal-view-prod{{loop.index}}">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -15,15 +15,17 @@
                          src="../static/dist/img/barcode-solid.svg"
                          alt="product picture">
                 </div>
-                <h3 class="profile-username text-center">{{ data.product_name }}</h3>
-                <p class="text-muted text-center">{{ data.std_price }}</p>
+                <h3 class="profile-username text-center">{{ product.product_name }}</h3>
+                <p class="text-muted text-center">Rp {{ "{:,.0f}".format(product.std_price) }}</p>
                 <hr>
-                
+                <strong><i class="fas fa-archive mr-1 "></i> Unit Name</strong>
+                <p class="text-muted">{{ product.unit }}</p>
+                <hr>
                 <strong><i class="fas fa-book mr-1 "></i> Brochure/Datasheet</strong>
                 <ul class="list-unstyled">
                     <!-- pindahin ke tab baru pas klik brochure -->
                     <li>
-                        <a target="_blank" rel="noopener noreferrer" href="/files/{{product.id}}" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> {{data.product_name|capitalize}}.pdf</a>
+                        <a target="_blank" rel="noopener noreferrer" href="/files/{{product.id}}" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> {{product.product_name|capitalize}}.pdf</a>
                     </li>
 
                 </ul>

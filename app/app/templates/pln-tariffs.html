@@ -1,0 +1,77 @@
+{% extends "main-layout/base.html" %}
+{% block title %}PLN Tariff{% endblock %}
+{% block body %}
+<div class="content-wrapper">
+    {{ super() }}
+    <section class="content">
+        <div class="container-fluid">
+            {% with messages = get_flashed_messages(category_filter=['success', 'danger', 'info'], with_categories=True) %}
+            {% if messages %}
+            {% for category,message in messages %}
+            <div class="alert alert-{{category}}" role="alert">
+              <strong class='h4'>{{ message }}</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h4><i class="nav-icon fas fa-bolt" style="vertical-align: middle;"></i>  PLN Tariff Adjustment</h4>
+                    </div>
+                    <div class="card-tools dropdown">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-tariff">
+                            Add Tariff Group
+                        </button>
+                    </div><!-- /.card-tools-button -->
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 1%">#</th>
+                                <!-- <th>Id</th> -->
+                                <th>PLN Tariff Group</th>
+                                <th>Power Limit</th>
+                                <th>Electrical Charges (IDR/kWh)</th>
+                                <th>Last Update</th>
+                                <th style="width: 25%;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pln_tariff in pln_tariffs %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <!-- <td>{{ pln_tariff.id }}</td> -->
+                                <td>{{ pln_tariff.pln_tariff_group }}</td>
+                                <td>{{ pln_tariff.power_limit }}</td>
+                                <td>{{ "{:,.2f}".format(pln_tariff.pln_price) }}</td>
+                                <td>{{ pln_tariff.updated_at }}</td>
+                                <td class="project-actions text-center">
+                                    <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#modal-edit-tariff{{loop.index}}">
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+                                        Edit
+                                    </a>
+                                    <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#modal-delete-tariff{{loop.index}}">
+                                        <i class="fas fa-trash">
+                                        </i>
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% include "modals/add-tariff-modal.html" %}
+        {% include "modals/edit-tariff-modal.html" %}
+        {% include "modals/delete-tariff-modal.html" %}
+    </section>
+</div>
+{% endblock %}

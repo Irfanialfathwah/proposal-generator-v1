@@ -1,0 +1,76 @@
+<!-- Modal Form Add -->
+<div class="modal fade" id="modal-add-bid">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Bid Number</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method='post'>
+            <div class="row">
+                <!-- text input -->
+              <div class="col-sm-12">
+                <div class="form-group">
+                    <label>Bid Number</label>
+                    <input type="text" class="form-control bid" placeholder="Enter Bid Number" name='number' id='number'>
+                </div>
+              </div>
+            </div> <!-- end of row 1 -->
+            <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label>Customer Name</label>
+                    <select class="form-control select2bs4" style="width: 100%;" id='customer' name='customer' required>
+                      <option selected="selected">----</option>
+                      {% for customer in customers %}
+                      <option value={{customer.id}}>{{customer.name}}</option>
+                      {% endfor %}
+                    </select>
+                </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" onsubmit="this.disabled=true;">Submit</button>
+            </div>
+            <hr>
+          </form>
+          <div class="card-header">
+              <h5 style="text-align: center;">Previous Bid Numbers</h5>
+          </div>
+          <div class="card-body">
+            <table class="example table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 1%">#</th>
+                        <!-- <th>Id</th> -->
+                        <th>Bid Number</th>
+                        <th>Customer</th>
+                        <th>Lead Name</th>
+                        <th>Geolocation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bid in bids %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <!-- <td>{{ bid.id }}</td> -->
+                        <td>{{ bid.number }}</td>
+                        <td>{{ bid.customer.name }}</td>
+                        <td>{{ bid.proposal.project_name }}</td>
+                        <td>{{ bid.proposal.geocoordinates }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -5,26 +5,28 @@
 <div class="content-wrapper">
   {{ super() }}<!-- Content Header from base.html -->
   <!-- Main content -->
-  {% with messages = get_flashed_messages(category_filter=['success'], with_categories=True) %}
-  {% if messages %}
-  {% for category,message in messages %}
-      <div class="alert alert-{{category}}" role="alert">
-        <strong class='h4'>{{ message }}</strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    {% endfor %}
-  {% endif %}
-  {% endwith %}
   <section class="content">
     <div class="container-fluid">
+      {% with messages = get_flashed_messages(category_filter=['success', 'danger', 'info'], with_categories=True) %}
+      {% if messages %}
+      {% for category,message in messages %}
+          <div class="alert alert-{{category}}" role="alert">
+            <strong class='h4'>{{ message }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endfor %}
+      {% endif %}
+      {% endwith %}
       <div class="card card-primary card-outline">
         <div class="card-header">
-          <h3 class="card-title">All Proposals</h3>
+          <div class="card-title">
+            <h4><i class="nav-icon fas fa-book" style="vertical-align: middle;"></i>  All Proposals</h4>
+          </div>
           <div class="card-tools dropdown">
             <button type="button" class="btn btn-primary" onclick="window.location.href='/add-proposal'">
-              Add Proposal
+              <i class="fas fa-plus"></i>&nbsp Add Proposal
             </button>
           </div><!-- /.card-tools-button -->
         </div> <!-- /.card-header -->
@@ -33,25 +35,32 @@
             <thead>
             <tr>
               <th style="width: 1%">#</th>
-              <th>Id</th>
+              <!-- <th>Id</th> -->
+              <th>Bid Number</th>
               <th>Project Name</th>
               <th>Location</th>
               <th>Customer</th>
               <th>Number of Roof</th>
               <th>GeoCoordinates</th>
               <th>Data Status</th>
-              <th style="width: 25%">Action</th>
+              <th style="width: 15%">Action</th>
             </tr>
             </thead>
             <tbody>
             {% for proposal in proposals %}
             <tr>
               <td>{{ loop.index }}</td>
-              <td>{{proposal.id}}</td>
+              <td>
+                {% if proposal.proposal_no is not none %}
+                {{proposal.proposal_no}}
+                {% else %}
+                -
+                {% endif %}
+              </td>
               <td>{{proposal.project_name}}</td>
               <td>{{proposal.location}}</td>
               <td>{{proposal.customer.name}}</td>
-              <td>{{proposal.num_of_roofs}}</td>
+              <td>{{proposal.roofs|length}}</td>
               <td>{{proposal.geocoordinates}}</td>
               <td class="project-state text-center">
                 {% if proposal.status != 'Completed' %}
@@ -66,11 +75,6 @@
                     </i>
                     View
                 </a>
-                <!-- <a class="btn btn-info btn-sm" href="#">
-                    <i class="fas fa-pencil-alt">
-                    </i>
-                    Edit
-                </a> -->
                 <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#modal-delete-prop{{loop.index}}">
                     <i class="fas fa-trash">
                     </i>

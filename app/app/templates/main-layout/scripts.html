@@ -66,6 +66,9 @@
 <script src="/static/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- Ekko Lightbox -->
 <script src="/static/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+<script src="/static/plugins/jquery.mask.min/jquery.mask.min.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <!-- Page specific script -->
 <script>
   $(function () {
@@ -232,6 +235,23 @@
     });
   });
 </script>
+<script>
+  $(function () {
+    $(".example").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('.example_wrapper .col-md-6:eq(0)');
+    $('.example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
 <!-- Page specific script for form-->
 <script>
   $(function () {
@@ -240,8 +260,14 @@
 </script>
 
 
-<!-- <script>
-  $('form').submit(function() {
-    $(this).find("button[type='submit']").prop('disabled',true);
-  });
-</script> -->
+<script>
+  $('.rp').mask('000,000,000,000', {reverse: true});
+   
+</script>
+<script>
+  $('.bid').mask('BID-000-V00', {placeholder: "BID-___-V__"});
+//   $('select.customer').on('change', function() {
+//   alert( this.value )
+// });
+   
+</script>

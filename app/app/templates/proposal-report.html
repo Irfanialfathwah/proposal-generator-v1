@@ -122,13 +122,15 @@
             <!-- Cover Page -->
             <div class="page">
                 <div class="subpage-cover">
+                    <div class="row" style="margin-top: 30px; margin-left: 35px; margin-right: 30px;">
+                        <div class="col-sm-6">
+                            <h6 style="color: rgb(255, 255, 255);">No.{{ proposal.proposal_no }}</h6>
+                        </div>
+                        <div class="col-sm-6" style="text-align: right;">
+                            <h6 style="color: rgb(255, 255, 255);">{{ proposal.geocoordinates }}</h6>
+                        </div>
+                    </div>
                     <table>
-                        <tr>
-                            <td style="padding-top: 30px; padding-left: 35px;">
-                                <h6 style="color: rgb(255, 255, 255);">No.: </h6>
-                                <!-- <h6 style="color: rgb(255, 255, 255);">{{ date_of_prop }}</h6> -->
-                            </td>
-                        </tr>
                         <tr>
                             <td>
                                 <div class="grid-container" style="padding-top: 200px;">
@@ -141,7 +143,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <h1 style="font-size: 70pt; color:rgb(255, 255, 255);">
+                                            <h1 style="font-size: 60pt; color:rgb(255, 255, 255);">
                                                 <b>Proposal</b>
                                             </h1>
                                         </div>
@@ -177,7 +179,7 @@
                                         <td style="font-size: 12pt; color: rgb(128, 128, 128);">Location</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 15pt; padding-bottom: 18pt;" ><b>{{ customer.address }}</b></td>
+                                        <td style="font-size: 15pt; padding-bottom: 18pt;" ><b>{{ proposal.location }}</b></td>
                                     </tr>
                                     <tr>
                                         <td style="font-size: 12pt; color: rgb(128, 128, 128);">GeoCoordinates</td>
@@ -208,15 +210,6 @@
                             </div>
                         </div>
                     </div>
-                      <!-- <div class="row">
-                          <div class="col-sm-4" style="padding-inline-start: 43px;">
-                              <svg height="40" width="300">
-                                  <g fill="none" stroke="rgb(245, 5, 5)" stroke-width="6">
-                                      <path stroke-linecap="round" d="M5 10 l050 0" />
-                                  </g>
-                              </svg>
-                          </div>
-                      </div> -->
                 </div>    
             </div>
             <!-- end of page one -->
@@ -261,7 +254,7 @@
                             <div class="gallery">
                                 <img src="/{{ proposal.sketchup_model }}" alt="Photo 1">
                             </div>
-                            <p style="text-align: center; font-size: 12pt;">Roof View</p>
+                            <!-- <p style="text-align: center; font-size: 12pt;">Roof View</p> -->
                         </div>
                     </div>
                 </div>
@@ -284,59 +277,61 @@
                                         <thead>
                                             <tr>
                                                 <th class="cell"><b>Roof #</b></th>
-                                                {% for nums in range(1,proposal.num_of_roofs+1) %}
+                                                {% for nums in range(1,proposal.roofs | length +1) %}
                                                 <th class="cell" style="text-align: center;"><b>{{ nums }}</b></th>
                                                 {% endfor %}
                                                 <th class="cell" style="text-align: center;"><b>Total</b></th>
                                             </tr>
                                             <tr >
-                                                <td colspan="{{ proposal.num_of_roofs+2 }}"> </td>
+                                                <td colspan="{{ proposal.roofs | length+2 }}"> </td>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <th class="cell3" colspan="{{ proposal.num_of_roofs+2 }}">Monthly Energy Harvest Totals</th>
+                                                <th class="cell3" colspan="{{ proposal.roofs | length+2 }}">Monthly Energy Harvest Totals (kWh)</th>
                                             </tr>
                                             {% for month, energy_yield, value, nums in yearly_chart %}
                                             <tr style="text-align: center;">
                                                 <td>{{ month }}</td>
                                                 {% for roof in proposal.yield_roof %}
-                                                <td>{{roof[nums-1] | int}}</td>
+                                                <td>{{"{:,.0f}".format(roof[nums-1]) }}</td>
                                                 {% endfor %}
-                                                <td><b>{{ energy_yield }}</b></td>
+                                                <td><b>{{ "{:,.0f}".format(energy_yield) }}</b></td>
                                                 <!-- <td>{{ value }}</td> -->
                                             </tr>
                                             {% endfor %}
                                             <tr>
-                                                <th class="cell3" colspan="{{ proposal.num_of_roofs+2 }}"> </th>
+                                                <th class="cell3" colspan="{{ proposal.roofs | length+2 }}"> </th>
                                             </tr>
                                             <tr style="text-align: center;">
-                                                <th>Panel Qty (pcs)</th>
-                                                {% for roof in proposal.roofs %}
-                                                <td>{{ roof.pv_panel_qty }}</td>
+                                                {% for roof in proposal.roofs[:1] %}
+                                                <th>Panel Qty - {{ roof.pv_panel }} Wp (pcs)</th>
                                                 {% endfor %}
-                                                <td><b>{{proposal.total_panel_qty}}</b></td>
+                                                {% for roof in proposal.roofs %}
+                                                <td>{{ "{:,.0f}".format(roof.pv_panel_qty) }}</td>
+                                                {% endfor %}
+                                                <td><b>{{"{:,.0f}".format(proposal.total_panel_qty)}}</b></td>
                                             </tr>
                                             <tr style="text-align: center;">
                                                 <th>Array Size (kWp)</th>
                                                 {% for roof in proposal.roofs %}
-                                                <td>{{ roof.array_size }}</td>
+                                                <td>{{ "{:,.2f}".format(roof.array_size) }}</td>
                                                 {% endfor %}
-                                                <td><b>{{proposal.total_array_size}}</b></td>
+                                                <td><b>{{"{:,.2f}".format(proposal.total_array_size)}}</b></td>
                                             </tr>
                                             <tr style="text-align: center;">
                                                 <th>Avg Daily Harvest (kWh)</th>
                                                 {% for roof in proposal.roofs %}
-                                                <td><b>{{ roof.avg_daily_harvest }}</b></td>
+                                                <td><b>{{ "{:,.1f}".format(roof.avg_daily_harvest) }}</b></td>
                                                 {% endfor %}
-                                                <td><b>{{proposal.total_avg_daily_harvest}}</b></td>
+                                                <td><b>{{"{:,.1f}".format(proposal.total_avg_daily_harvest)}}</b></td>
                                             </tr>
                                             <tr style="text-align: center;">
-                                                <th>kWh/kWp/day</th>
+                                                <th>HR</th>
                                                 {% for roof in proposal.roofs %}
-                                                <td>{{ roof.kwh_kwp_day }}</td>
+                                                <td>{{ "{:,.1f}".format(roof.kwh_kwp_day) }}</td>
                                                 {% endfor %}
-                                                <td><b>{{ proposal.avg_kwh_kwp_day }}</b></td>
+                                                <td><b>{{ "{:,.1f}".format(proposal.avg_kwh_kwp_day) }}</b></td>
                                             </tr>
                                         </tbody>
                                         <tfoot>
@@ -415,13 +410,13 @@
                             <h2 style="font-weight: bolder; font-size: 25pt; text-align: center;">QUOTATION</h2>
                         </div>
                     </div>
-                    <div class="grid-container" style="padding-inline-start: 45px; padding-inline-end: 45px; height: 600px;">
+                    <div class="grid-container" style="padding-inline-start: 30px; padding-inline-end: 30px; height: 600px;">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-sm table-bordered" style="font-size: 11pt;">
+                                <table class="table table-sm table-bordered" style="font-size: 7.88pt;">
                                     <thead>
                                         <tr>
-                                            <th class="cell" style="text-align: center;">#</th>
+                                            <!-- <th class="cell" style="text-align: center;">#</th> -->
                                             <th class="cell" style="text-align: center;">Description</th>
                                             <th class="cell" style="text-align: center;">Qty</th>
                                             <th class="cell" style="text-align: center;">Unit</th>
@@ -430,117 +425,81 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% if proposal.inverter_stg3_amount != 0 %}
-                                        <tr>
-                                            <td style="text-align: center;">1</td>
-                                            <td>Inverter STG 3.0</td>
-                                            <td style="text-align: center;">{{ proposal.inverter_stg3_amount }}</td>
-                                            <td>Set</td>
-                                            <td style="text-align: right;">5.700.000</td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg3_amount)|replace(',','.') }}</td>
-                                        </tr>
-                                        {% endif %}
-                                        {% if proposal.inverter_stg6_amount != 0 %}
-                                        <tr>
-                                            <td style="text-align: center;">2</td>
-                                            <td>Inverter STG 6.0</td>
-                                            <td style="text-align: center;">{{ proposal.inverter_stg6 }}</td>
-                                            <td>Set</td>
-                                            <td style="text-align: right;">14.500.000</td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg6_amount)|replace(',','.') }}</td>
-                                        </tr>
-                                        {% endif %}
-                                        {% if proposal.inverter_stg20_amount != 0 %}
-                                        <tr>
-                                            <td style="text-align: center;">3</td>
-                                            <td>Inverter STG 20</td>
-                                            <td style="text-align: center;">{{ proposal.inverter_stg20 }}</td>
-                                            <td>Set</td>
-                                            <td style="text-align: right;">37.700.000</td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg20_amount)|replace(',','.') }}</td>
-                                        </tr>
-                                        {% endif %}
-                                        {% if proposal.inverter_stg125_amount != 0 %}
-                                        <tr>
-                                            <td style="text-align: center;">3</td>
-                                            <td>Inverter STG 125</td>
-                                            <td style="text-align: center;">{{ proposal.inverter_stg125 }}</td>
-                                            <td>Set</td>
-                                            <td style="text-align: right;">174.000.000</td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg125_amount)|replace(',','.') }}</td>
-                                        </tr>
-                                        {% endif %}
-                                        {% if proposal.inverter_stg250_amount != 0 %}
-                                        <tr>
-                                            <td style="text-align: center;">3</td>
-                                            <td>Inverter STG 250</td>
-                                            <td style="text-align: center;">{{ proposal.inverter_stg250 }}</td>
-                                            <td>Set</td>
-                                            <td style="text-align: right;">174.000.000</td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.inverter_stg250_amount)|replace(',','.') }}</td>
-                                        </tr>
-                                        {% endif %}
-                                        <tr>
-                                            <td style="text-align: center;">4</td>
-                                            <td>Energy Accounting System</td>
-                                            <td style="text-align: center;">{{ proposal.energy_accounting_system }}</td>
-                                            <td>Set</td>
-                                            <td style="text-align: right;">5.000.000</td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.eas_amount)|replace(',','.') }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: center;">5</td>
-                                            <td>Transport</td>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.transport_price)|replace(',','.') }}</td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.transport_price)|replace(',','.') }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: center;">6</td>
-                                            <td>Installation</td>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.installation_price)|replace(',','.') }}</td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.installation_price)|replace(',','.') }}</td>
-                                        </tr>
                                         {% for roof in proposal.roofs %}
                                         <tr>
-                                            <td style="text-align: center;">{{ loop.index+6 }}</td>
-                                            <td>PV System Roof {{ loop.index }} ({{ roof.pv_panel }} Wp)</td>
-                                            <td style="text-align: center;">{{roof.array_size|replace('.',',')}}</td>
+                                            <!-- <td style="text-align: center;">{{ loop.index+6 }}</td> -->
+                                            <td><b>PV System Roof {{ loop.index }} </b><br/> 
+                                                &emsp;PV Panel {{ roof.pv_panel }}Wp <br/>
+                                                &emsp;PV Support <br/>
+                                                &emsp;PV Installation (Cable & MCB)
+                                            </td>
+                                            <td style="text-align: center;">{{"{:,.1f}".format(roof.array_size)}}</td>
                                             <td>kWp</td>
-                                            <td style="text-align: right;">{{"{:,.0f}".format(roof.price_perunit)|replace(',','.') }}</td>
-                                            <td style="text-align: right;">{{"{:,.0f}".format(roof.total_amount)|replace(',','.') }}</td>
+                                            <td style="text-align: right;">{{"{:,.0f}".format(roof.price_perunit) }}</td>
+                                            <td style="text-align: right;">{{"{:,.0f}".format(roof.total_amount) }}</td>
                                         </tr>
                                         {% endfor %}
+                                        {% for product in proposal.products %}
+                                            <tr>
+                                                <!-- <td style="text-align: center;">4</td> -->
+                                                <td><b>{{ product.product_name }}</b></td>
+                                                <td style="text-align: center;">{{ product.quantity }}</td>
+                                                <td>{{ product.unit }}</td>
+                                                <td class="rp" style="text-align: right;">{{ product.std_price }}</td>
+                                                <td class="rp" style="text-align: right;">{{ product.quantity * product.std_price }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        <tr>
+                                            <!-- <td style="text-align: center;">5</td> -->
+                                            <td><b>Transport</b><br/>
+                                                &emsp;Sentul-Project Location
+                                            </td>
+                                            <td> </td>
+                                            <td> </td>
+                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.transport_price) }}</td>
+                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.transport_price) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <!-- <td style="text-align: center;">6</td> -->
+                                            <td><b>Installation</b><br>
+                                                &emsp;Rooftop Installation <br/>
+                                                &emsp;Electrical Installation <br/>
+                                                &emsp;Commissioning & Testing <br/>
+                                                &emsp;kWh Meter EX-IM
+                                            </td>
+                                            <td> </td>
+                                            <td> </td>
+                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.installation_price) }}</td>
+                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.installation_price) }}</td>
+                                        </tr>
+                                        
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th class="cell3"></th>
+                                            <!-- <th class="cell3"></th> -->
                                             <th class="cell3" colspan="4" style="text-align: right;"><b>Gross Amount</b></th>
-                                            <th class="cell3" style="text-align: right;">{{ "{:,.0f}".format(proposal.amount_before_tax)|replace(',','.') }}</th>
+                                            <th class="cell3" style="text-align: right;">{{ "{:,.0f}".format(proposal.amount_before_tax) }}</th>
                                         </tr>
                                         {% if proposal.discount != 0 %}
                                         <tr>
-                                            <td></td>
-                                            <td colspan="4">Discount Amount</td>
-                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.discount)|replace(',','.') }}</td>
+                                            <!-- <td></td> -->
+                                            <td colspan="4">Discount Amount ({{ "{:,.1f}".format(proposal.discount / proposal.amount_before_tax * 100) }}%)</td>
+                                            <td style="text-align: right;">{{ "{:,.0f}".format(proposal.discount) }}</td>
                                         </tr>
                                         <tr>
-                                            <th class="cell3"></th>
+                                            <!-- <th class="cell3"></th> -->
                                             <th class="cell3" colspan="4" style="text-align: right;"><b>Total</b></th>
-                                            <th class="cell3" style="text-align: right;">{{ "{:,.0f}".format(proposal.amount_after_discount)|replace(',','.') }}</th>
+                                            <th class="cell3" style="text-align: right;">{{ "{:,.0f}".format(proposal.amount_after_discount) }}</th>
                                         </tr>
                                         {% endif %}
                                         <tr>
-                                            <td></td>
-                                            <td colspan="4">VAT 10%</td>
-                                            <td style="text-align: right;">{{"{:,.0f}".format(proposal.amount_tax)|replace(',','.') }}</td>
+                                            <!-- <td></td> -->
+                                            <td colspan="4">VAT 11%</td>
+                                            <td style="text-align: right;">{{"{:,.0f}".format(proposal.amount_tax) }}</td>
                                         </tr>
                                         <tr>
-                                            <th class="cell3" colspan="5" style="text-align: right;">Total Including VAT</th>
-                                            <th class="cell3" style="text-align: right;">{{"{:,.0f}".format(proposal.amount_after_tax)|replace(',','.') }}</th>
+                                            <th class="cell3" colspan="4" style="text-align: right;">Total Including VAT</th>
+                                            <th class="cell3" style="text-align: right;">{{"{:,.0f}".format(proposal.amount_after_tax) }}</th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -566,7 +525,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="cell" colspan="4">PV System Investment</th>
-                                                <th class="cell" style="text-align: right;">{{ (proposal.amount_after_tax/1000000) | round| int  }}</th>
+                                                <th class="cell" style="text-align: right;">{{ "{:,.0f}".format(proposal.amount_after_discount/1000000)   }}</th>
                                                 <th class="cell">M IDR</th>
                                             </tr>
                                             <tr>
@@ -595,10 +554,10 @@
                                                 {% elif loop.index == 13 %}
                                                 <td style="text-align: center;">21-25</td>
                                                 {% endif %}
-                                                <td style="text-align: center;">{{total_yield|int}}</td>
-                                                <td style="text-align: right;">{{pln_price|int}}</td>
-                                                <td style="text-align: right;">{{harvest_value|int}}</td>
-                                                <td style="text-align: right;">{{investment_value|int}}</td>
+                                                <td style="text-align: center;">{{"{:,.0f}".format(total_yield)}}</td>
+                                                <td style="text-align: right;">{{"{:,.0f}".format(pln_price)}}</td>
+                                                <td style="text-align: right;">{{"{:,.0f}".format(harvest_value)}}</td>
+                                                <td style="text-align: right;">{{"{:,.0f}".format(investment_value)}}</td>
                                                 <td style="text-align: right;">{{pv_perf}} %</td>
                                             </tr>
                                             {% endfor %}
@@ -609,8 +568,9 @@
                             <div class="col-sm-6">
                                 <table class="table table-sm" style="font-size: 11pt; height: 12%;">
                                     <tr>
-                                        <th class="cell">ROI in 25 years (in million IDR): </th>
-                                        <th class="cell">{{ proposal.end_pv_investment_return | int }}{{ (proposal.end_pv_investment_return / proposal.amount_after_tax) | int }} %</th>
+                                        <th class="cell" style="vertical-align: middle;">ROI in 25 years (in million IDR): </th>
+                                        <th class="cell" style="text-align: right; font-size: 15pt; vertical-align: middle;">{{ "{:,.0f}".format(proposal.end_pv_investment_return)}}</th>
+                                        <th class="cell" style="text-align: right; font-size: 15pt;vertical-align: middle;">{{ "{:,.0f}".format(proposal.end_pv_investment_return/(proposal.amount_after_discount/1000000)*100) | int }} %</th>
                                     </tr>
                                 </table>
                                 <!-- <div class="bg-dark">
@@ -647,7 +607,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <p style="font-size: 15pt; text-align: center; color:rgb(255, 255, 255);">Please contact info@sundaya.com for more details about our offering</p>
+                                <p style="font-size: 15pt; text-align: center; color:rgb(255, 255, 255);">Please contact <a href="mailto:info@sundaya.com" style="color: white;">info@sundaya.com</a> for more details about our offering</p>
                             </div>
                         </div>
                     </div>

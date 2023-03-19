@@ -41,3 +41,42 @@ def validate_proposal_form(form):
         # 'geocoordinates' : geocoordinates,
         'customer_id': customer_id
     }
+
+def validate_product_form(form):
+    errors = {}
+
+    product_name = form.get('product_name')
+    unit = form.get('unit')
+    std_price = int(form.get('std_price').replace(",",""))
+
+    return {
+        'product_name': product_name,
+        'unit': unit,
+        'std_price': std_price
+    }
+
+def validate_pln_tariff_form(form):
+    errors = {}
+
+    pln_tariff_group = form.get('pln_tariff_group')
+    power_limit = form.get('power_limit')
+    pln_price = form.get('pln_price')
+    
+    return {
+        'pln_tariff_group': pln_tariff_group,
+        'power_limit': power_limit,
+        'pln_price': pln_price
+    }
+
+def validate_bid_form(form):
+    errors = {}
+
+    number = form.get('number')
+    customer_id = form.get('customer')
+    proposal_id = form.get('project_name')
+
+    return {
+        'number': number,
+        'customer_id': customer_id,
+        'proposal_id': proposal_id
+    }

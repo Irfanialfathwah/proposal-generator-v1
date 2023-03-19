@@ -1,0 +1,66 @@
+<!-- Modal Form Edit -->
+<div class="modal fade" id="modal-add-new-roof">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h4 class="modal-title">Add New Roof</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="post" enctype=multipart/form-data action="./{{proposal.id}}/add-new-roof">
+            <div class="form">
+                <h3>New Roof</h3>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <!-- text input -->
+                    <div class="form-group">
+                      <label>PV Panel (Wp)</label>
+                      <input type="number" class="form-control" placeholder="Enter PV Panel (Wp)" name="pv_panel" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Quantity of PV Panels (pcs)</label>
+                      <input type="number" class="form-control" placeholder="Enter Quantity of PV Panels (pcs)" name="pv_panel_qty" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Quantity of PV Cable (meter)</label>
+                      <input type="number" class="form-control" placeholder="Enter Quantity of PV Cable (meter)" name="pv_cable" required>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Additional Construction (set)</label>
+                      <input type="number" class="form-control" placeholder="Enter Additional Construction (set)" name="add_construction_qty" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Additional Construction Price (IDR/set)</label>
+                      <input type="text" class="form-control rp" placeholder="Enter Additional Construction Price (Rp/set)" name="add_construction_price" required>
+                    </div>
+                    <div class="form-group">
+                        <label>GSA Report (.xls)</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="exampleInputFile" name="gsa_report_file" required>
+                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                            </div>
+                            <div class="input-group-append">
+                            <span class="input-group-text">Upload</span>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div> <!-- end of row 1 -->
+              </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <a type="a" class="btn btn-default" data-dismiss="modal">Close</a>
+              <button type="submit" class="btn btn-primary" onsubmit="this.disabled=true;">Submit</button>
+            </div>
+          </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->

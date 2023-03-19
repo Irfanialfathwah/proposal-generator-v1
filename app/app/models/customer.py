@@ -10,6 +10,7 @@ class Customer(db.Model):
     address = db.Column(db.String(120), nullable=False)
     phone_number = db.Column(db.String(18), nullable=False)
     proposals = db.relationship('Proposal', backref="customer", cascade="all,delete")
+    bids = db.relationship('Bid', backref="customer", cascade="all,delete")
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
 

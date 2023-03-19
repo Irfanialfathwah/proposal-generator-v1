@@ -11,19 +11,19 @@
     {{ super() }}<!-- Content Header from base.html -->
     <!-- Main content -->
     <section class="content">
-        {% with messages = get_flashed_messages(category_filter=['success'], with_categories=True) %}
-        {% if messages %}
-        {% for category,message in messages %}
-            <div class="alert alert-{{category}}" role="alert">
-                <strong class='h4'>{{ message }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
         <div class="container-fluid">
+            {% with messages = get_flashed_messages(category_filter=['success', 'danger', 'info'], with_categories=True) %}
+            {% if messages %}
+            {% for category,message in messages %}
+                <div class="alert alert-{{category}}" role="alert">
+                    <strong class='h4'>{{ message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
         <div class="card card-primary card-outline">
             <div class="card-header d-flex p-0">
             <h3 class="card-title p-3">{{ proposal.project_name }} - ID {{ proposal.id }}</h3>
@@ -35,139 +35,285 @@
             <div class="card-body">
                 <div class="tab-content">
                     <div class="tab-pane active" id="general">
-                        <strong><i class="fas fa-user-astronaut mr-1"></i> Customer</strong>
-                        <p class="text-muted">{{ proposal.customer.name }}</p>
-                        <hr>
-                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-                        <p class="text-muted">{{ proposal.location }}</p>
-                        <hr>
-                        <strong><i class="fas fa-solar-panel mr-1"></i> Number of Roofs</strong>
-                        <p class="text-muted">{{ proposal.num_of_roofs }}</p>
-                        <hr>
-                        <strong><i class="fas fa-map-marked-alt mr-1"></i> GeoCoordinates</strong>
-                        <p class="text-muted">{{ proposal.geocoordinates }}</p>
-                        <hr>
-                        <strong><i class="fas fa-image mr-1"></i>SketchUp Model</strong>
                         <div class="row">
-                            <div class="col-sm-2">
-                                <a href="/{{ proposal.sketchup_model }}" data-toggle="lightbox" data-title="SketchUp Model" data-gallery="gallery">
-                                <img src="/{{ proposal.sketchup_model }}" class="img-fluid mb-2" alt="sketchup model"/>
-                                </a>
+                            <div class="col-sm-6">
+                                <strong><i class="fas fa-book mr-1"></i> Proposal Number</strong>
+                                <p class="text-muted">{{ proposal.proposal_no }}</p>
+                                <hr>
+                                <strong><i class="fas fa-file mr-1"></i> Project Type</strong>
+                                <p class="text-muted">{{ proposal.pv_system_model }}</p>
+                                <hr>
+                                <strong><i class="fas fa-user-astronaut mr-1"></i> Customer</strong>
+                                <p class="text-muted">{{ proposal.customer.name }}</p>
+                                <hr>
+                                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+                                <p class="text-muted">{{ proposal.location }}</p>
+                                <hr>
+                                <strong><i class="fas fa-map-marked-alt mr-1"></i> GeoCoordinates</strong>
+                                <p class="text-muted">{{ proposal.geocoordinates }}</p>
+                                <hr>
+                                <strong><i class="fas fa-bolt mr-1"></i> Tariff Group </strong>
+                                <p class="text-muted">{{ proposal.pln_tariff.pln_tariff_group }} ({{proposal.pln_tariff.pln_price}} IDR/kWh)</p>
+                                <hr>
+                                <strong><i class="fas fa-solar-panel mr-1"></i> Number of Roofs</strong>
+                                <p class="text-muted">{{ proposal.roofs|length }}</p>
+                                <hr>
+                                
+                            </div>
+                            <div class="col-sm-6 text-center">
+                                <div class="row">
+                                    <div class="col-sm-12 text-center">
+                                        <strong><i class="fas fa-image mr-1"></i>SketchUp Model</strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 text-center">
+                                        <br>
+                                    </div>
+                                    <div class="col-sm-12 text-center">
+                                        <a href="/{{ proposal.sketchup_model }}" data-toggle="lightbox" data-title="SketchUp Model" data-gallery="gallery">
+                                        <img src="/{{ proposal.sketchup_model }}" class="img-fluid mb-2" alt="sketchup model"/>
+                                    </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <hr>
                         <div>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-gd-pro">Edit Details</button>
+                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-edit-gd-pro">
+                                <i class="fas fa-pencil-alt"></i>  Edit Details
+                            </button>
                         </div>
                     </div>
                     <div class="tab-pane" id="order">
+                        <div class="row">
                         {% if proposal.roofs %}
                         {% for roof in proposal.roofs %}
-                        <h3>Roof {{ loop.index }}</h3>
-                        <div class="row">
+                            {% if proposal.roofs|length == 1 %}
+                            <div class="col-sm-12">
+                            {% elif proposal.roofs|length == 2 %}
                             <div class="col-sm-6">
-                                <label>PV Panel (Wp)</label>
-                                <p class="text-muted">{{ roof.pv_panel }}</p>
+                            {% elif proposal.roofs|length == 3 %}
+                            <div class="col-sm-4">
+                            {% else %}
+                            <div class="col-sm-3">
+                            {% endif %}
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h2 class="card-title">Roof {{ loop.index }}</h2>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" href="#" data-toggle="modal" data-target="#modal-delete-roof{{loop.index}}">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <label>PV Panel (Wp)</label>
+                                        <p class="text-muted">{{ roof.pv_panel }}</p>
+                                        <label>Quantity of PV Panels (pcs)</label>
+                                        <p class="text-muted">{{ roof.pv_panel_qty }}</p>
+                                        <label>Quantity of PV Cable (meter)</label>
+                                        <p class="text-muted">{{ roof.pv_cable }}</p>
+                                        <label>Additional Construction (set)</label>
+                                        <p class="text-muted">{{ roof.add_construction_qty }}</p>
+                                        <label>Additional Construction Price (IDR/set)</label>
+                                        <p class="text-muted rp">{{ roof.add_construction_price }}</p>
+                                        <label>Azimuth (deg)</label>
+                                        <p class="text-muted">{{ roof.azimuth }}</p>
+                                        <label>Inclination Angle (deg)</label>
+                                        <p class="text-muted">{{ roof.angle }}</p>
+                                        <label>GSA Report</label>
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <a href="/files/download?filepath={{roof.gsa_report_file}}" class="btn-link text-secondary"><i class="far fa-fw fa-file-excel"></i> {{roof.gsa_report_file[6:]}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-sm-6">
-                                <label>Quantity of PV Panels (pcs)</label>
-                                <p class="text-muted">{{ roof.pv_panel_qty }}</p>
-                            </div>
+                            {% endfor %}
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Quantity of PV Cable (meter)</label>
-                                <p class="text-muted">{{ roof.pv_cable }}</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Additional Construction (set)</label>
-                                <p class="text-muted">{{ roof.add_construction_qty }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Azimuth (deg)</label>
-                                <p class="text-muted">{{ roof.azimuth }}</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Inclination Angle (deg)</label>
-                                <p class="text-muted">{{ roof.angle }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Additional Construction Price (Rp/set)</label>
-                                <p class="text-muted">{{ roof.add_construction_price }}</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>GSA Report</label>
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <a href="/files/download?filepath={{roof.gsa_report_file}}" class="btn-link text-secondary"><i class="far fa-fw fa-file-excel"></i> {{roof.gsa_report_file[6:]}}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        {% if proposal.roofs|length == 4 %}
+                        <button type="button" class="btn btn-primary disabled" data-toggle="modal" data-target="#">
+                            <i class="fas fa-plus"></i>  Add Roof
+                        </button>
+                        {% else %}
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-new-roof">
+                            <i class="fas fa-plus"></i>  Add Roof
+                        </button>
+                        {% endif %}
+                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-edit-roof-pro">
+                            <i class="fas fa-pencil-alt"></i>  Edit Roof Data
+                        </button>
                         <hr>
-                        {% endfor %}
-                        <h3>Others</h3>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Inverter STG 3.0 (pcs)</label>
-                                <p class="text-muted">{{ proposal.inverter_stg3 }}</p>
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h2 class="card-title">Others</h2>
                             </div>
-                            <div class="col-sm-6">
-                                <label>Energy Accounting System (pcs)</label>
-                                <p class="text-muted">{{ proposal.energy_accounting_system }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Inverter STG 6.0 (pcs)</label>
-                                <p class="text-muted">{{ proposal.inverter_stg6 }}</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Transport Price (Rp)</label>
-                                <p class="text-muted">{{ proposal.transport_price }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Inverter STG 20 (pcs)</label>
-                                <p class="text-muted">{{ proposal.inverter_stg20 }}</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Installation Price (Rp)</label>
-                                <p class="text-muted">{{ proposal.installation_price }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Inverter STG 125 (pcs)</label>
-                                <p class="text-muted">{{ proposal.inverter_stg125 }}</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Discount Amount (Rp)</label>
-                                <p class="text-muted">{{ proposal.discount }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Inverter STG 250 (pcs)</label>
-                                <p class="text-muted">{{ proposal.inverter_stg250 }}</p>
+                            <div class="card-body">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr class="bg-gray">
+                                            <th>Description</th>
+                                            <th>Qty</th>
+                                            <th>Unit Price (IDR)</th>
+                                            <th>Total Amount (IDR)</th>
+                                            <th style="width: 15%">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for product in proposal.products %}
+                                        <tr>
+                                            <td>{{ product.product_name }}</td>
+                                            <td>{{ product.quantity }}</td>
+                                            <td class="rp">{{ product.std_price }}</td>
+                                            <td class="rp">{{ product.std_price * product.quantity }}</td>
+                                            <td class="project-actions text-center">
+                                                <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#modal-edit-prod-pro{{loop.index}}">
+                                                    <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    Edit
+                                                </a>
+                                                <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#modal-delete-prod-pro{{loop.index}}">
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                    Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        <tr>
+                                            <td colspan="3">Transport (Sentul - Project Location)</td>
+                                            <td class="rp">{{ proposal.transport_price }}</td>
+                                            <td rowspan="3" class="project-actions text-center" style="vertical-align: middle;">
+                                                <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#modal-edit-others-pro">
+                                                    <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    Edit
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">Installations</td>
+                                            <td class="rp">{{ proposal.installation_price }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">Discount Amount</td>
+                                            <td class="rp">{{ proposal.discount }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-prod-pro">
+                                    <i class="fas fa-plus"></i>  Add Product
+                                </button>
                             </div>
                         </div>
                         <hr>
                         {% else %}
-                            <div class="h2 mb-md-4">No roof data to display.</div>
+                        <div class="col-sm-12">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h2 class="card-title">Roof</h2>
+                                </div>
+                                <div class="card-body">
+                                    <div class="h2 text-muted">No roof data to display.</div>
+                                    <hr>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-roof-pro">
+                                        <i class="fas fa-plus"></i>&nbsp Add Roof Data
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h2 class="card-title">Others</h2>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr class="bg-gray">
+                                                <th>Description</th>
+                                                <th>Qty</th>
+                                                <th>Unit</th>
+                                                <th>Unit Price (IDR)</th>
+                                                <th>Total Amount (IDR)</th>
+                                                <th style="width: 15%">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for product in proposal.products %}
+                                            <tr>
+                                                <td>{{ product.product_name }}</td>
+                                                {% if product.quantity %}
+                                                <td>{{ product.quantity }}</td>
+                                                
+                                                {% else %}
+                                                <td>0</td>
+                                                    
+                                                {% endif %}
+                                                <td>{{ product.unit }}</td>
+                                                <td class="rp">{{ product.std_price }}</td>
+                                                <td class="rp">
+                                                    {% if product.quantity %}
+                                                    {{ product.std_price * product.quantity }}
+                                                    {% else %}
+                                                        0
+                                                    {% endif %}
+                                                </td>
+                                                <td class="project-actions text-center">
+                                                    <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#modal-edit-prod-pro{{loop.index}}">
+                                                        <i class="fas fa-pencil-alt">
+                                                        </i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#modal-delete-prod-pro{{loop.index}}">
+                                                        <i class="fas fa-trash">
+                                                        </i>
+                                                        Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            <tr>
+                                                <td colspan="4">Transport (Sentul - Project Location)</td>
+                                                <td class="rp">{{ proposal.transport_price }}</td>
+                                                <td rowspan="4" class="project-actions text-center" style="vertical-align: middle;">
+                                                    <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#modal-edit-others-pro">
+                                                        <i class="fas fa-pencil-alt">
+                                                        </i>
+                                                        Edit
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">Installations</td>
+                                                <td class="rp">{{ proposal.installation_price }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">Discount Amount</td>
+                                                <td class="rp">{{ proposal.discount }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-prod-pro">
+                                        <i class="fas fa-plus"></i>&nbsp Add Product
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                         {% endif %}
-                        <div>
-                            {% if proposal.roofs %}
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-od-pro">Edit Details</button>
-                                <a type="submit" class="btn btn-success" href="/proposal-report/{{proposal.id}}">Generate Proposal</a>
+                        <div class="col-sm-12">
+                            {% if proposal.roofs and proposal.products %}
+                                <a type="submit" class="btn btn-success float-right" href="/proposal-report/{{proposal.id}}" target="_blank">
+                                    <i class="fas fa-download"></i>&nbsp Generate Proposal
+                                </a>
                             {% else %}
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-od-pro">Add Roofs Data</button>
-                                <a type="submit" class="btn btn-success disabled">Generate Proposal</a>
+                                <a type="submit" class="btn btn-success float-right disabled">
+                                    <i class="fas fa-download"></i>&nbsp Generate Proposal
+                                </a>
                             {% endif %}
                         </div>
                     </div>
@@ -175,9 +321,15 @@
             </div><!-- /.card-body -->
         </div>
         </div><!-- /.container-fluid -->
+        {% include "modals/add-roof-pro-modal.html" %}
+        {% include "modals/add-new-roof-modal.html" %}
+        {% include "modals/add-prod-pro-modal.html" %}
         {% include "modals/edit-gd-pro-modal.html" %}
-        {% include "modals/edit-od-pro-modal.html" %}
-        {% include "modals/add-od-pro-modal.html" %}
+        {% include "modals/edit-roof-pro-modal.html" %}
+        {% include "modals/edit-others-pro-modal.html" %}
+        {% include "modals/edit-prod-pro-modal.html" %}
+        {% include "modals/delete-roof-modal.html" %}
+        {% include "modals/delete-prod-pro-modal.html" %}
     </section>
     <!-- /.content -->
 </div>

@@ -12,8 +12,8 @@ class Roof(db.Model):
     pv_mount = db.Column(db.Integer, nullable=True)
     pv_cable = db.Column(db.Integer, nullable=True)
     add_construction_qty = db.Column(db.Integer, nullable=True)
-    add_construction_price = db.Column(db.Integer, nullable=True)
-    gsa_report_file = db.Column(db.String(50), nullable=True)
+    add_construction_price = db.Column(db.String(100), nullable=True)
+    gsa_report_file = db.Column(db.String(100), nullable=True)
     azimuth = db.Column(db.Integer, nullable=False)
     angle = db.Column(db.Integer, nullable=False)
     solar_data = db.relationship("SolarMonthData", backref='roof', cascade="all,delete")
@@ -48,7 +48,7 @@ class Roof(db.Model):
             #     total += data.energy
             # daily_sum.append(total)
             # daily_energy.append(total_with_array)
-            yield_month.append(round(((solar_data.energy * self.days_in_month[index])/1000) * self.array_size,2))
+            yield_month.append(round(((solar_data.energy * self.days_in_month[index])/1000) * self.array_size,1))
         return yield_month
 
     @property
@@ -57,7 +57,7 @@ class Roof(db.Model):
 
     @property
     def avg_daily_harvest(self):
-        return int(self.total_roof_yearly_yield/365)
+        return (self.total_roof_yearly_yield/365)
 
     @property
     def kwh_kwp_day(self):
@@ -69,7 +69,7 @@ class Roof(db.Model):
 
     @property
     def pv_panel_amount(self):
-        return self.array_size * 9000000
+        return self.array_size * 11137038
 
     @property
     def add_construction_amount(self):

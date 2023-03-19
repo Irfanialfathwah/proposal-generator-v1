@@ -22,16 +22,10 @@ def add_gsa_report_to_db(files):
         pv_system_model = pv_config.iloc[1][0]
         tilt = int(pv_config.iloc[4][1])
         azimuth = int(pv_config.iloc[5][1])
-        print(tilt)
-        print(azimuth)
-        print(pv_config)
-        print(pv_system_model)
         roof_data.append({'azimuth' : azimuth, 'angle': tilt})
         comp = re.compile(r'^[^\(]+')
         geocoordinates = re.match(comp, sites_info.iloc[1][1]).group().replace(',', '').replace(' ', '')
         location = sites_info.iloc[0][1]
-        print(location)
-        print(geocoordinates)
         proposal_data.update({
             'geocoordinates' : geocoordinates,
             'pv_system_model' : pv_system_model
@@ -46,7 +40,6 @@ def add_gsa_report_to_db(files):
         result_hourly = hourly_profiles.to_dict('splits')
         collection_data.append(result_hourly)
     yearly = []
-    print(collection_data)
     for data in collection_data:
         monthly = []
         for num,column in enumerate(data.get('columns')):

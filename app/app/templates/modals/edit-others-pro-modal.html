@@ -1,0 +1,38 @@
+<!-- Modal Form Edit -->
+<div class="modal fade" id="modal-edit-others-pro">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Other Details</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="./{{ proposal.id }}/edit-others" method="post" enctype=multipart/form-data>
+            <div class="form">
+              <div class="form-group">
+                <label>Transport Price (IDR)</label>
+                <input type="text" class="form-control rp" placeholder="Enter Transport Price" name="transport_price" value="{{proposal.transport_price}}">
+              </div>
+              <div class="form-group">
+                <label>Installation Price (IDR)</label>
+                <input type="text" class="form-control rp" placeholder="Enter Installation Price" name="installation_price" value={{proposal.installation_price}}>
+              </div>
+              <div class="form-group">
+                <label>Discount Amount (IDR)</label>
+                <input type="text" class="form-control rp" placeholder="Enter Nominal Discount" name="discount" value={{proposal.discount}}>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <a type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+          <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp Save changes</button>
+        </div>
+      </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->

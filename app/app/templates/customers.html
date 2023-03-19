@@ -5,23 +5,25 @@
 <div class="content-wrapper">
   {{ super() }}<!-- Content Header from base.html -->
   <!-- Main content -->
-  {% with messages = get_flashed_messages(category_filter=['success'], with_categories=True) %}
-  {% if messages %}
-  {% for category,message in messages %}
-      <div class="alert alert-{{category}}" role="alert">
-        <strong class='h4'>{{ message }}</strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    {% endfor %}
-  {% endif %}
-  {% endwith %}
   <section class="content">
     <div class="container-fluid">
+      {% with messages = get_flashed_messages(category_filter=['success','danger','info'], with_categories=True) %}
+      {% if messages %}
+      {% for category,message in messages %}
+          <div class="alert alert-{{category}}" role="alert">
+            <strong class='h4'>{{ message }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endfor %}
+      {% endif %}
+      {% endwith %}
       <div class="card card-primary card-outline">
         <div class="card-header">
-          <h3 class="card-title">Our Customers</h3>
+          <div class="card-title">
+            <h4><i class="nav-icon fas fa-user-astronaut" style="vertical-align: middle;"></i>  Our Customers</h4>
+          </div>
           <div class="card-tools dropdown">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-cust">
               Add Customer
@@ -33,7 +35,7 @@
             <thead>
             <tr>
               <th style="width: 1%">#</th>
-              <th>Id</th>
+              <!-- <th>Id</th> -->
               <th>Name</th>
               <th>Email</th>
               <th>Total Proposal</th>
@@ -46,7 +48,7 @@
             {% for data,prop_comp in table_data %}
             <tr>
               <td>{{ loop.index }}</td>
-              <td>{{ data.id }}</td>
+              <!-- <td>{{ data.id }}</td> -->
               <td>{{ data.name }}</td>
               <td>{{ data.email }}</td>
               <td>{{ data.proposals|length }}</td>

@@ -7,3 +7,4 @@ Pipfile.lock
 *.pdf
 test.*
 .env.db
+sketchup-model
